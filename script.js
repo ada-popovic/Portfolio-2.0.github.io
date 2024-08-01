@@ -18,31 +18,46 @@ document.addEventListener('scroll', function() {
     projectsArrows.style.opacity = Math.max(0, 1 - scrollPercentage);
 });
 
-// Function to toggle visibility of side panels
-function togglePanel(panel) {
+
+
+
+
+
+
+// Function to toggle visibility of the contact-categories-container
+function toggleOpacity(panel) {
     const panelElement = document.querySelector(`.${panel}-categories-container`);
     const buttonElement = document.querySelector(`.menu-button.${panel}`);
   
-    if (panelElement.style.display === "none" || panelElement.style.display === "") {
-        panelElement.style.display = "flex";
-        buttonElement.style.backgroundColor = "white";
-    } else {
-        panelElement.style.display = "none";
+    if (panelElement.classList.contains('visible')) {
+        panelElement.classList.remove('visible');
+        buttonElement.classList.remove('gain-color');
+        buttonElement.classList.add('lose-color');
         buttonElement.style.backgroundColor = "transparent";
+    } else {
+        panelElement.classList.add('visible');
+        buttonElement.classList.remove('lose-color');
+        buttonElement.classList.add('gain-color');
+        buttonElement.style.backgroundColor = "white";
     }
 }
+
+
+
+
+
+
+
 
 // Function to change the background color of the body
 function changeBackgroundColor(color) {
     document.body.style.backgroundColor = color;
 }
 
-// Hide all panels initially when the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.menu-container').forEach(container => {
-        container.style.display = 'none';
-    });
-});
+
+
+
+
 
 // Add a click event listener to each menu button to toggle the 'toggled' class
 document.addEventListener('DOMContentLoaded', function() {
@@ -56,6 +71,15 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+
+
+
+
+
+
+
+
+
 window.addEventListener('scroll', function() {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const viewportHeight = window.innerHeight;
@@ -65,10 +89,17 @@ window.addEventListener('scroll', function() {
     const elements = document.querySelectorAll('.scroll-minimise');
     elements.forEach(element => {
         element.style.transform = `scale(${Math.max(scaleFactor, 0)})`; // Ensure the scale doesn't go below 0
-        
     });
-});
 
+    // Change the font size of the .name element gradually
+    const nameElement = document.querySelector('.name');
+    if (nameElement) {
+        const initialFontSize = 40; // Initial font size in px
+        const finalFontSize = 20; // Final font size in px
+        const newFontSize = initialFontSize - (scrollFraction * (initialFontSize - finalFontSize));
+        nameElement.style.fontSize = `${Math.max(newFontSize, finalFontSize)}px`; // Ensure font size doesn't go below finalFontSize
+    }
+});
 
 window.addEventListener('scroll', function() {
     requestAnimationFrame(() => {
@@ -79,15 +110,26 @@ window.addEventListener('scroll', function() {
 
         // Calculate new height from 40vh to 5vh
         const initialHeight = 40; // Initial height in vh
-        const finalHeight = 5; // Final height in vh
+        const finalHeight = 0; // Final height in vh
         const newHeight = initialHeight - (scrollFraction * (initialHeight - finalHeight));
 
         const elements = document.querySelectorAll('.scroll-height');
         elements.forEach(element => {
             element.style.height = `${Math.max(newHeight, finalHeight)}vh`; // Ensure height doesn't go below finalHeight
         });
+
+        // Change the font size of the .name element gradually
+        const nameElement = document.querySelector('.name');
+        if (nameElement) {
+            const initialFontSize = 40; // Initial font size in px
+            const finalFontSize = 25; // Final font size in px
+            const newFontSize = initialFontSize - (scrollFraction * (initialFontSize - finalFontSize));
+            nameElement.style.fontSize = `${Math.max(newFontSize, finalFontSize)}px`; // Ensure font size doesn't go below finalFontSize
+        }
     });
 });
+
+
 
 
 

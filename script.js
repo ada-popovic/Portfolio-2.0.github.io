@@ -214,20 +214,25 @@ document.addEventListener('DOMContentLoaded', function() {
         const duration = (Math.random() * 10 + baseDuration) / speedMultiplier; // Adjust duration by speed multiplier
         anchor.style.animation = `${keyframesName} ${duration}s infinite alternate ease-in-out`;
 
-        // Add hover effect to stop movement and scale up
+        // Add hover effect to stop movement, scale up, and bring to front
         anchor.addEventListener('mouseenter', () => {
             console.log('Mouse enter:', anchor); // Debug statement
             anchor.style.animationPlayState = 'paused';
             anchor.style.transform = `scale(1.5)`;
+            anchor.style.zIndex = 9999; // Bring to front
         });
 
         anchor.addEventListener('mouseleave', () => {
             console.log('Mouse leave:', anchor); // Debug statement
             anchor.style.animationPlayState = 'running';
             anchor.style.transform = `scale(1)`;
+            setTimeout(() => {
+                anchor.style.zIndex = 1; // Reset z-index after the transition
+            }, 300); // Match this timeout to the transition duration
         });
     });
 });
+
 
 
 

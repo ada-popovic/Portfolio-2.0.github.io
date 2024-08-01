@@ -213,16 +213,17 @@ a:active {
 .intro-images a {
   display: block;
   position: absolute;
-  transition: transform 0.3s ease-in-out;
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
 }
 
 .intro-images a img {
-  height: 150px;
   transition: transform 0.3s ease-in-out, z-index 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out;
+  height: 150px;
 }
 
 .intro-images a img:hover {
   transform: scale(1.3);
+  z-index: 300; /* Bring to front on hover */
 }
 .intro-image {
   z-index: 1; /* Bring to front on hover */
@@ -230,9 +231,6 @@ a:active {
   
 }
 
-.intro-image:hover {
-  z-index: 300; /* Bring to front on hover */
-}
 
 
 

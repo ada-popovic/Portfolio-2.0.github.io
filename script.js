@@ -65,7 +65,27 @@ window.addEventListener('scroll', function() {
     const elements = document.querySelectorAll('.scroll-minimise');
     elements.forEach(element => {
         element.style.transform = `scale(${Math.max(scaleFactor, 0)})`; // Ensure the scale doesn't go below 0
-        element.style.opacity = Math.max(scaleFactor, 0); // Adjust opacity to match scaling
+        
+    });
+});
+
+
+window.addEventListener('scroll', function() {
+    requestAnimationFrame(() => {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const viewportHeight = window.innerHeight;
+        const maxScroll = document.documentElement.scrollHeight - viewportHeight;
+        const scrollFraction = scrollTop / (maxScroll / 2); // Adjust the fraction to make it happen faster
+
+        // Calculate new height from 40vh to 5vh
+        const initialHeight = 40; // Initial height in vh
+        const finalHeight = 5; // Final height in vh
+        const newHeight = initialHeight - (scrollFraction * (initialHeight - finalHeight));
+
+        const elements = document.querySelectorAll('.scroll-height');
+        elements.forEach(element => {
+            element.style.height = `${Math.max(newHeight, finalHeight)}vh`; // Ensure height doesn't go below finalHeight
+        });
     });
 });
 

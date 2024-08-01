@@ -9,11 +9,13 @@
   user-select: none;
 }
 
-body {
-  height: 300vh;
-  font-family: var(--camera);
-  padding: 2%;
+html, body {
+  height: 100%;
   margin: 0;
+  padding: 0;
+  font-family: var(--camera);
+  background: #9198e5;
+  background: white;
 }
 
 :root {
@@ -23,6 +25,8 @@ body {
   --small-font: 16px;
   --spacing-base: 8px;
 }
+
+
 
 /* Define custom fonts 
 
@@ -145,11 +149,14 @@ a:active {
 
 /* INTRO SECTION */
 .intro-section {
+  padding: 2%;
   display: block;
   position: relative;
   height: 30vh;
   width: 82%;
-  z-index: 200; /* Ensure this content is above the intro-gallery */
+  z-index: 200;
+  background-color: white;
+   /* Ensure this content is above the intro-gallery */
 }
 
 .name {
@@ -195,11 +202,11 @@ a:active {
 
 
 .intro-gallery {
-  width: 70%;
+  width: 100%;
   height: 40vh;
   background-color: transparent;
   position: relative;
-  z-index: 300;
+  z-index: 200;
 }
 
 .intro-images a {
@@ -230,25 +237,39 @@ a:active {
 
 
 .scroll-minimise {
-  transform-origin: center;
-  transition: transform 0.1s ease-out;
+  transform-origin: top right;
+  transition: transform 0.5s ease-out;
+  
 }
 
+.scroll-height {
+  transition: height 0.5s ease-out;
+  height: 40vh; /* Initial height */
+}
+
+
 .scroll-minimise-text {
-  transform-origin: left center;
+  transform-origin: left top;
+  transition: transform 0.5s ease-out;
+}
+
+.scroll-minimise-center {
+  transform-origin: top center;
+  transition: transform 0.5s ease-out;
 }
 
 /* SIDE MENU */
 .two-menus {
   display: flex;
   position: relative;
-  z-index: 200;
+  z-index: 300;
+  padding: 2%;
 }
 
 .extra-menu {
   display: block;
   position: fixed;
-  z-index: 20;
+  z-index: 300;
   height: auto;
   width: 30%;
   top: 0%;
@@ -264,7 +285,7 @@ a:active {
 .side-menu-container {
   display: block;
   position: fixed;
-  z-index: 20;
+  z-index: 300;
   height: 92%;
   width: 15%;
   top: 0%;
@@ -386,6 +407,7 @@ a:active {
   border-radius: 10px;
   right: 20px;
   bottom: 20px;
+  z-index: 200;
 }
 
 /* PROJECTS SECTION */
@@ -393,9 +415,10 @@ a:active {
   display: block;
   position: relative;
   height: auto;
-  width: 82%;
+  width: 80%;
   z-index: 0;
   overflow-y: auto;
+  padding: 2%;
 }
 
 .projects-arrows {
@@ -490,4 +513,63 @@ a:active {
   color: black;
   text-decoration: none;
   border-radius: 5px;
+}
+
+
+/* BOTTOM SECTION */
+
+.footer {
+  padding: 2%;
+  margin-top: 5%;
+  height: 500px;
+  background: linear-gradient(white, #9198e5);
+  bottom: 0;
+  display: flex;
+  position: static;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.top-section {
+  display: block;
+  position: relative;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 50px;
+  margin-top: 200px;
+  font-size: 30px;
+}
+
+.bottom-section {
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  background-color: red;
+  bottom: 0;
+  box-sizing: border-box;
+}
+
+.footer-contact {
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  width: 30%;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+.footer-contact a {
+  text-decoration: none;
+  color: black;
+}
+
+.developer-info {
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  width: 30%;
+  padding: 5px;
+  text-align: right;
+  justify-content: flex-end; /* Align items to the right */
+  right: 2%;
 }

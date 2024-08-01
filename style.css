@@ -10,11 +10,10 @@
 }
 
 body {
-  height: 100%;
+  height: 300vh;
   font-family: var(--camera);
   padding: 2%;
   margin: 0;
-  overflow: hidden; /* Ensure no overflow outside the body */
 }
 
 :root {
@@ -25,15 +24,99 @@ body {
   --spacing-base: 8px;
 }
 
-/* Define custom fonts */
+/* Define custom fonts 
+
+In this code:
+
+    font-weight: 400 is for normal weight.
+    font-weight: 500 is for medium weight.
+    font-weight: 700 is for bold weight.
+    font-weight: 800 is for heavy weight.
+    font-weight: 900 is for black weight.
+    font-style: normal is for regular style.
+    font-style: italic is for italic style.
+    */
+
+
 @font-face {
   font-family: 'ABCCameraPlain';
   src: url('fonts/ABCCameraPlainEdu-Regular.woff2') format('woff2'),
-    url('fonts/ABCCameraPlainEdu-Regular.woff') format('woff');
+       url('fonts/ABCCameraPlainEdu-Regular.woff') format('woff');
   font-weight: 400;
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'ABCCameraPlain';
+  src: url('fonts/ABCCameraPlainEdu-RegularItalic.woff2') format('woff2'),
+       url('fonts/ABCCameraPlainEdu-RegularItalic.woff') format('woff');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'ABCCameraPlain';
+  src: url('fonts/ABCCameraPlainEdu-Medium.woff2') format('woff2'),
+       url('fonts/ABCCameraPlainEdu-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'ABCCameraPlain';
+  src: url('fonts/ABCCameraPlainEdu-MediumItalic.woff2') format('woff2'),
+       url('fonts/ABCCameraPlainEdu-MediumItalic.woff') format('woff');
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'ABCCameraPlain';
+  src: url('fonts/ABCCameraPlainEdu-Bold.woff2') format('woff2'),
+       url('fonts/ABCCameraPlainEdu-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'ABCCameraPlain';
+  src: url('fonts/ABCCameraPlainEdu-BoldItalic.woff2') format('woff2'),
+       url('fonts/ABCCameraPlainEdu-BoldItalic.woff') format('woff');
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'ABCCameraPlain';
+  src: url('fonts/ABCCameraPlainEdu-Heavy.woff2') format('woff2'),
+       url('fonts/ABCCameraPlainEdu-Heavy.woff') format('woff');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'ABCCameraPlain';
+  src: url('fonts/ABCCameraPlainEdu-HeavyItalic.woff2') format('woff2'),
+       url('fonts/ABCCameraPlainEdu-HeavyItalic.woff') format('woff');
+  font-weight: 800;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'ABCCameraPlain';
+  src: url('fonts/ABCCameraPlainEdu-Black.woff2') format('woff2'),
+       url('fonts/ABCCameraPlainEdu-Black.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'ABCCameraPlain';
+  src: url('fonts/ABCCameraPlainEdu-BlackItalic.woff2') format('woff2'),
+       url('fonts/ABCCameraPlainEdu-BlackItalic.woff') format('woff');
+  font-weight: 900;
+  font-style: italic;
+}
 /* More font-face definitions here... */
 
 h1 {
@@ -109,29 +192,57 @@ a:active {
   position: relative;
 }
 
+
+
 .intro-gallery {
-  width: 100%;
-  height: 45vh; /* Use viewport height for a consistent height */
-  background-color: transparent; /* Make background transparent */
-  position: relative; /* Necessary for absolute positioning of children */
-  z-index: -100; /* Ensure proper stacking context */
+  width: 70%;
+  height: 40vh;
+  background-color: transparent;
+  position: relative;
+  z-index: 300;
 }
 
 .intro-images a {
-  position: absolute; /* Allow for random positioning */
+  display: block;
+  position: absolute;
+  transition: transform 0.3s ease-in-out;
 }
 
+.intro-images a img {
+  height: 150px;
+  transition: transform 0.3s ease-in-out, z-index 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out;
+}
+
+.intro-images a img:hover {
+  transform: scale(1.3);
+}
 .intro-image {
-  width: 100%;
-  height: 100%;
-  object-fit: contain; /* Maintain aspect ratio */
+  z-index: 1; /* Bring to front on hover */
+  filter: drop-shadow(0px 2px 5px black);
+  
+}
+
+.intro-image:hover {
+  z-index: 300; /* Bring to front on hover */
+}
+
+
+
+
+.scroll-minimise {
+  transform-origin: center;
+  transition: transform 0.1s ease-out;
+}
+
+.scroll-minimise-text {
+  transform-origin: left center;
 }
 
 /* SIDE MENU */
 .two-menus {
   display: flex;
   position: relative;
-  z-index: 1;
+  z-index: 200;
 }
 
 .extra-menu {
@@ -283,7 +394,7 @@ a:active {
   position: relative;
   height: auto;
   width: 82%;
-  z-index: 100;
+  z-index: 0;
   overflow-y: auto;
 }
 

@@ -55,6 +55,33 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+
+window.addEventListener('scroll', function() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const viewportHeight = window.innerHeight;
+    const scrollFraction = scrollTop / viewportHeight;
+    const scaleFactor = 1 - scrollFraction; // Adjusting to disappear completely after one viewport height
+
+    const elements = document.querySelectorAll('.scroll-minimise');
+    elements.forEach(element => {
+        element.style.transform = `scale(${Math.max(scaleFactor, 0)})`; // Ensure the scale doesn't go below 0
+        element.style.opacity = Math.max(scaleFactor, 0); // Adjust opacity to match scaling
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
     const anchors = document.querySelectorAll('.intro-images a');
     const container = document.querySelector('.intro-gallery');
@@ -65,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const cellHeight = container.clientHeight / rows;
 
     // Speed multiplier for controlling animation speed
-    const speedMultiplier = 1; // Change this value to control the speed
+    const speedMultiplier = 0.9; // Change this value to control the speed
 
     // Shuffle array utility function
     function shuffle(array) {
@@ -120,15 +147,25 @@ document.addEventListener('DOMContentLoaded', function() {
         const styleSheet = document.styleSheets[0];
         styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
 
-        // Randomize animation duration and delay
+        // Randomize animation duration
         const baseDuration = 10; // Base duration for the animation
-        const baseDelay = 5; // Base delay for the animation
         const duration = (Math.random() * 10 + baseDuration) / speedMultiplier; // Adjust duration by speed multiplier
-        const delay = (Math.random() * baseDelay) / speedMultiplier; // Adjust delay by speed multiplier
-        anchor.style.animation = `${keyframesName} ${duration}s infinite ${delay}s alternate ease-in-out`;
+        anchor.style.animation = `${keyframesName} ${duration}s infinite alternate ease-in-out`;
+
+        // Add hover effect to stop movement and scale up
+        anchor.addEventListener('mouseenter', () => {
+            console.log('Mouse enter:', anchor); // Debug statement
+            anchor.style.animationPlayState = 'paused';
+            anchor.style.transform = `scale(1.5)`;
+        });
+
+        anchor.addEventListener('mouseleave', () => {
+            console.log('Mouse leave:', anchor); // Debug statement
+            anchor.style.animationPlayState = 'running';
+            anchor.style.transform = `scale(1)`;
+        });
     });
 });
-
 
 
 

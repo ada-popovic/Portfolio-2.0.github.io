@@ -164,12 +164,13 @@ a:active {
   font-size: var(--large-font);
   position: fixed;
   top: 20px; /* Adjusted top position to prevent overlap */
-  z-index: 200;
+  z-index: 1000;
 }
 
 .name a {
   text-decoration: none;
   color: black;
+  z-index: 1000;
 }
 
 .main-page-intro {
@@ -208,7 +209,6 @@ a:active {
   background-color: transparent;
   position: relative;
   z-index: 200;
-  background-color: #9198e5;
 
 }
 

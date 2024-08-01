@@ -110,7 +110,7 @@ window.addEventListener('scroll', function() {
 
         // Calculate new height from 40vh to 5vh
         const initialHeight = 40; // Initial height in vh
-        const finalHeight = 0; // Final height in vh
+        const finalHeight = 25; // Final height in vh
         const newHeight = initialHeight - (scrollFraction * (initialHeight - finalHeight));
 
         const elements = document.querySelectorAll('.scroll-height');
@@ -174,64 +174,83 @@ document.addEventListener('DOMContentLoaded', function() {
     // Shuffle cell indices to randomize placement
     shuffle(cellIndices);
 
-    anchors.forEach((anchor, index) => {
-        // Randomize width and height between 100px and 300px
-        const randomSize = Math.floor(Math.random() * 201) + 100; // 100 to 300 inclusive
-        anchor.style.width = `${randomSize}px`;
-        anchor.style.height = `${randomSize}px`;
+    // Initial delay before showing the first image
+    const initialDelay = 1000; // 1 second delay
 
-        // Calculate cell position
-        const cellIndex = cellIndices[index % cellIndices.length];
-        const cellX = cellIndex % cols;
-        const cellY = Math.floor(cellIndex / cols);
+    setTimeout(() => {
+        anchors.forEach((anchor, index) => {
+            // Randomize width and height between 100px and 300px
+            const randomSize = Math.floor(Math.random() * 201) + 100; // 100 to 300 inclusive
+            anchor.style.width = `${randomSize}px`;
+            anchor.style.height = `${randomSize}px`;
 
-        // Randomize position within the cell
-        const maxX = cellWidth - randomSize;
-        const maxY = cellHeight - randomSize;
-        const randomX = Math.floor(Math.random() * (maxX + 1)) + cellX * cellWidth;
-        const randomY = Math.floor(Math.random() * (maxY + 1)) + cellY * cellHeight;
+            // Calculate cell position
+            const cellIndex = cellIndices[index % cellIndices.length];
+            const cellX = cellIndex % cols;
+            const cellY = Math.floor(cellIndex / cols);
 
-        // Ensure images stay within viewport bounds
-        anchor.style.left = `${randomX}px`;
-        anchor.style.top = `${randomY}px`;
+            // Randomize position within the cell
+            const maxX = cellWidth - randomSize;
+            const maxY = cellHeight - randomSize;
+            const randomX = Math.floor(Math.random() * (maxX + 1)) + cellX * cellWidth;
+            const randomY = Math.floor(Math.random() * (maxY + 1)) + cellY * cellHeight;
 
-        // Generate random keyframes for movement within the parent div
-        const keyframesName = `float-${index}`;
-        const keyframes = `
-            @keyframes ${keyframesName} {
-                0% { transform: translate(0, 0); }
-                25% { transform: translate(${Math.random() * 100 - 50}%, ${Math.random() * 100 - 50}%); }
-                50% { transform: translate(${Math.random() * 100 - 50}%, ${Math.random() * 100 - 50}%); }
-                75% { transform: translate(${Math.random() * 100 - 50}%, ${Math.random() * 100 - 50}%); }
-                100% { transform: translate(0, 0); }
-            }
-        `;
-        const styleSheet = document.styleSheets[0];
-        styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
+            // Ensure images stay within viewport bounds
+            anchor.style.left = `${randomX}px`;
+            anchor.style.top = `${randomY}px`;
 
-        // Randomize animation duration
-        const baseDuration = 10; // Base duration for the animation
-        const duration = (Math.random() * 10 + baseDuration) / speedMultiplier; // Adjust duration by speed multiplier
-        anchor.style.animation = `${keyframesName} ${duration}s infinite alternate ease-in-out`;
+            // Hide elements initially
+            anchor.style.opacity = '0';
+            anchor.style.transform = 'scale(0)';
 
-        // Add hover effect to stop movement, scale up, and bring to front
-        anchor.addEventListener('mouseenter', () => {
-            console.log('Mouse enter:', anchor); // Debug statement
-            anchor.style.animationPlayState = 'paused';
-            anchor.style.transform = `scale(1.5)`;
-            anchor.style.zIndex = 9999; // Bring to front
-        });
+            // Generate random keyframes for movement within the parent div
+            const keyframesName = `float-${index}`;
+            const keyframes = `
+                @keyframes ${keyframesName} {
+                    0% { transform: translate(0, 0); }
+                    25% { transform: translate(${Math.random() * maxX}px, ${Math.random() * maxY}px); }
+                    50% { transform: translate(${Math.random() * maxX}px, ${Math.random() * maxY}px); }
+                    75% { transform: translate(${Math.random() * maxX}px, ${Math.random() * maxY}px); }
+                    100% { transform: translate(0, 0); }
+                }
+            `;
+            const styleSheet = document.styleSheets[0];
+            styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
 
-        anchor.addEventListener('mouseleave', () => {
-            console.log('Mouse leave:', anchor); // Debug statement
-            anchor.style.animationPlayState = 'running';
-            anchor.style.transform = `scale(1)`;
+            // Randomize animation duration
+            const baseDuration = 10; // Base duration for the animation
+            const duration = (Math.random() * 10 + baseDuration) / speedMultiplier; // Adjust duration by speed multiplier
+            anchor.style.animation = `${keyframesName} ${duration}s infinite alternate ease-in-out`;
+
+            // Add hover effect to stop movement, scale up, and bring to front
+            anchor.addEventListener('mouseenter', () => {
+                console.log('Mouse enter:', anchor); // Debug statement
+                anchor.style.animationPlayState = 'paused';
+                anchor.style.transform = `scale(1.5)`;
+                anchor.style.zIndex = 9999; // Bring to front
+            });
+
+            anchor.addEventListener('mouseleave', () => {
+                console.log('Mouse leave:', anchor); // Debug statement
+                anchor.style.animationPlayState = 'running';
+                anchor.style.transform = `scale(1)`;
+                setTimeout(() => {
+                    anchor.style.zIndex = 1; // Reset z-index after the transition
+                }, 300); // Match this timeout to the transition duration
+            });
+
+            // Animate in with a delay (additional 1 second delay)
             setTimeout(() => {
-                anchor.style.zIndex = 1; // Reset z-index after the transition
-            }, 300); // Match this timeout to the transition duration
+                anchor.style.opacity = '1';
+                anchor.style.transform = 'scale(1)';
+            }, index * 500); // Adjust the delay as needed (500ms here)
         });
-    });
+    }, initialDelay);
 });
+
+
+
+
 
 
 

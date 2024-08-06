@@ -147,11 +147,8 @@ window.addEventListener('scroll', function() {
 document.addEventListener('DOMContentLoaded', function() {
     const anchors = document.querySelectorAll('.intro-images a');
     const container = document.querySelector('.intro-gallery');
-    const rows = 3; // Define number of rows for grid
-    const cols = 3; // Define number of columns for grid
-
-    const cellWidth = container.clientWidth / cols;
-    const cellHeight = container.clientHeight / rows;
+    const containerWidth = container.clientWidth;
+    const containerHeight = container.clientHeight;
 
     // Speed multiplier for controlling animation speed
     const speedMultiplier = 0.9; // Change this value to control the speed
@@ -167,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Create an array of cell indices
     const cellIndices = [];
-    for (let i = 0; i < rows * cols; i++) {
+    for (let i = 0; i < anchors.length; i++) {
         cellIndices.push(i);
     }
     
@@ -175,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function() {
     shuffle(cellIndices);
 
     // Initial delay before showing the first image
-    const initialDelay = 1000; // 1 second delay
+    const initialDelay = 0; // 2 second delay
 
     setTimeout(() => {
         anchors.forEach((anchor, index) => {
@@ -185,17 +182,12 @@ document.addEventListener('DOMContentLoaded', function() {
             anchor.style.height = `${randomSize}px`;
 
             // Calculate cell position
-            const cellIndex = cellIndices[index % cellIndices.length];
-            const cellX = cellIndex % cols;
-            const cellY = Math.floor(cellIndex / cols);
+            const maxX = containerWidth - randomSize;
+            const maxY = containerHeight - randomSize;
+            const randomX = Math.floor(Math.random() * (maxX + 1));
+            const randomY = Math.floor(Math.random() * (maxY + 1));
 
-            // Randomize position within the cell
-            const maxX = cellWidth - randomSize;
-            const maxY = cellHeight - randomSize;
-            const randomX = Math.floor(Math.random() * (maxX + 1)) + cellX * cellWidth;
-            const randomY = Math.floor(Math.random() * (maxY + 1)) + cellY * cellHeight;
-
-            // Ensure images stay within viewport bounds
+            // Set initial position
             anchor.style.left = `${randomX}px`;
             anchor.style.top = `${randomY}px`;
 
@@ -208,9 +200,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const keyframes = `
                 @keyframes ${keyframesName} {
                     0% { transform: translate(0, 0); }
-                    25% { transform: translate(${Math.random() * maxX}px, ${Math.random() * maxY}px); }
-                    50% { transform: translate(${Math.random() * maxX}px, ${Math.random() * maxY}px); }
-                    75% { transform: translate(${Math.random() * maxX}px, ${Math.random() * maxY}px); }
+                    25% { transform: translate(${Math.random() * (maxX / 2) - (maxX / 4)}px, ${Math.random() * (maxY / 2) - (maxY / 4)}px); }
+                    50% { transform: translate(${Math.random() * (maxX / 2) - (maxX / 4)}px, ${Math.random() * (maxY / 2) - (maxY / 4)}px); }
+                    75% { transform: translate(${Math.random() * (maxX / 2) - (maxX / 4)}px, ${Math.random() * (maxY / 2) - (maxY / 4)}px); }
                     100% { transform: translate(0, 0); }
                 }
             `;
@@ -247,6 +239,32 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, initialDelay);
 });
+
+
+
+function toggleResearch() {
+    const researchProcess = document.querySelector('.research-process');
+    researchProcess.classList.toggle('active');
+
+    const unfolded = researchProcess.querySelector('.unfolded');
+    if (researchProcess.classList.contains('active')) {
+        unfolded.style.maxHeight = unfolded.scrollHeight + "px";
+    } else {
+        unfolded.style.maxHeight = 0;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

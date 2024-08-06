@@ -244,15 +244,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function toggleResearch() {
     const researchProcess = document.querySelector('.research-process');
-    researchProcess.classList.toggle('active');
-
     const unfolded = researchProcess.querySelector('.unfolded');
+
     if (researchProcess.classList.contains('active')) {
-        unfolded.style.maxHeight = unfolded.scrollHeight + "px";
+        researchProcess.classList.remove('active');
+        researchProcess.style.maxHeight = '40px'; // Set to initial height
     } else {
-        unfolded.style.maxHeight = 0;
+        researchProcess.classList.add('active');
+        researchProcess.style.maxHeight = unfolded.scrollHeight + "px";
     }
 }
+
+
 
 
 

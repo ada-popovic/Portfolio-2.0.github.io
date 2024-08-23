@@ -514,6 +514,7 @@ a:active {
   bottom: 3%;
   z-index: 200;
   filter: drop-shadow(0px 1px 4px black);
+  transition: bottom 0.5s ease-in-out;
 }
 
 /* PROJECTS SECTION */
@@ -549,6 +550,8 @@ a:active {
   overflow-x: auto;
   border-bottom: 1px solid black;
   padding: 30px;
+  scrollbar-color: red orange;
+  scrollbar-width: none;
 }
 
 .project-images img {
@@ -688,7 +691,7 @@ a:active {
   padding: 5px;
   text-align: right;
   justify-content: flex-end; /* Align items to the right */
-  right: 2%;
+  right: 0%;
 }
 
 .get-in-touch{
@@ -701,6 +704,19 @@ a:active {
   transform: scale(1.2);
   transition: transform 0.5s ease-out;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

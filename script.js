@@ -256,6 +256,20 @@ function toggleResearch() {
 }
 
 
+window.addEventListener('scroll', function() {
+    const linkMap = document.querySelector('.link-map');
+    const scrollPosition = window.scrollY + window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+
+    // Check if the user has scrolled to 99% of the document
+    if (scrollPosition >= documentHeight * 0.99) {
+        linkMap.style.bottom = '10%';
+    } else {
+        linkMap.style.bottom = ''; // Reset to original value if needed
+    }
+});
+
+
 
 
 

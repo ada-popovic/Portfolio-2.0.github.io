@@ -49,15 +49,6 @@ function toggleOpacity(panel) {
 
 
 
-// Function to change the background color of the body
-function changeBackgroundColor(color) {
-    document.body.style.backgroundColor = color;
-}
-
-
-
-
-
 
 // Add a click event listener to each menu button to toggle the 'toggled' class
 document.addEventListener('DOMContentLoaded', function() {
@@ -272,6 +263,54 @@ window.addEventListener('scroll', function() {
 
 
 
+function setColorMode(color) {
+    document.documentElement.style.setProperty('--color-1', color);
+    document.body.style.backgroundColor = 'var(--color-1)';
+    localStorage.setItem('colorMode', color);
+}
+
+// Event listener for the dark mode button
+document.querySelector('.mode-button-dark').addEventListener('click', function() {
+    setColorMode('grey');
+});
+
+// Event listener for the white mode button
+document.querySelector('.mode-button-white').addEventListener('click', function() {
+    setColorMode('white');
+});
+
+// Check localStorage for the user's color preference on page load
+window.addEventListener('DOMContentLoaded', (event) => {
+    const storedColor = localStorage.getItem('colorMode');
+    if (storedColor) {
+        setColorMode(storedColor);
+    }
+});
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const projectIntro = document.querySelector('.project-intro');
+    const projectSection = document.querySelector('.project-section');
+    const sectionSeeAlso = document.querySelector('.section-see-also');
+    const introTopOffset = projectIntro.offsetTop; // Initial top offset of the fixed element
+
+    function handleScroll() {
+        const sectionSeeAlsoTop = sectionSeeAlso.getBoundingClientRect().top;
+
+        if (sectionSeeAlsoTop <= introTopOffset + projectIntro.offsetHeight) {
+            // Change to position static when `section-see-also` comes into view
+            projectIntro.style.position = 'absolute';
+            projectIntro.style.top = `${sectionSeeAlsoTop + window.scrollY - projectSection.offsetTop - projectIntro.offsetHeight}px`;
+        } else {
+            // Revert back to fixed position
+            projectIntro.style.position = 'fixed';
+            projectIntro.style.top = `${introTopOffset}px`;
+        }
+    }
+
+    window.addEventListener('scroll', handleScroll);
+});
 
 
 
@@ -280,13 +319,82 @@ window.addEventListener('scroll', function() {
 
 
 
+document.addEventListener('DOMContentLoaded', function () {
+    const projects = document.querySelectorAll('.project-container');
 
+    // Mapping of button divs to corresponding project classes
+    const buttonClassMapping = {
+        'r-designer': 'pr-designer',
+        'r-writer': 'pr-writer',
+        'r-researcher': 'pr-researcher',
+        'r-organiser': 'pr-organiser',
+        'r-developer': 'pr-developer',
+        'r-podcaster': 'pr-podcaster',
+        'f-website': 'pf-website',
+        'f-publication': 'pf-publication',
+        'f-identity': 'pf-identity',
+        'f-event': 'pf-event',
+        'f-poster': 'pf-poster',
+        'f-podcast': 'pf-podcast',
+        'f-academic': 'pf-academic',
+    };
 
+    let activeRoleClasses = new Set();
+    let activeFormClasses = new Set();
 
+    function updateProjects() {
+        projects.forEach(project => {
+            const projectClasses = project.classList;
 
+            // Check if project matches active role and form filters
+            const matchesRole = activeRoleClasses.size === 0 || [...activeRoleClasses].every(role => projectClasses.contains(role));
+            const matchesForm = activeFormClasses.size === 0 || [...activeFormClasses].every(form => projectClasses.contains(form));
 
+            // Show or hide project based on matching filters
+            if (matchesRole && matchesForm) {
+                project.style.display = 'block';
+            } else {
+                project.style.display = 'none';
+            }
+        });
+    }
 
+    function handleButtonClick(event) {
+        const button = event.target;
+        const buttonClass = button.classList[1]; // Get specific role or form class
+        const projectClass = buttonClassMapping[buttonClass]; // Map button class to project class
 
+        if (!projectClass) return; // Exit if no mapping is found
 
+        const isActive = button.classList.toggle('selected'); // Toggle 'selected' class
 
+        if (buttonClass.startsWith('r-')) {
+            // Role button
+            if (isActive) {
+                activeRoleClasses.add(projectClass);
+            } else {
+                activeRoleClasses.delete(projectClass);
+            }
+        } else if (buttonClass.startsWith('f-')) {
+            // Form button
+            if (isActive) {
+                activeFormClasses.add(projectClass);
+            } else {
+                activeFormClasses.delete(projectClass);
+            }
+        }
 
+        updateProjects();
+    }
+
+    // Show all projects initially
+    projects.forEach(project => {
+        project.style.display = 'block';
+    });
+
+    // Add event listeners to all filter divs
+    const buttons = document.querySelectorAll('.role-category-button, .form-category-button');
+    buttons.forEach(button => {
+        button.addEventListener('click', handleButtonClick);
+    });
+});

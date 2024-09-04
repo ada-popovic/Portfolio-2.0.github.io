@@ -42,10 +42,10 @@
       </div>
       <div class="menu-button pretend-button">SPACE</div>
       <div class="mode-categories-container menu-container">
-        <a class="mode-button" onclick="changeBackgroundColor('grey')">⚫️ DARK</a>
-        <a class="mode-button" onclick="changeBackgroundColor('red')">🇲🇽 Olympics 68’</a>
-        <a class="mode-button" onclick="changeBackgroundColor('#0FFF50')">🔫 BRAT-ish</a>
-        <a class="mode-button" onclick="changeBackgroundColor('white')">🪨 ROCKS</a>
+        <a class="mode-button mode-button-dark">⚫️ DARK</a>
+        <a class="mode-button" >🇲🇽 Olympics 68’</a>
+        <a class="mode-button" >🔫 BRAT-ish</a>
+        <a class="mode-button mode-button-white" >🪨 ROCKSSSSS</a>
       </div>
     </div>
 
@@ -61,24 +61,40 @@
         <div class="menu-button mode" onclick="toggleOpacity('mode')">Mode</div>
         <div class="menu-button filter" onclick="toggleOpacity('filter')">Filter</div>
         <div class="filter-categories-container menu-container">
-          <div class="role-categories-container">
+          
             <div class="filter-category-title">Role</div>
-            <div class="role-category">Design</div>
-            <div class="role-category">Editor</div>
-            <div class="role-category">Writer</div>
-            <div class="role-category">Develop</div>
-            <div class="role-category">Hello</div>
-            <div class="role-category">Other</div>
+            <div class="role-categories-container">
+            <div class="left-column">
+              <div class="role-category-button r-designer">Designer</div>
+              <div class="role-category-button r-researcher">Researcher</div>
+              <div class="role-category-button r-developer">Developer</div>
+            </div>
+            <div class="right-column">
+              <div class="role-category-button r-writer">Writer</div>
+            <div class="role-category-button r-organiser">Organiser</div>
+            <div class="role-category-button r-podcaster">Podcaster</div>
+
+            </div>
           </div>
+            
+          <div class="filter-category-title">Form</div>
           <div class="form-categories-container">
-            <div class="filter-category-title">Form</div>
-            <div class="form-category">Book</div>
-            <div class="form-category">Website</div>
-            <div class="form-category">Podcast</div>
-            <div class="form-category">Develop</div>
-            <div class="form-category">Hello</div>
-            <div class="form-category">Other</div>
+            
+            <div class="left-column">
+              <div class="form-category-button f-website">Website</div>
+            <div class="form-category-button f-identity">Identity</div>
+            <div class="form-category-button f-publication">Poster</div>
+            <div class="form-category-button f-academic">Academic</div>
+
+            </div>
+            <div class="right-column">
+            <div class="form-category-button f-poster">Publication</div>
+            <div class="form-category-button f-event">Event</div>
+            <div class="form-category-button f-podcast">Podcast</div>
           </div>
+          </div>
+
+        </div>
         </div>
       </div>
       <a href="map.html" class="link-map">
@@ -123,10 +139,13 @@
       <p class="projects-arrows-map">Projects (Map) -></p>
     </div>
     <div class="projects-list">
-      <div class="project-container">
+
+      <div class="project-container pr-designer pr-writer pf-website pf-publication">
         <div class="project-images">
-          <img src="Images/image1.jpg" alt="Project Image 1">
-          <img src="Images/image1.jpg" alt="Project Image 2">
+          <img src="Images/image1.jpg" class="image-project-roll" alt="Project Image 1">
+          <img src="Images/image1.jpg" class="image-project-roll"alt="Project Image 2">
+          <img src="Images/image1.jpg" class="image-project-roll"alt="Project Image 1">
+          <img src="Images/image1.jpg" class="image-project-roll"alt="Project Image 2">
           <!-- Add more images as needed -->
         </div>
         <div class="project-description">
@@ -139,11 +158,10 @@
           <div class="description-right">
             <div class="format-categories">
               <span class="format-category category">Website</span>
-              <span class="format-category category">Book</span>
+              <span class="format-category category">Publication</span>
             </div>
             <div class="role-categories">
               <span class="role-category category">Designer</span>
-              <span class="role-category category">Editor</span>
               <span class="role-category category">Writer</span>
             </div>
             <a href="project-page.html" class="view-project">VIEW PROJECT →</a>
@@ -155,11 +173,44 @@
 
 
 
-      <div class="project-container">
+      <div class="project-container pf-identity pf-poster pf-publication pr-designer pr-researcher pr-writer">
         <div class="project-images">
-          <img src="Images/image3.jpg" alt="Project Image 1">
-          <img src="Images/image4.png" alt="Project Image 1">
-          <img src="Images/image2.jpg" alt="Project Image 2">
+          <img src="Images/lect1.png" class="image-project-roll" alt="Project Image 1">
+          <img src="Images/lect2.jpg" class="image-project-roll" alt="Project Image 1">
+          <img src="Images/lect3.png" class="image-project-roll" alt="Project Image 2">
+          <img src="Images/lect4.jpg" class="image-project-roll" alt="Project Image 2">
+          <!-- Add more images as needed -->
+        </div>
+        <div class="project-description">
+          <div class="description-left">
+            <div class="project-title-and-year">
+              <div class="home-project-title">KABK Lectorate: Touching</div>
+              <div class="project-year">2022</div>
+            </div>
+          </div>
+          <div class="description-right">
+            <div class="format-categories">
+              <span class="format-category category">Identity</span>
+              <span class="format-category category">Poster</span>
+              <span class="format-category category">Publication</span>
+            </div>
+            <div class="role-categories">
+              <span class="role-category category">Designer</span>
+              <span class="role-category category">Researcher</span>
+              <span class="role-category category">Writer</span>
+            </div>
+            <a href="project-page.html" class="view-project">VIEW PROJECT →</a>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="project-container pf-website pf-identity pf-publication pf-event pf-podcast pr-designer pr-developer pr-researcher pr-writer pr-podcaster">
+        <div class="project-images">
+          <img src="Images/image3.jpg" class="image-project-roll" alt="Project Image 1">
+          <img src="Images/image4.png" class="image-project-roll" alt="Project Image 1">
+          <img src="Images/image2.jpg" class="image-project-roll" alt="Project Image 2">
           
           <img src="Images/image5.png" alt="Project Image 2">
           <!-- Add more images as needed -->
@@ -174,17 +225,181 @@
           <div class="description-right">
             <div class="format-categories">
               <span class="format-category category">Website</span>
+              <span class="format-category category">Identity</span>
+              <span class="format-category category">Publication</span>
+              <span class="format-category category">Event</span>
               <span class="format-category category">Podcast</span>
             </div>
             <div class="role-categories">
               <span class="role-category category">Designer</span>
-              <span class="role-category category">Editor</span>
+              <span class="role-category category">Developer</span>
+              <span class="role-category category">Researcher</span>
+              <span class="role-category category">Writer</span>
+              <span class="role-category category">Podcaster</span>
+            </div>
+            <a href="project-page.html" class="view-project">VIEW PROJECT →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-container pf-publication pf-academic pr-researcher pr-writer pr-designer">
+        <div class="project-images">
+          <img src="Images/what1.png" class="image-project-roll" alt="Project Image 1">
+          
+          <!-- Add more images as needed -->
+        </div>
+        <div class="project-description">
+          <div class="description-left">
+            <div class="project-title-and-year">
+              <div class="home-project-title">What -> Where Creativity</div>
+              <div class="project-year">2024</div>
+            </div>
+          </div>
+          <div class="description-right">
+            <div class="format-categories">
+              <span class="format-category category">Publication</span>
+              <span class="format-category category">Academic</span>
+            </div>
+            <div class="role-categories">
+              <span class="role-category category">Researcher</span> 
+              <span class="role-category category">Writer</span>
+              <span class="role-category category">Designer</span>
+            </div>
+            <a href="project-page.html" class="view-project">VIEW PROJECT →</a>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="project-container pf-identity pr-designer">
+        <div class="project-images">
+          <img src="Images/eye1.png" alt="Project Image 1">
+          <img src="Images/eye3.png" alt="Project Image 1">
+          <img src="Images/eye2.png" alt="Project Image 2">
+
+          <!-- Add more images as needed -->
+        </div>
+        <div class="project-description">
+          <div class="description-left">
+            <div class="project-title-and-year">
+              <div class="home-project-title">Eye of Jeronimo</div>
+              <div class="project-year">2020</div>
+            </div>
+          </div>
+          <div class="description-right">
+            <div class="format-categories">
+              <span class="format-category category">Identity</span>
+            </div>
+            <div class="role-categories">
+              <span class="role-category category">Designer</span>
+            </div>
+            <a href="project-page.html" class="view-project">VIEW PROJECT →</a>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <div class="project-container pf-event pf-identity pr-designer pr-organiser pr-researcher">
+        <div class="project-images">
+          <img src="Images/pageimage.png" alt="Project Image 1">
+  
+          <!-- Add more images as needed -->
+        </div>
+        <div class="project-description">
+          <div class="description-left">
+            <div class="project-title-and-year">
+              <div class="home-project-title">Apophenic Taxonomies</div>
+              <div class="project-year">2024</div>
+            </div>
+          </div>
+          <div class="description-right">
+            <div class="format-categories">
+              <span class="format-category category">Event</span>
+              <span class="format-category category">Identity</span>
+            </div>
+            <div class="role-categories">
+              <span class="role-category category">Designer</span>
+              <span class="role-category category">Organiser</span>
+              <span class="role-category category">Researcher</span>
+            </div>
+            <a href="project-page.html" class="view-project">VIEW PROJECT →</a>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <div class="project-container pf-publication pr-designer pr-writer">
+        <div class="project-images">
+          <img src="Images/ho1.jpg" alt="Project Image 1">
+          <img src="Images/ho2.png" alt="Project Image 1">
+          <img src="Images/ho3.jpg" alt="Project Image 2">
+          
+          <img src="Images/ho4.jpg" alt="Project Image 2">
+          <!-- Add more images as needed -->
+        </div>
+        <div class="project-description">
+          <div class="description-left">
+            <div class="project-title-and-year">
+              <div class="home-project-title">Selective Hoarding</div>
+              <div class="project-year">2020</div>
+            </div>
+          </div>
+          <div class="description-right">
+            <div class="format-categories">
+              <span class="format-category category">Publication</span>
+            </div>
+            <div class="role-categories">
+              <span class="role-category category">Designer</span>
               <span class="role-category category">Writer</span>
             </div>
             <a href="project-page.html" class="view-project">VIEW PROJECT →</a>
           </div>
         </div>
       </div>
+
+      <div class="project-container pf-event pf-identity pr-dsigner pr-organiser">
+        <div class="project-images">
+          <img src="Images/fem1.png" alt="Project Image 1">
+          <img src="Images/fem2.png" alt="Project Image 1">
+
+          <!-- Add more images as needed -->
+        </div>
+        <div class="project-description">
+          <div class="description-left">
+            <div class="project-title-and-year">
+              <div class="home-project-title">FEM + TECH</div>
+              <div class="project-year">2023</div>
+            </div>
+          </div>
+          <div class="description-right">
+            <div class="format-categories">
+              <span class="format-category category">Event</span>
+              <span class="format-category category">Identity</span>
+            </div>
+            <div class="role-categories">
+              <span class="role-category category">Designer</span>
+              <span class="role-category category">Organiser</span>
+            </div>
+            <a href="project-page.html" class="view-project">VIEW PROJECT →</a>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
     </div>
   </div>
 

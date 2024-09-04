@@ -9,18 +9,10 @@
   user-select: none;
 }
 
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  font-family: var(--camera);
-  background: #9198e5;
-  background: white;
-}
-
 :root {
-  --blue: #3498db;
-  --green: #2ecc71;
+  --color-1: white;
+  --color-2: black;
+  --color-3: #A79B8E;
   --camera: 'ABCCameraPlain', sans-serif;
   --font-1: 40px;
   --font-2: 30px;
@@ -28,8 +20,22 @@ html, body {
   /*--font-4: 30px;*/
   --font-5: 16px;
   --font-6: 14px;
+  --font-7: 12px;
   --spacing-base: 8px;
 }
+
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: var(--camera);
+  background: var(--color-1);
+  overscroll-behavior: none; /* Prevents the bounce effect */
+}
+
+
+
 
 
 
@@ -192,14 +198,14 @@ a:active {
 }
 
 .tell-me-more-container a {
-  color: black;
+  color: var(--color-2);
   text-decoration: underline;
 }
 
 .tell-me-more {
   font-size: var(--font-2);
   max-width: 60%;
-  color: black;
+  color: var(--color-2);
   text-decoration: underline;
   z-index: 200;
   position: relative;
@@ -315,7 +321,7 @@ a:active {
 }
 
 .menu-button {
-  color: black;
+  color: var(--color-2);
   margin-bottom: 10px;
   text-transform: uppercase;
   text-decoration: none;
@@ -334,7 +340,7 @@ a:active {
   transition: background-color 0.8s ease-in-out; /* Duration for losing color */
 }
 .menu-button a {
-  color: black;
+  color: var(--color-2);
   text-decoration: none;
 }
 
@@ -347,7 +353,7 @@ a:active {
 }
 
 .active-menu {
-  color: black;
+  color: var(--color-2);
   margin-bottom: 10px;
   text-transform: uppercase;
   text-decoration: none;
@@ -363,7 +369,7 @@ a:active {
 
 
 .menu-button:hover {
-  color: black;
+  color: var(--color-2);
   margin-bottom: 10px;
   text-transform: uppercase;
   text-decoration: none;
@@ -416,7 +422,7 @@ a:active {
 
 .contact-categories-container a {
   text-decoration: none;
-  color: black;
+  color: var(--color-2);
 }
 
 .mode-categories-container {
@@ -461,32 +467,80 @@ a:active {
 
 
 .filter-category-title {
-  font-size: var(--font-2);
-  margin-bottom: 10px;
+  font-size: var(--font-3);
   text-transform: uppercase;
   padding: 5px;
   text-align: center;
+  margin-top: 10px;
+  margin-bottom: 5px;
 }
 
 .filter-categories-container {
-
-
   display: flex;
   flex-direction: column;
   opacity: 0;
   background-color: white;
-  padding: 1px;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-bottom: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 20px;
   border-radius: 20px;
-  margin-top: 5px;
   border: 1px solid #000;
   width: 180px;
-  height: 350px;
   justify-content: space-between;
   transform: translateX(+200%); /* Initially position the element off-screen to the left */
   transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; /* Transition both opacity and transform */
+}
+
+.role-categories-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.form-categories-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.left-column{
+  display: flex;
+  flex-direction: column;
+}
+.right-column{
+  display: flex;
+  flex-direction: column;
+}
+
+.form-category-button {
+  border-radius: 20px;
+  border: 1px solid #000;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  background-color: white;
+  cursor: pointer;
+  margin-bottom: 7px;
+  font-size: var(--font-6);
+}
+
+.role-category-button {
+  border-radius: 20px;
+  border: 1px solid #000;
+  padding: 5px;
+  background-color: white;
+  cursor: pointer;
+  margin-bottom: 7px;
+  font-size: var(--font-6);
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+.selected {
+  background-color: #ddd; /* Change this color to whatever you prefer for selected state */
 }
 
 .filter-categories-container.visible {
@@ -507,7 +561,7 @@ a:active {
   border: 1px solid #000;
   text-transform: uppercase;
   text-decoration: none;
-  width: 200px;
+  width: 13vw;
   min-height: 100px;
   border-radius: 10px;
   right: 2%;
@@ -522,7 +576,7 @@ a:active {
   display: block;
   position: relative;
   height: auto;
-  width: 75%;
+  width: 80vw;
   z-index: 0;
   overflow-y: auto;
   padding: 2%;
@@ -550,13 +604,12 @@ a:active {
   overflow-x: auto;
   border-bottom: 1px solid black;
   padding: 30px;
-  scrollbar-color: red orange;
   scrollbar-width: none;
 }
 
 .project-images img {
   max-height: 300px;
-  margin-right: 10px;
+  margin-right: 30px;
 }
 
 .project-description {
@@ -584,7 +637,7 @@ a:active {
 
 .project-year {
   font-size: var(--font-6);
-  color: black;
+  color: var(--color-2);
   margin-top: 0;
   margin-left: 10px;
 }
@@ -608,19 +661,23 @@ a:active {
   background-color: white;
 }
 
-.format-category {
-  border-radius: 5px;
+.form-category {
+  border-radius: 20px;
+  padding: 5px;
+  background-color: red;
 }
 
 .role-category {
   border-radius: 20px;
+  padding: 5px;
+  background-color: red;
 }
 
 .view-project {
   display: inline-block;
   padding: 5px 10px;
   background-color: white;
-  color: black;
+  color: var(--color-2);
   text-decoration: none;
   border-radius: 5px;
 }
@@ -635,7 +692,7 @@ a:active {
 .footer {
   padding: 2%;
   height: 500px;
-  background: linear-gradient(white, #9198e5);
+  background: linear-gradient(var(--color-1),var(--color-3));
   bottom: 0;
   display: flex;
   position: static;
@@ -658,7 +715,6 @@ a:active {
   display: flex;
   position: relative;
   justify-content: space-between;
-  background-color: red;
   bottom: 0;
   box-sizing: border-box;
   font-size: var(--font-5);
@@ -695,7 +751,7 @@ a:active {
 }
 
 .get-in-touch{
-  color: black;
+  color: var(--color-2);
   text-decoration: underline;
   transition: transform 0.5s ease-out;
 }
@@ -743,12 +799,12 @@ a:active {
 
 .about-section a{
   text-decoration: underline;
-  color: #000;
+  color: var(--color-2);
 }
 
 .cv a{
   text-decoration: none;
-  color: black;
+  color: var(--color-2);
 }
 
 .cv-button {
@@ -757,13 +813,13 @@ a:active {
   border: 1px solid black;
   border-radius: 20px;
   text-decoration: none;
-  color: black;
+  color: var(--color-2);
   transition: background-color 0.3s, color 0.3s;
 }
 
 .cv-button:hover {
   background-color: black;
-  color: white;
+  color: var(--color-1);
 }
 
 .about-education {
@@ -776,7 +832,7 @@ a:active {
 
 .about-education a{
   text-decoration: underline;
-  color: #000;
+  color: var(--color-2);
 }
 
 
@@ -805,27 +861,34 @@ a:active {
 
 .details a{
   text-decoration: underline;
-  color: black;
+  color: var(--color-2);
 }
 
 
-/* PROJECT SECTION */
+/* PROJECT PAGE SECTION */
 
 
 .project-section {
   margin-left: 2%;
-  width: 96%;
+  width: 80vw;
   margin-right: 2%;
+  display: flex;
+  flex-direction: row;
+  position: relative;
 }
 
 .project-intro {
-  width: 45%;
+  width: 30vw;
+  position: fixed;
+  padding-bottom: 100px;
+  
 }
 
 
 .project-title {
   font-size: var(--font-1);
   margin-bottom: 40px;
+  
 }
 
 .intro-columns {
@@ -851,13 +914,12 @@ a:active {
 
 
 .project-details {
-  display: flex;
-  margin-top: 40px;
-  width: 98%;
+  width: 50vw;
+  margin-left: 32vw;
 }
 
 .gallery {
-  width: 45%;
+  width: auto;
 }
 
 .gallery img {
@@ -866,18 +928,19 @@ a:active {
 }
 
 .research-process {
-  width: 20%;
+  width: 70%;
   border: 1px solid black;
-  background-color: #9198e5;
+  background-color: var(--color-3);
   padding: 20px;
   cursor: pointer;
-  margin-left: 40px;
+  margin-left: 0px;
   border-radius: 20px;
   text-align: center;
   overflow: hidden; /* Add overflow hidden to contain the unfolded content */
   transition: max-height 0.5s ease-in-out;
   max-height: 50px; /* Initial height when folded */
   min-width: 210px;
+  margin-bottom: 50px;
 }
 
 .folded {
@@ -926,8 +989,10 @@ a:active {
 
 
 .section-see-also {
-  margin-top: 240px;
+  padding-top: 200px;
   text-align: center;
+  margin-left: 2%;
+  margin-right: 2%;
 }
 
 .see-also {
@@ -978,7 +1043,7 @@ a:active {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #F3CD18;
+  background-color: var(--color-3);
   padding: 10px;
   padding-left: 50px;
   padding-right: 50px;

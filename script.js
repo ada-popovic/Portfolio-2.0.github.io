@@ -350,11 +350,13 @@ document.addEventListener('DOMContentLoaded', function () {
             const matchesRole = activeRoleClasses.size === 0 || [...activeRoleClasses].every(role => projectClasses.contains(role));
             const matchesForm = activeFormClasses.size === 0 || [...activeFormClasses].every(form => projectClasses.contains(form));
 
-            // Show or hide project based on matching filters
+            // Show or hide project based on matching filters with smooth transition
             if (matchesRole && matchesForm) {
-                project.style.display = 'block';
+                project.classList.remove('hidden'); // Remove 'hidden' class to show project
+                project.style.display = 'block'; // Ensure project is set to display
             } else {
-                project.style.display = 'none';
+                project.classList.add('hidden'); // Add 'hidden' class to hide project with animation
+                setTimeout(() => { project.style.display = 'none'; }, 300); // Set display to none after animation duration
             }
         });
     }

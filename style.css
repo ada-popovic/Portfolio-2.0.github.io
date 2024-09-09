@@ -303,7 +303,7 @@ a:active {
   position: fixed;
   z-index: 285;
   height: auto;
-  min-width: 200px;
+  width: 13vw;
   top: 0%;
   right: 2%;
   padding-top: 1%;
@@ -485,7 +485,9 @@ a:active {
   padding-bottom: 20px;
   border-radius: 20px;
   border: 1px solid #000;
-  width: 180px;
+  max-width: 13vw;
+  margin-right: 2vw;
+  margin-left: 2vw;
   justify-content: space-between;
   transform: translateX(+200%); /* Initially position the element off-screen to the left */
   transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; /* Transition both opacity and transform */
@@ -576,10 +578,11 @@ a:active {
   display: block;
   position: relative;
   height: auto;
-  width: 80vw;
+  width: 81vw;
   z-index: 0;
   overflow-y: auto;
-  padding: 2%;
+  padding-left: 2%;
+  padding-right: 2%;
 }
 
 .projects-arrows {
@@ -591,95 +594,124 @@ a:active {
   transition: opacity 0.5s ease;
 }
 
+.projects-list{
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Creates 2 equal columns */
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(430px, 1fr));
+}
+
 .project-container {
-  border: 1px solid #000;
-  max-width: 100%;
-  overflow: hidden;
-  background-color: white;
   margin-bottom: 20PX;
+  opacity: 1; /* Fully visible by default */
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth transition for opacity and transform */
+    transform: translateY(0); /* Initial position */
+    margin-bottom: 50px;
+}
+
+.project-container.hidden {
+  opacity: 0; /* Fully transparent */
+  transform: translateY(20px); /* Slide down effect when hiding */
+  pointer-events: none; /* Prevent interaction when hidden */
 }
 
 .project-images {
+  border: 1px solid #000;
+  border-radius: 5px;
   display: flex;
   overflow-x: auto;
-  border-bottom: 1px solid black;
   padding: 30px;
   scrollbar-width: none;
+  margin-bottom: 10px;
 }
 
 .project-images img {
-  max-height: 300px;
+  max-height: 200px;
   margin-right: 30px;
 }
 
 .project-description {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
   height: auto;
-  padding: 5px;
+}
+
+.project-other-details {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .description-left {
-  flex: 1;
+  max-width: 55%;
 }
 
 .project-title-and-year {
   display: flex;
   align-items: left;
+  margin-right: 10px;
+}
+
+.project-mini-description {
+  font-size: var(--font-5);
+  margin-right: 5px;
+  
 }
 
 .home-project-title {
   margin: 0;
   font-size: var(--font-2);
-  padding-left: 5px;
 }
 
 .project-year {
   font-size: var(--font-6);
   color: var(--color-2);
   margin-top: 0;
-  margin-left: 10px;
+  margin-left: 5px;
 }
 
 .description-right {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-end;
+  
 }
 
 .format-categories,
 .role-categories {
-  margin-right: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  margin-bottom: 5px;
+
 }
 
 .category {
-  display: inline-block;
-  padding: 5px 10px;
+  padding: 2px 6px;
   margin-right: 5px;
+  margin-bottom: 5px;
   border: 1px solid #000;
-  font-size: var(--font-6);
-  background-color: white;
+  font-size: var(--font-7);
+  text-align: center;
 }
 
 .form-category {
   border-radius: 20px;
-  padding: 5px;
-  background-color: red;
 }
 
 .role-category {
   border-radius: 20px;
-  padding: 5px;
-  background-color: red;
 }
 
 .view-project {
-  display: inline-block;
-  padding: 5px 10px;
-  background-color: white;
+  margin-top: 10px;
   color: var(--color-2);
   text-decoration: none;
   border-radius: 5px;
+  font-size: var(--font-3);
 }
 
 .view-project:hover {

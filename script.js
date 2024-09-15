@@ -400,3 +400,49 @@ document.addEventListener('DOMContentLoaded', function () {
         button.addEventListener('click', handleButtonClick);
     });
 });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const projectImagesContainers = document.querySelectorAll(".project-images");
+
+    projectImagesContainers.forEach(container => {
+      let scrollAmount = 1; // Starting scroll speed
+      let isHovered = false;
+      let direction = 1; // 1 = left to right, -1 = right to left
+
+      // Function to handle the automatic scrolling
+      function autoScroll() {
+        if (!isHovered) {
+          container.scrollLeft += scrollAmount * direction;
+
+          // If the scroll reaches the right end (last image), reverse the direction
+          if (container.scrollLeft + container.clientWidth >= container.scrollWidth) {
+            direction = -1; // Reverse direction (scroll right to left)
+          }
+
+          // If the scroll reaches the left end (first image), reverse the direction again
+          if (container.scrollLeft <= 0) {
+            direction = 1; // Scroll left to right again
+          }
+        }
+      }
+
+      // Run the scrolling every 20 milliseconds (adjust speed here)
+      let scrollInterval = setInterval(autoScroll,30);
+
+      // Stop scrolling when hovered
+      container.addEventListener("mouseenter", function () {
+        isHovered = true;
+      });
+
+      // Resume scrolling when hover ends
+      container.addEventListener("mouseleave", function () {
+        isHovered = false;
+      });
+
+      // Allow users to scroll manually if they start dragging
+      container.addEventListener("mousedown", function () {
+        clearInterval(scrollInterval); // Stop auto-scrolling while user interacts
+      });
+    });
+  });

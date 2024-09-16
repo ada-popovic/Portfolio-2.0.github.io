@@ -626,7 +626,7 @@ a:active {
   display: grid;
   grid-template-columns: 1fr 1fr; /* Creates 2 equal columns */
   gap: 20px;
-  grid-template-columns: repeat(auto-fit, minmax(430px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(510px, 1fr));
 }
 
 .project-container {

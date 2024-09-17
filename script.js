@@ -60,22 +60,47 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+let lastScrollTop = 0; // To keep track of the previous scroll position
+
 window.addEventListener('scroll', function () {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const viewportHeight = window.innerHeight;
-    
-    // Adjust the scroll fraction for faster scaling
+
+    // Adjust the scroll fraction for scaling
     const scrollFraction = scrollTop / (viewportHeight * 0.5); // Adjust the 0.5 factor to make scaling faster
     const scaleFactor = Math.max(1 - scrollFraction, 0.6); // Scale down to 60% at most
 
-    // Targeting the wrapper element
+    // Targeting the wrapper element for scaling
     const introLowerSection = document.querySelector('.intro-lower-section');
-
-    // Apply scaling to the wrapper
+    
+    // Targeting the intro-section for height adjustment
+    const introSection = document.querySelector('.intro-section');
+    
+    // Apply scaling to the intro-lower-section
     if (introLowerSection) {
         introLowerSection.style.transform = `scale(${scaleFactor})`;
         introLowerSection.style.transformOrigin = 'top left'; // Scale towards the top-left
         introLowerSection.style.transition = 'transform 0.2s ease'; // Smooth scaling transition
+    }
+
+    // Apply height adjustment to the intro-section
+    if (introSection) {
+        const initialHeight = 25; // Initial height in vh (as defined in CSS)
+        const minHeight = 15; // Minimum height in vh
+        const newHeight = Math.max(initialHeight - scrollFraction * 15, minHeight); // Gradually decrease height
+        
+        introSection.style.height = `${newHeight}vh`; // Apply the new height
+
+        // Detect scroll direction and apply different transition times
+        if (scrollTop > lastScrollTop) {
+            // Scrolling down
+            introSection.style.transition = 'height 0s ease'; // Fast transition
+        } else {
+            // Scrolling up
+            introSection.style.transition = 'height 1s ease'; // Slow transition
+        }
+
+        lastScrollTop = scrollTop; // Update the last scroll position
     }
 });
 

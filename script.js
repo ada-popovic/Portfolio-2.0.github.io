@@ -163,53 +163,91 @@ document.addEventListener('DOMContentLoaded', function () {
 
     wrappers.forEach(wrapper => {
         const anchor = wrapper.querySelector('a'); // Get the anchor inside the wrapper
+        const image = wrapper.querySelector('.intro-image'); // Get the image inside the wrapper
 
         // Handle hover interaction for scaling and bringing elements to the front
         anchor.addEventListener('mouseenter', () => {
             wrapper.style.zIndex = '10000'; // Bring the wrapper to the front
-            anchor.style.transform = 'scale(1.5)'; // Scale up the image inside the wrapper
-            anchor.style.transition = 'transform 0.3s ease'; // Smooth scaling transition
+            image.style.transform = 'scale(1.4)'; // Scale up the image to 2x on hover
+            image.style.transition = 'transform 0.3s ease'; // Faster transition for scaling (0.2s)
             anchor.dataset.hovered = 'true'; // Mark the element as hovered
-            console.log('Hovered on:', anchor, 'Scaling up to 1.5x');
+            console.log('Hovered on:', anchor, 'Scaling up to 2x');
         });
 
         anchor.addEventListener('mouseleave', () => {
             wrapper.style.zIndex = ''; // Reset z-index after hover
             anchor.dataset.hovered = 'false'; // Mark the element as no longer hovered
             const scaleFactor = wrapper.dataset.scaleFactor || 1; // Retrieve the scroll-based scale factor
-            anchor.style.transform = `scale(${scaleFactor})`; // Apply scroll scaling after hover ends
-            anchor.style.transition = 'transform 0.3s ease'; // Smooth scaling transition
+            image.style.transform = `scale(${scaleFactor})`; // Apply scroll scaling after hover ends
+            image.style.transition = 'transform 0.3s ease'; // Smooth scaling transition when returning to normal
             console.log('Hover ended on:', anchor, 'Scaling back to', scaleFactor);
         });
     });
 });
 
-// Handle scroll event for scaling
+// Handle scroll event for scaling with transform-origin adjustment
 window.addEventListener('scroll', function () {
-    const elements = document.querySelectorAll('.scroll-minimise');
+    const elements = document.querySelectorAll('.scroll-minimise, .scroll-minimise-text, .scroll-minimise-center');
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const viewportHeight = window.innerHeight;
     const scrollFraction = scrollTop / viewportHeight;
-    const scaleFactor = Math.max(1 - scrollFraction, 0.3); // Scale down, but don't go below 0.3
+
+    // Slower scaling during scroll, don't go below 0.5
+    const scaleFactor = Math.max(1 - scrollFraction * 0.5, 0.5); // Scale down, but don't go below 50%
 
     console.log('Scroll position:', scrollTop, 'Viewport height:', viewportHeight, 'Scale factor:', scaleFactor);
 
     elements.forEach(element => {
         const wrapper = element.closest('.image-wrapper');
+        const image = element.querySelector('.intro-image'); // Get the image inside the wrapper
 
-        if (wrapper) { // Check if the wrapper exists
-            wrapper.dataset.scaleFactor = scaleFactor; // Store the scale factor
+        if (wrapper && image) { // Check if the wrapper and image exist
+            wrapper.dataset.scaleFactor = scaleFactor; // Store the scroll-based scale factor
+
+            // Apply class-specific transform-origin
+            if (element.classList.contains('scroll-minimise')) {
+                image.style.transformOrigin = 'top right';
+            } else if (element.classList.contains('scroll-minimise-text')) {
+                image.style.transformOrigin = 'left top';
+            } else if (element.classList.contains('scroll-minimise-center')) {
+                image.style.transformOrigin = 'top center';
+            }
 
             // Apply scroll scaling only if not hovered
             if (!element.dataset.hovered || element.dataset.hovered === 'false') {
-                element.style.transform = `scale(${scaleFactor})`; // Apply scroll scaling
-                element.style.transition = 'transform 0.3s ease'; // Smooth scaling transition
-                console.log('Applying scroll scaling to:', element, 'Scale factor:', scaleFactor);
+                image.style.transform = `scale(${scaleFactor})`; // Apply scroll scaling
+                image.style.transition = 'transform 0.3s ease'; // Smooth scaling transition
+                console.log('Applying scroll scaling to:', image, 'Scale factor:', scaleFactor);
             }
         } else {
-            console.log('Wrapper is null for element:', element); // Log if no wrapper is found
+            console.log('Wrapper or image is null for element:', element); // Log if no wrapper or image is found
         }
     });
+});
+
+
+
+
+
+
+// Handle scroll event for faster scaling of the wrapper element
+window.addEventListener('scroll', function () {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const viewportHeight = window.innerHeight;
+    
+    // Adjust the scroll fraction for faster scaling
+    const scrollFraction = scrollTop / (viewportHeight * 0.5); // Adjust the 0.5 factor to make scaling faster
+    const scaleFactor = Math.max(1 - scrollFraction, 0.6); // Scale down to 60% at most
+
+    // Targeting the wrapper element
+    const introLowerSection = document.querySelector('.intro-lower-section');
+
+    // Apply scaling to the wrapper
+    if (introLowerSection) {
+        introLowerSection.style.transform = `scale(${scaleFactor})`;
+        introLowerSection.style.transformOrigin = 'top left'; // Scale towards the top-left
+        introLowerSection.style.transition = 'transform 0.2s ease'; // Smooth scaling transition
+    }
 });
 
 

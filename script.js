@@ -63,165 +63,104 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // RANDOM MOVEMENT ANI MATION
 
-document.addEventListener('DOMContentLoaded', function() {
-    const anchors = document.querySelectorAll('.intro-images a');
-    const container = document.querySelector('.intro-gallery');
+document.addEventListener('DOMContentLoaded', function () {
+    const wrappers = document.querySelectorAll('.image-wrapper');
+    const container = document.querySelector('.intro-images');
     const containerWidth = container.clientWidth;
     const containerHeight = container.clientHeight;
 
-    // Speed multiplier for controlling animation speed
-    const speedMultiplier = 0.9; // Change this value to control the speed
-
-    // Shuffle array utility function
-    function shuffle(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-        return array;
-    }
-
-    // Create an array of cell indices
-    const cellIndices = [];
-    for (let i = 0; i < anchors.length; i++) {
-        cellIndices.push(i);
-    }
-    
-    // Shuffle cell indices to randomize placement
-    shuffle(cellIndices);
-
-    // Initial delay before showing the first image
-    const initialDelay = 0; // 2 second delay
-
-    setTimeout(() => {
-        anchors.forEach((anchor, index) => {
-            // Randomize width and height between 100px and 300px
-            const randomSize = Math.floor(Math.random() * 201) + 100; // 100 to 300 inclusive
-            anchor.style.width = `${randomSize}px`;
-            anchor.style.height = `${randomSize}px`;
-
-            // Calculate cell position
-            const maxX = containerWidth - randomSize;
-            const maxY = containerHeight - randomSize;
-            const randomX = Math.floor(Math.random() * (maxX + 1));
-            const randomY = Math.floor(Math.random() * (maxY + 1));
-
-            // Set initial position
-            anchor.style.left = `${randomX}px`;
-            anchor.style.top = `${randomY}px`;
-
-            // Hide elements initially
-            anchor.style.opacity = '0';
-            anchor.style.transform = 'scale(0)';
-
-            // Generate random keyframes for movement within the parent div
-            const keyframesName = `float-${index}`;
-            const keyframes = `
-                @keyframes ${keyframesName} {
-                    0% { transform: translate(0, 0); }
-                    25% { transform: translate(${Math.random() * (maxX / 2) - (maxX / 4)}px, ${Math.random() * (maxY / 2) - (maxY / 4)}px); }
-                    50% { transform: translate(${Math.random() * (maxX / 2) - (maxX / 4)}px, ${Math.random() * (maxY / 2) - (maxY / 4)}px); }
-                    75% { transform: translate(${Math.random() * (maxX / 2) - (maxX / 4)}px, ${Math.random() * (maxY / 2) - (maxY / 4)}px); }
-                    100% { transform: translate(0, 0); }
-                }
-            `;
-            const styleSheet = document.styleSheets[0];
-            styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
-
-            // Randomize animation duration
-            const baseDuration = 10; // Base duration for the animation
-            const duration = (Math.random() * 10 + baseDuration) / speedMultiplier; // Adjust duration by speed multiplier
-            anchor.style.animation = `${keyframesName} ${duration}s infinite alternate ease-in-out`;
-
-            
-            // Animate in with a delay (additional 1 second delay)
-            setTimeout(() => {
-                anchor.style.opacity = '1';
-                anchor.style.transform = 'scale(1)';
-            }, index * 500); // Adjust the delay as needed (500ms here)
-        });
-    }, initialDelay);
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-document.addEventListener('DOMContentLoaded', function () {
-    const wrappers = document.querySelectorAll('.image-wrapper');
-
     wrappers.forEach(wrapper => {
-        const anchor = wrapper.querySelector('a'); // Get the anchor inside the wrapper
-        const image = wrapper.querySelector('.intro-image'); // Get the image inside the wrapper
+        const anchor = wrapper.querySelector('a');
+        const image = wrapper.querySelector('.intro-image');
+        let hoverPaused = false; // Flag to ensure movement stops when hovered
 
-        // Handle hover interaction for scaling and bringing elements to the front
+        // Set initial random positioning within the container
+        function setInitialPosition() {
+            const randomX = Math.random() * (containerWidth - wrapper.offsetWidth);
+            const randomY = Math.random() * (containerHeight - wrapper.offsetHeight);
+            wrapper.style.left = `${randomX}px`;
+            wrapper.style.top = `${randomY}px`;
+        }
+        setInitialPosition();
+
+        // Function for random movement across the full container
+        function randomMovement() {
+            if (!hoverPaused) {  // Only move if not hovered
+                const deltaX = (Math.random() - 0.5) * containerWidth * 0.6; // 60% of container width for larger movement
+                const deltaY = (Math.random() - 0.5) * containerHeight * 0.6; // 60% of container height for larger movement
+
+                const currentX = parseFloat(wrapper.style.left);
+                const currentY = parseFloat(wrapper.style.top);
+
+                // Ensure the movement stays within bounds of the container
+                const newX = Math.max(0, Math.min(containerWidth - wrapper.offsetWidth, currentX + deltaX));
+                const newY = Math.max(0, Math.min(containerHeight - wrapper.offsetHeight, currentY + deltaY));
+
+                wrapper.style.left = `${newX}px`;
+                wrapper.style.top = `${newY}px`;
+
+                // Speed up the movement to make it more noticeable (2 seconds)
+                wrapper.style.transition = 'left 2s ease, top 2s ease';
+            }
+
+            // Continue the movement every 2-4 seconds
+            setTimeout(randomMovement, Math.random() * 1000 + 1000); 
+        }
+
+        // Start the random movement
+        randomMovement();
+
+        // Handle hover interaction to stop movement and scale up the image
         anchor.addEventListener('mouseenter', () => {
-            wrapper.style.zIndex = '10000'; // Bring the wrapper to the front
-            image.style.transform = 'scale(1.4)'; // Scale up the image to 2x on hover
-            image.style.transition = 'transform 0.3s ease'; // Faster transition for scaling (0.2s)
-            anchor.dataset.hovered = 'true'; // Mark the element as hovered
-            console.log('Hovered on:', anchor, 'Scaling up to 2x');
+            hoverPaused = true; // Pause movement when hovered
+            wrapper.style.transition = 'none'; // Stop any movement transition
+            image.style.transform = 'scale(1.3)'; // Scale up the image on hover
+            image.style.transition = 'transform 0.5s ease'; // Smooth scaling transition
+            wrapper.style.zIndex = '10000'; // Bring the wrapper to the front on hover
         });
 
         anchor.addEventListener('mouseleave', () => {
-            wrapper.style.zIndex = ''; // Reset z-index after hover
-            anchor.dataset.hovered = 'false'; // Mark the element as no longer hovered
-            const scaleFactor = wrapper.dataset.scaleFactor || 1; // Retrieve the scroll-based scale factor
-            image.style.transform = `scale(${scaleFactor})`; // Apply scroll scaling after hover ends
+            hoverPaused = false; // Resume movement when hover ends
+            wrapper.style.transition = 'left 3s ease, top 3s ease'; // Resume smooth movement transition
+            image.style.transform = 'scale(1)'; // Return to normal scale
             image.style.transition = 'transform 0.3s ease'; // Smooth scaling transition when returning to normal
-            console.log('Hover ended on:', anchor, 'Scaling back to', scaleFactor);
+            wrapper.style.zIndex = ''; // Reset z-index after hover
         });
     });
-});
 
-// Handle scroll event for scaling with transform-origin adjustment
-window.addEventListener('scroll', function () {
-    const elements = document.querySelectorAll('.scroll-minimise, .scroll-minimise-text, .scroll-minimise-center');
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    const viewportHeight = window.innerHeight;
-    const scrollFraction = scrollTop / viewportHeight;
+    // Handle scroll-based scaling
+    window.addEventListener('scroll', function () {
+        const elements = document.querySelectorAll('.scroll-minimise, .scroll-minimise-text, .scroll-minimise-center');
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const viewportHeight = window.innerHeight;
+        const scrollFraction = scrollTop / viewportHeight;
 
-    // Slower scaling during scroll, don't go below 0.5
-    const scaleFactor = Math.max(1 - scrollFraction * 0.5, 0.5); // Scale down, but don't go below 50%
+        // Slower scaling during scroll, don't go below 0.5
+        const scaleFactor = Math.max(1 - scrollFraction * 0.5, 0.5); // Scale down, but don't go below 50%
 
-    console.log('Scroll position:', scrollTop, 'Viewport height:', viewportHeight, 'Scale factor:', scaleFactor);
+        elements.forEach(element => {
+            const wrapper = element.closest('.image-wrapper');
+            const image = element.querySelector('.intro-image'); // Get the image inside the wrapper
 
-    elements.forEach(element => {
-        const wrapper = element.closest('.image-wrapper');
-        const image = element.querySelector('.intro-image'); // Get the image inside the wrapper
+            if (wrapper && image) { // Check if the wrapper and image exist
+                wrapper.dataset.scaleFactor = scaleFactor; // Store the scroll-based scale factor
 
-        if (wrapper && image) { // Check if the wrapper and image exist
-            wrapper.dataset.scaleFactor = scaleFactor; // Store the scroll-based scale factor
+                // Apply class-specific transform-origin
+                if (element.classList.contains('scroll-minimise')) {
+                    image.style.transformOrigin = 'top right';
+                } else if (element.classList.contains('scroll-minimise-text')) {
+                    image.style.transformOrigin = 'left top';
+                } else if (element.classList.contains('scroll-minimise-center')) {
+                    image.style.transformOrigin = 'top center';
+                }
 
-            // Apply class-specific transform-origin
-            if (element.classList.contains('scroll-minimise')) {
-                image.style.transformOrigin = 'top right';
-            } else if (element.classList.contains('scroll-minimise-text')) {
-                image.style.transformOrigin = 'left top';
-            } else if (element.classList.contains('scroll-minimise-center')) {
-                image.style.transformOrigin = 'top center';
+                // Apply scroll scaling only if not hovered
+                if (!element.dataset.hovered || element.dataset.hovered === 'false') {
+                    image.style.transform = `scale(${scaleFactor})`; // Apply scroll scaling
+                    image.style.transition = 'transform 0.3s ease'; // Smooth scaling transition
+                }
             }
-
-            // Apply scroll scaling only if not hovered
-            if (!element.dataset.hovered || element.dataset.hovered === 'false') {
-                image.style.transform = `scale(${scaleFactor})`; // Apply scroll scaling
-                image.style.transition = 'transform 0.3s ease'; // Smooth scaling transition
-                console.log('Applying scroll scaling to:', image, 'Scale factor:', scaleFactor);
-            }
-        } else {
-            console.log('Wrapper or image is null for element:', element); // Log if no wrapper or image is found
-        }
+        });
     });
 });
 

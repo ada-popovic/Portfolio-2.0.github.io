@@ -225,6 +225,11 @@ a:active {
 
 
 
+
+
+
+
+
 .intro-gallery {
   width: 80vw;
   margin-left: 2vw;
@@ -233,32 +238,40 @@ a:active {
   position: relative;
   z-index: 200;
   margin-bottom: 50px;
-  
 }
 
 .intro-images {
   position: relative;
   width: 100%;
   height: 100%;
-}
-
-
-
-.intro-images a {
-  display: block;
-  position: absolute;
-  opacity: 0; /* Initially invisible */
-  transform: scale(0); /* Initially scaled down */
-  transition: opacity 1s ease-in-out, transform 1s ease-in-out, z-index 0s ease-in-out;
+  background-color: aliceblue;
 }
 
 .image-wrapper {
-  position: absolute; /* Ensures the images stay within bounds */
+  position: absolute;
   z-index: 1; /* Default z-index */
+  animation: float 5s infinite ease-in-out;
 }
 
-.scroll-minimise {
-  transition: transform 0.3s ease; /* Smooth scaling */
+/* Float animation to make them move around */
+@keyframes float {
+  0% { transform: translate(0px, 0px); }
+  25% { transform: translate(10px, -10px); }
+  50% { transform: translate(-10px, 10px); }
+  75% { transform: translate(10px, 10px); }
+  100% { transform: translate(0px, 0px); }
+}
+
+/* Stop movement on hover */
+.image-wrapper:hover {
+  animation-play-state: paused;
+}
+
+.intro-images a {
+  display: block;
+  opacity: 1; /* Initially visible */
+  transform: scale(1); /* Initially scaled down */
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out, z-index 0s ease-in-out;
 }
 
 .intro-images a img {
@@ -266,11 +279,14 @@ a:active {
   height: 200px;
 }
 
-.intro-images a img:hover {
-  transform: scale(1.3);
-  z-index: 9999; /* Bring to front on hover */
+/* Hover effect for scaling */
+.image-wrapper a:hover .intro-image {
+  transform: scale(1.3); /* Scale up the image */
+  z-index: 10000; /* Bring it to the front */
+  transition: transform 0.5s ease; /* Smooth scaling */
 }
 
+/* No need for another hover effect on the image itself */
 .intro-image {
   z-index: 1; /* Default z-index */
   filter: drop-shadow(0px 2px 5px black);

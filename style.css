@@ -677,7 +677,11 @@ a:active {
   font-size: var(--font-2);
   justify-content: space-between;
   transition: opacity 0.5s ease;
-  height: 10vh;
+}
+
+.projects-arrows-spacer {
+  height: 2px;
+  transition: height 0.3s ease;
 }
 
 .projects-list{

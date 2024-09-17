@@ -60,6 +60,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+
+
+
+// SCALING AROUND INTRO IMAGES
+
 let lastScrollTop = 0; // To keep track of the previous scroll position
 
 window.addEventListener('scroll', function () {
@@ -67,7 +72,7 @@ window.addEventListener('scroll', function () {
     const viewportHeight = window.innerHeight;
 
     // Adjust the scroll fraction for scaling
-    const scrollFraction = scrollTop / (viewportHeight * 0.5); // Adjust the 0.5 factor to make scaling faster
+    const scrollFraction = scrollTop / (viewportHeight * 0.3); // Adjust the 0.3 factor to make scaling faster
     const scaleFactor = Math.max(1 - scrollFraction, 0.6); // Scale down to 60% at most
 
     // Targeting the wrapper element for scaling
@@ -75,6 +80,9 @@ window.addEventListener('scroll', function () {
     
     // Targeting the intro-section for height adjustment
     const introSection = document.querySelector('.intro-section');
+
+    // Targeting the projects-arrows-spacer element for height adjustment
+    const projectsArrowsSpacer = document.querySelector('.projects-arrows-spacer');
     
     // Apply scaling to the intro-lower-section
     if (introLowerSection) {
@@ -86,12 +94,12 @@ window.addEventListener('scroll', function () {
     // Apply height adjustment to the intro-section
     if (introSection) {
         const initialHeight = 25; // Initial height in vh (as defined in CSS)
-        const minHeight = 15; // Minimum height in vh
+        const minHeight = 10; // Minimum height in vh
         const newHeight = Math.max(initialHeight - scrollFraction * 15, minHeight); // Gradually decrease height
         
         introSection.style.height = `${newHeight}vh`; // Apply the new height
 
-        // Detect scroll direction and apply different transition times
+        // Detect scroll direction and apply different transition times for the intro-section
         if (scrollTop > lastScrollTop) {
             // Scrolling down
             introSection.style.transition = 'height 0s ease'; // Fast transition
@@ -99,9 +107,28 @@ window.addEventListener('scroll', function () {
             // Scrolling up
             introSection.style.transition = 'height 1s ease'; // Slow transition
         }
-
-        lastScrollTop = scrollTop; // Update the last scroll position
     }
+
+    // Apply height adjustment to the projects-arrows-spacer
+    if (projectsArrowsSpacer) {
+        const initialSpacerHeight = 2; // Initial height in px
+        const maxSpacerHeight = 100; // Maximum height in px when scrolling down (set to 200px)
+        const spacerHeight = Math.min(initialSpacerHeight + scrollFraction * 98, maxSpacerHeight); // Faster growth to 200px
+        
+        projectsArrowsSpacer.style.height = `${spacerHeight}px`; // Apply the new height
+
+        // Apply different transition times based on scroll direction
+        if (scrollTop > lastScrollTop) {
+            // Scrolling down
+            projectsArrowsSpacer.style.transition = 'height 0s ease'; // Fast transition
+        } else {
+            // Scrolling up
+            projectsArrowsSpacer.style.transition = 'height 0s ease'; // Slow transition
+        }
+    }
+
+    // Update last scroll position
+    lastScrollTop = scrollTop;
 });
 
 
@@ -123,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function () {
     wrappers.forEach((wrapper, index) => {
         const anchor = wrapper.querySelector('a');
         const image = wrapper.querySelector('.intro-image');
-        let hoverPaused = false;
+        let hoverPaused = false; // Flag to ensure movement stops when hovered
 
         // Set initial random positioning within the container
         function setInitialPosition() {
@@ -138,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function () {
         function fadeInImage() {
             wrapper.style.opacity = '1';
             wrapper.style.transform = 'scale(1)';
-            wrapper.style.transition = `opacity 0.5s ease, transform 0.5s ease`; // Fades in and scales up smoothly
+            wrapper.style.transition = `opacity 0.8s ease, transform 0.8s ease`; // Fades in and scales up smoothly
         }
 
         // Delay the fade-in for each image
@@ -148,42 +175,43 @@ document.addEventListener('DOMContentLoaded', function () {
         // Function for random movement across the full container
         function randomMovement() {
             if (!hoverPaused) {
-                const deltaX = (Math.random() - 0.5) * containerWidth * 0.6;
-                const deltaY = (Math.random() - 0.5) * containerHeight * 0.6;
+                const deltaX = (Math.random() - 0.5) * containerWidth * 0.6; // 60% of container width for larger movement
+                const deltaY = (Math.random() - 0.5) * containerHeight * 0.6; // 60% of container height for larger movement
 
                 const currentX = parseFloat(wrapper.style.left);
                 const currentY = parseFloat(wrapper.style.top);
 
+                // Ensure the movement stays within bounds of the container
                 const newX = Math.max(0, Math.min(containerWidth - wrapper.offsetWidth, currentX + deltaX));
                 const newY = Math.max(0, Math.min(containerHeight - wrapper.offsetHeight, currentY + deltaY));
 
                 wrapper.style.left = `${newX}px`;
                 wrapper.style.top = `${newY}px`;
 
-                wrapper.style.transition = 'left 6s ease, top 6s ease';
+                wrapper.style.transition = 'left 6s ease, top 6s ease'; // Ensure smooth movement
             }
 
-            setTimeout(randomMovement, Math.random() * 1000 + 1000);
+            setTimeout(randomMovement, Math.random() * 1000 + 1000); 
         }
 
         // Start random movement
         randomMovement();
 
-        // Handle hover to pause movement and scale up
+        // Handle hover to pause movement and scale up smoothly
         anchor.addEventListener('mouseenter', () => {
-            hoverPaused = true;
-            wrapper.style.transition = 'none';
-            image.style.transform = 'scale(1.3)';
-            image.style.transition = 'transform 0.5s ease';
-            wrapper.style.zIndex = '10000';
+            hoverPaused = true; // Pause movement when hovered
+            wrapper.style.transition = 'left 0.6s ease, top 0.6s ease'; // Smoothly stop movement instead of an abrupt stop
+            image.style.transform = 'scale(1.3)'; // Scale up the image on hover
+            image.style.transition = 'transform 0.5s ease'; // Smooth scaling transition
+            wrapper.style.zIndex = '10000'; // Bring the wrapper to the front on hover
         });
 
         anchor.addEventListener('mouseleave', () => {
-            hoverPaused = false;
-            wrapper.style.transition = 'left 3s ease, top 3s ease';
-            image.style.transform = 'scale(1)';
-            image.style.transition = 'transform 0.3s ease';
-            wrapper.style.zIndex = '';
+            hoverPaused = false; // Resume movement when hover ends
+            wrapper.style.transition = 'left 6s ease, top 6s ease'; // Resume smooth movement transition
+            image.style.transform = 'scale(1)'; // Return to normal scale
+            image.style.transition = 'transform 0.3s ease'; // Smooth scaling transition when returning to normal
+            wrapper.style.zIndex = ''; // Reset z-index after hover
         });
     });
 
@@ -194,11 +222,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const viewportHeight = window.innerHeight;
         const scrollFraction = scrollTop / viewportHeight;
 
+        // Slower scaling during scroll, don't go below 0.5
         const scaleFactor = Math.max(1 - scrollFraction * 0.5, 0.5);
 
         elements.forEach(element => {
             const wrapper = element.closest('.image-wrapper');
-            const image = element.querySelector('.intro-image');
+            const image = element.querySelector('.intro-image'); // Get the image inside the wrapper
 
             if (wrapper && image) {
                 wrapper.dataset.scaleFactor = scaleFactor;

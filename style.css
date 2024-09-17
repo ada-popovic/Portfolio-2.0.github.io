@@ -233,7 +233,7 @@ a:active {
 .intro-gallery {
   width: 80vw;
   margin-left: 2vw;
-  height: 35vh;
+  height: 30vh;
   background-color: transparent;
   position: relative;
   z-index: 200;
@@ -244,13 +244,16 @@ a:active {
   position: relative;
   width: 100%;
   height: 100%;
-  background-color: aliceblue;
 }
 
 .image-wrapper {
   position: absolute;
   z-index: 1; /* Default z-index */
   animation: float 5s infinite ease-in-out;
+  opacity: 0; /* Initially hidden */
+  transform: scale(0); /* Initially scaled down */
+  
+  
 }
 
 /* Float animation to make them move around */
@@ -321,11 +324,6 @@ a:active {
   transform-origin: top center;
   transition: transform 0.5s ease-out;
 }
-
-
-
-
-
 
 
 
@@ -925,6 +923,7 @@ a:active {
   position: relative;
   height: 5vh;
   width: 82%;
+  
    /* Ensure this content is above the intro-gallery */
 }
 

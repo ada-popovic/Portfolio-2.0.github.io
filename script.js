@@ -60,116 +60,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-
-// RANDOM MOVEMENT ANI MATION
-
-document.addEventListener('DOMContentLoaded', function () {
-    const wrappers = document.querySelectorAll('.image-wrapper');
-    const container = document.querySelector('.intro-images');
-    const containerWidth = container.clientWidth;
-    const containerHeight = container.clientHeight;
-
-    wrappers.forEach(wrapper => {
-        const anchor = wrapper.querySelector('a');
-        const image = wrapper.querySelector('.intro-image');
-        let hoverPaused = false; // Flag to ensure movement stops when hovered
-
-        // Set initial random positioning within the container
-        function setInitialPosition() {
-            const randomX = Math.random() * (containerWidth - wrapper.offsetWidth);
-            const randomY = Math.random() * (containerHeight - wrapper.offsetHeight);
-            wrapper.style.left = `${randomX}px`;
-            wrapper.style.top = `${randomY}px`;
-        }
-        setInitialPosition();
-
-        // Function for random movement across the full container
-        function randomMovement() {
-            if (!hoverPaused) {  // Only move if not hovered
-                const deltaX = (Math.random() - 0.5) * containerWidth * 0.6; // 60% of container width for larger movement
-                const deltaY = (Math.random() - 0.5) * containerHeight * 0.6; // 60% of container height for larger movement
-
-                const currentX = parseFloat(wrapper.style.left);
-                const currentY = parseFloat(wrapper.style.top);
-
-                // Ensure the movement stays within bounds of the container
-                const newX = Math.max(0, Math.min(containerWidth - wrapper.offsetWidth, currentX + deltaX));
-                const newY = Math.max(0, Math.min(containerHeight - wrapper.offsetHeight, currentY + deltaY));
-
-                wrapper.style.left = `${newX}px`;
-                wrapper.style.top = `${newY}px`;
-
-                // Speed up the movement to make it more noticeable (2 seconds)
-                wrapper.style.transition = 'left 2s ease, top 2s ease';
-            }
-
-            // Continue the movement every 2-4 seconds
-            setTimeout(randomMovement, Math.random() * 1000 + 1000); 
-        }
-
-        // Start the random movement
-        randomMovement();
-
-        // Handle hover interaction to stop movement and scale up the image
-        anchor.addEventListener('mouseenter', () => {
-            hoverPaused = true; // Pause movement when hovered
-            wrapper.style.transition = 'none'; // Stop any movement transition
-            image.style.transform = 'scale(1.3)'; // Scale up the image on hover
-            image.style.transition = 'transform 0.5s ease'; // Smooth scaling transition
-            wrapper.style.zIndex = '10000'; // Bring the wrapper to the front on hover
-        });
-
-        anchor.addEventListener('mouseleave', () => {
-            hoverPaused = false; // Resume movement when hover ends
-            wrapper.style.transition = 'left 3s ease, top 3s ease'; // Resume smooth movement transition
-            image.style.transform = 'scale(1)'; // Return to normal scale
-            image.style.transition = 'transform 0.3s ease'; // Smooth scaling transition when returning to normal
-            wrapper.style.zIndex = ''; // Reset z-index after hover
-        });
-    });
-
-    // Handle scroll-based scaling
-    window.addEventListener('scroll', function () {
-        const elements = document.querySelectorAll('.scroll-minimise, .scroll-minimise-text, .scroll-minimise-center');
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const viewportHeight = window.innerHeight;
-        const scrollFraction = scrollTop / viewportHeight;
-
-        // Slower scaling during scroll, don't go below 0.5
-        const scaleFactor = Math.max(1 - scrollFraction * 0.5, 0.5); // Scale down, but don't go below 50%
-
-        elements.forEach(element => {
-            const wrapper = element.closest('.image-wrapper');
-            const image = element.querySelector('.intro-image'); // Get the image inside the wrapper
-
-            if (wrapper && image) { // Check if the wrapper and image exist
-                wrapper.dataset.scaleFactor = scaleFactor; // Store the scroll-based scale factor
-
-                // Apply class-specific transform-origin
-                if (element.classList.contains('scroll-minimise')) {
-                    image.style.transformOrigin = 'top right';
-                } else if (element.classList.contains('scroll-minimise-text')) {
-                    image.style.transformOrigin = 'left top';
-                } else if (element.classList.contains('scroll-minimise-center')) {
-                    image.style.transformOrigin = 'top center';
-                }
-
-                // Apply scroll scaling only if not hovered
-                if (!element.dataset.hovered || element.dataset.hovered === 'false') {
-                    image.style.transform = `scale(${scaleFactor})`; // Apply scroll scaling
-                    image.style.transition = 'transform 0.3s ease'; // Smooth scaling transition
-                }
-            }
-        });
-    });
-});
-
-
-
-
-
-
-// Handle scroll event for faster scaling of the wrapper element
 window.addEventListener('scroll', function () {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const viewportHeight = window.innerHeight;
@@ -187,6 +77,122 @@ window.addEventListener('scroll', function () {
         introLowerSection.style.transformOrigin = 'top left'; // Scale towards the top-left
         introLowerSection.style.transition = 'transform 0.2s ease'; // Smooth scaling transition
     }
+});
+
+
+
+
+
+
+// RANDOM MOVEMENT ANI MATION
+
+document.addEventListener('DOMContentLoaded', function () {
+    const wrappers = document.querySelectorAll('.image-wrapper');
+    const container = document.querySelector('.intro-images');
+    const containerWidth = container.clientWidth;
+    const containerHeight = container.clientHeight;
+
+    // Set a delay for each image to appear in sequence
+    let fadeInDelay = 0;
+
+    wrappers.forEach((wrapper, index) => {
+        const anchor = wrapper.querySelector('a');
+        const image = wrapper.querySelector('.intro-image');
+        let hoverPaused = false;
+
+        // Set initial random positioning within the container
+        function setInitialPosition() {
+            const randomX = Math.random() * (containerWidth - wrapper.offsetWidth);
+            const randomY = Math.random() * (containerHeight - wrapper.offsetHeight);
+            wrapper.style.left = `${randomX}px`;
+            wrapper.style.top = `${randomY}px`;
+        }
+        setInitialPosition();
+
+        // Function to fade in images in sequence
+        function fadeInImage() {
+            wrapper.style.opacity = '1';
+            wrapper.style.transform = 'scale(1)';
+            wrapper.style.transition = `opacity 0.5s ease, transform 0.5s ease`; // Fades in and scales up smoothly
+        }
+
+        // Delay the fade-in for each image
+        setTimeout(fadeInImage, fadeInDelay * 1000);
+        fadeInDelay += 0.3; // Increment delay for the next image
+
+        // Function for random movement across the full container
+        function randomMovement() {
+            if (!hoverPaused) {
+                const deltaX = (Math.random() - 0.5) * containerWidth * 0.6;
+                const deltaY = (Math.random() - 0.5) * containerHeight * 0.6;
+
+                const currentX = parseFloat(wrapper.style.left);
+                const currentY = parseFloat(wrapper.style.top);
+
+                const newX = Math.max(0, Math.min(containerWidth - wrapper.offsetWidth, currentX + deltaX));
+                const newY = Math.max(0, Math.min(containerHeight - wrapper.offsetHeight, currentY + deltaY));
+
+                wrapper.style.left = `${newX}px`;
+                wrapper.style.top = `${newY}px`;
+
+                wrapper.style.transition = 'left 6s ease, top 6s ease';
+            }
+
+            setTimeout(randomMovement, Math.random() * 1000 + 1000);
+        }
+
+        // Start random movement
+        randomMovement();
+
+        // Handle hover to pause movement and scale up
+        anchor.addEventListener('mouseenter', () => {
+            hoverPaused = true;
+            wrapper.style.transition = 'none';
+            image.style.transform = 'scale(1.3)';
+            image.style.transition = 'transform 0.5s ease';
+            wrapper.style.zIndex = '10000';
+        });
+
+        anchor.addEventListener('mouseleave', () => {
+            hoverPaused = false;
+            wrapper.style.transition = 'left 3s ease, top 3s ease';
+            image.style.transform = 'scale(1)';
+            image.style.transition = 'transform 0.3s ease';
+            wrapper.style.zIndex = '';
+        });
+    });
+
+    // Handle scroll-based scaling
+    window.addEventListener('scroll', function () {
+        const elements = document.querySelectorAll('.scroll-minimise, .scroll-minimise-text, .scroll-minimise-center');
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const viewportHeight = window.innerHeight;
+        const scrollFraction = scrollTop / viewportHeight;
+
+        const scaleFactor = Math.max(1 - scrollFraction * 0.5, 0.5);
+
+        elements.forEach(element => {
+            const wrapper = element.closest('.image-wrapper');
+            const image = element.querySelector('.intro-image');
+
+            if (wrapper && image) {
+                wrapper.dataset.scaleFactor = scaleFactor;
+
+                if (element.classList.contains('scroll-minimise')) {
+                    image.style.transformOrigin = 'top right';
+                } else if (element.classList.contains('scroll-minimise-text')) {
+                    image.style.transformOrigin = 'left top';
+                } else if (element.classList.contains('scroll-minimise-center')) {
+                    image.style.transformOrigin = 'top center';
+                }
+
+                if (!element.dataset.hovered || element.dataset.hovered === 'false') {
+                    image.style.transform = `scale(${scaleFactor})`;
+                    image.style.transition = 'transform 0.6s ease';
+                }
+            }
+        });
+    });
 });
 
 

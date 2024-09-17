@@ -22,8 +22,6 @@ document.addEventListener('scroll', function() {
 
 
 
-
-
 // Function to toggle visibility of the contact-categories-container
 function toggleOpacity(panel) {
     const panelElement = document.querySelector(`.${panel}-categories-container`);
@@ -48,8 +46,6 @@ function toggleOpacity(panel) {
 
 
 
-
-
 // Add a click event listener to each menu button to toggle the 'toggled' class
 document.addEventListener('DOMContentLoaded', function() {
     const menuButtons = document.querySelectorAll('.menu-button');
@@ -65,75 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-
-
-
-
-
-
-window.addEventListener('scroll', function() {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    const viewportHeight = window.innerHeight;
-    const scrollFraction = scrollTop / viewportHeight;
-    const scaleFactor = 1 - scrollFraction; // Adjusting to disappear completely after one viewport height
-
-    const elements = document.querySelectorAll('.scroll-minimise');
-    elements.forEach(element => {
-        element.style.transform = `scale(${Math.max(scaleFactor, 0)})`; // Ensure the scale doesn't go below 0
-    });
-
-    // Change the font size of the .name element gradually
-    const nameElement = document.querySelector('.name');
-    if (nameElement) {
-        const initialFontSize = 40; // Initial font size in px
-        const finalFontSize = 20; // Final font size in px
-        const newFontSize = initialFontSize - (scrollFraction * (initialFontSize - finalFontSize));
-        nameElement.style.fontSize = `${Math.max(newFontSize, finalFontSize)}px`; // Ensure font size doesn't go below finalFontSize
-    }
-});
-
-window.addEventListener('scroll', function() {
-    requestAnimationFrame(() => {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const viewportHeight = window.innerHeight;
-        const maxScroll = document.documentElement.scrollHeight - viewportHeight;
-        const scrollFraction = scrollTop / (maxScroll / 2); // Adjust the fraction to make it happen faster
-
-        // Calculate new height from 40vh to 5vh
-        const initialHeight = 40; // Initial height in vh
-        const finalHeight = 25; // Final height in vh
-        const newHeight = initialHeight - (scrollFraction * (initialHeight - finalHeight));
-
-        const elements = document.querySelectorAll('.scroll-height');
-        elements.forEach(element => {
-            element.style.height = `${Math.max(newHeight, finalHeight)}vh`; // Ensure height doesn't go below finalHeight
-        });
-
-        // Change the font size of the .name element gradually
-        const nameElement = document.querySelector('.name');
-        if (nameElement) {
-            const initialFontSize = 40; // Initial font size in px
-            const finalFontSize = 25; // Final font size in px
-            const newFontSize = initialFontSize - (scrollFraction * (initialFontSize - finalFontSize));
-            nameElement.style.fontSize = `${Math.max(newFontSize, finalFontSize)}px`; // Ensure font size doesn't go below finalFontSize
-        }
-    });
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// RANDOM MOVEMENT ANI MATION
 
 document.addEventListener('DOMContentLoaded', function() {
     const anchors = document.querySelectorAll('.intro-images a');
@@ -205,23 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const duration = (Math.random() * 10 + baseDuration) / speedMultiplier; // Adjust duration by speed multiplier
             anchor.style.animation = `${keyframesName} ${duration}s infinite alternate ease-in-out`;
 
-            // Add hover effect to stop movement, scale up, and bring to front
-            anchor.addEventListener('mouseenter', () => {
-                console.log('Mouse enter:', anchor); // Debug statement
-                anchor.style.animationPlayState = 'paused';
-                anchor.style.transform = `scale(1.5)`;
-                anchor.style.zIndex = 9999; // Bring to front
-            });
-
-            anchor.addEventListener('mouseleave', () => {
-                console.log('Mouse leave:', anchor); // Debug statement
-                anchor.style.animationPlayState = 'running';
-                anchor.style.transform = `scale(1)`;
-                setTimeout(() => {
-                    anchor.style.zIndex = 1; // Reset z-index after the transition
-                }, 300); // Match this timeout to the transition duration
-            });
-
+            
             // Animate in with a delay (additional 1 second delay)
             setTimeout(() => {
                 anchor.style.opacity = '1';
@@ -230,6 +142,134 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, initialDelay);
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const wrappers = document.querySelectorAll('.image-wrapper');
+
+    wrappers.forEach(wrapper => {
+        const anchor = wrapper.querySelector('a'); // Get the anchor inside the wrapper
+
+        // Handle hover interaction for scaling and bringing elements to the front
+        anchor.addEventListener('mouseenter', () => {
+            wrapper.style.zIndex = '10000'; // Bring the wrapper to the front
+            anchor.style.transform = 'scale(1.5)'; // Scale up the image inside the wrapper
+            anchor.style.transition = 'transform 0.3s ease'; // Smooth scaling transition
+            anchor.dataset.hovered = 'true'; // Mark the element as hovered
+            console.log('Hovered on:', anchor, 'Scaling up to 1.5x');
+        });
+
+        anchor.addEventListener('mouseleave', () => {
+            wrapper.style.zIndex = ''; // Reset z-index after hover
+            anchor.dataset.hovered = 'false'; // Mark the element as no longer hovered
+            const scaleFactor = wrapper.dataset.scaleFactor || 1; // Retrieve the scroll-based scale factor
+            anchor.style.transform = `scale(${scaleFactor})`; // Apply scroll scaling after hover ends
+            anchor.style.transition = 'transform 0.3s ease'; // Smooth scaling transition
+            console.log('Hover ended on:', anchor, 'Scaling back to', scaleFactor);
+        });
+    });
+});
+
+// Handle scroll event for scaling
+window.addEventListener('scroll', function () {
+    const elements = document.querySelectorAll('.scroll-minimise');
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const viewportHeight = window.innerHeight;
+    const scrollFraction = scrollTop / viewportHeight;
+    const scaleFactor = Math.max(1 - scrollFraction, 0.3); // Scale down, but don't go below 0.3
+
+    console.log('Scroll position:', scrollTop, 'Viewport height:', viewportHeight, 'Scale factor:', scaleFactor);
+
+    elements.forEach(element => {
+        const wrapper = element.closest('.image-wrapper');
+
+        if (wrapper) { // Check if the wrapper exists
+            wrapper.dataset.scaleFactor = scaleFactor; // Store the scale factor
+
+            // Apply scroll scaling only if not hovered
+            if (!element.dataset.hovered || element.dataset.hovered === 'false') {
+                element.style.transform = `scale(${scaleFactor})`; // Apply scroll scaling
+                element.style.transition = 'transform 0.3s ease'; // Smooth scaling transition
+                console.log('Applying scroll scaling to:', element, 'Scale factor:', scaleFactor);
+            }
+        } else {
+            console.log('Wrapper is null for element:', element); // Log if no wrapper is found
+        }
+    });
+});
+
+
+
+
+
+
+
+// Handle height adjustment on scroll
+window.addEventListener('scroll', function () {
+    requestAnimationFrame(() => {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const viewportHeight = window.innerHeight;
+        const maxScroll = document.documentElement.scrollHeight - viewportHeight;
+        const scrollFraction = scrollTop / (maxScroll / 2); // Adjust fraction to control the speed of shrinking
+
+        // Calculate new height for elements
+        const initialHeight = 40; // Initial height in vh
+        const finalHeight = 25; // Final height in vh
+        const newHeight = initialHeight - (scrollFraction * (initialHeight - finalHeight));
+
+        const elements = document.querySelectorAll('.scroll-height');
+        elements.forEach(element => {
+            element.style.height = `${Math.max(newHeight, finalHeight)}vh`; // Ensure height doesn't go below finalHeight
+        });
+
+        // Handle font size adjustment for '.name' element
+        const nameElement = document.querySelector('.name');
+        if (nameElement) {
+            const initialFontSize = 40; // Initial font size in px
+            const finalFontSize = 25; // Final font size in px
+            const newFontSize = initialFontSize - (scrollFraction * (initialFontSize - finalFontSize));
+            nameElement.style.fontSize = `${Math.max(newFontSize, finalFontSize)}px`; // Scale font size based on scroll
+        }
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

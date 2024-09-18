@@ -175,32 +175,32 @@ document.addEventListener('DOMContentLoaded', function () {
         // Function for random movement across the full container
         function randomMovement() {
             if (!hoverPaused) {
-                const deltaX = (Math.random() - 0.5) * containerWidth * 0.6; // 60% of container width for larger movement
-                const deltaY = (Math.random() - 0.5) * containerHeight * 0.6; // 60% of container height for larger movement
+                const deltaX = (Math.random() - 0.5) * containerWidth * 0.6;
+                const deltaY = (Math.random() - 0.5) * containerHeight * 0.6;
 
                 const currentX = parseFloat(wrapper.style.left);
                 const currentY = parseFloat(wrapper.style.top);
 
-                // Ensure the movement stays within bounds of the container
                 const newX = Math.max(0, Math.min(containerWidth - wrapper.offsetWidth, currentX + deltaX));
                 const newY = Math.max(0, Math.min(containerHeight - wrapper.offsetHeight, currentY + deltaY));
 
                 wrapper.style.left = `${newX}px`;
                 wrapper.style.top = `${newY}px`;
 
-                wrapper.style.transition = 'left 6s ease, top 6s ease'; // Ensure smooth movement
+                wrapper.style.transition = 'left 6s ease, top 6s ease'; // Smooth movement
             }
 
-            setTimeout(randomMovement, Math.random() * 1000 + 1000); 
+            // Continue movement every 2 seconds
+            setTimeout(randomMovement, 2000);
         }
 
         // Start random movement
         randomMovement();
 
-        // Handle hover to pause movement and scale up smoothly
+        // Handle hover to pause movement and scale up
         anchor.addEventListener('mouseenter', () => {
             hoverPaused = true; // Pause movement when hovered
-            wrapper.style.transition = 'left 0.6s ease, top 0.6s ease'; // Smoothly stop movement instead of an abrupt stop
+            wrapper.style.transition = 'none'; // Stop transition for immediate stop
             image.style.transform = 'scale(1.3)'; // Scale up the image on hover
             image.style.transition = 'transform 0.5s ease'; // Smooth scaling transition
             wrapper.style.zIndex = '10000'; // Bring the wrapper to the front on hover
@@ -222,7 +222,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const viewportHeight = window.innerHeight;
         const scrollFraction = scrollTop / viewportHeight;
 
-        // Slower scaling during scroll, don't go below 0.5
         const scaleFactor = Math.max(1 - scrollFraction * 0.5, 0.5);
 
         elements.forEach(element => {

@@ -45,7 +45,6 @@ function toggleOpacity(panel) {
 
 
 
-
 // Add a click event listener to each menu button to toggle the 'toggled' class
 document.addEventListener('DOMContentLoaded', function() {
     const menuButtons = document.querySelectorAll('.menu-button');
@@ -56,7 +55,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-
 
 
 
@@ -151,6 +149,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const anchor = wrapper.querySelector('a');
         const image = wrapper.querySelector('.intro-image');
         let hoverPaused = false; // Flag to ensure movement stops when hovered
+        let currentX, currentY;
 
         // Set initial random positioning within the container
         function setInitialPosition() {
@@ -158,6 +157,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const randomY = Math.random() * (containerHeight - wrapper.offsetHeight);
             wrapper.style.left = `${randomX}px`;
             wrapper.style.top = `${randomY}px`;
+            currentX = randomX;
+            currentY = randomY;
         }
         setInitialPosition();
 
@@ -175,19 +176,16 @@ document.addEventListener('DOMContentLoaded', function () {
         // Function for random movement across the full container
         function randomMovement() {
             if (!hoverPaused) {
-                const deltaX = (Math.random() - 0.5) * containerWidth * 0.6;
-                const deltaY = (Math.random() - 0.5) * containerHeight * 0.6;
+                const deltaX = (Math.random() - 0.5) * containerWidth * 0.3; // Smaller movement
+                const deltaY = (Math.random() - 0.5) * containerHeight * 0.3; // Smaller movement
 
-                const currentX = parseFloat(wrapper.style.left);
-                const currentY = parseFloat(wrapper.style.top);
+                currentX = Math.max(0, Math.min(containerWidth - wrapper.offsetWidth, currentX + deltaX));
+                currentY = Math.max(0, Math.min(containerHeight - wrapper.offsetHeight, currentY + deltaY));
 
-                const newX = Math.max(0, Math.min(containerWidth - wrapper.offsetWidth, currentX + deltaX));
-                const newY = Math.max(0, Math.min(containerHeight - wrapper.offsetHeight, currentY + deltaY));
+                wrapper.style.left = `${currentX}px`;
+                wrapper.style.top = `${currentY}px`;
 
-                wrapper.style.left = `${newX}px`;
-                wrapper.style.top = `${newY}px`;
-
-                wrapper.style.transition = 'left 6s ease, top 6s ease'; // Smooth movement
+                wrapper.style.transition = 'left 5s ease, top 5s ease'; // Smooth and slow movement
             }
 
             // Continue movement every 2 seconds
@@ -200,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Handle hover to pause movement and scale up
         anchor.addEventListener('mouseenter', () => {
             hoverPaused = true; // Pause movement when hovered
-            wrapper.style.transition = 'none'; // Stop transition for immediate stop
+            wrapper.style.transition = 'none'; // Immediately stop transitions
             image.style.transform = 'scale(1.3)'; // Scale up the image on hover
             image.style.transition = 'transform 0.5s ease'; // Smooth scaling transition
             wrapper.style.zIndex = '10000'; // Bring the wrapper to the front on hover
@@ -208,7 +206,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         anchor.addEventListener('mouseleave', () => {
             hoverPaused = false; // Resume movement when hover ends
-            wrapper.style.transition = 'left 6s ease, top 6s ease'; // Resume smooth movement transition
             image.style.transform = 'scale(1)'; // Return to normal scale
             image.style.transition = 'transform 0.3s ease'; // Smooth scaling transition when returning to normal
             wrapper.style.zIndex = ''; // Reset z-index after hover
@@ -287,28 +284,6 @@ window.addEventListener('scroll', function () {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function toggleResearch() {
     const researchProcess = document.querySelector('.research-process');
     const unfolded = researchProcess.querySelector('.unfolded');
@@ -335,7 +310,6 @@ window.addEventListener('scroll', function() {
         linkMap.style.bottom = ''; // Reset to original value if needed
     }
 });
-
 
 
 

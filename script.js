@@ -313,65 +313,74 @@ window.addEventListener('scroll', function() {
 
 
 
+
+
+
 // Function to set --color-1, --color-2, --color-3, and --color-4
-function setColorMode(color1, color2, color3, color4) {
+function setColorMode(color1, color2, color3, color4, activeButton, inactiveButton) {
+    // Set the color variables
     document.documentElement.style.setProperty('--color-1', color1);
     document.documentElement.style.setProperty('--color-2', color2);
     document.documentElement.style.setProperty('--color-3', color3);
     document.documentElement.style.setProperty('--color-4', color4);
     document.body.style.backgroundColor = 'var(--color-1)';
-    // Store the color mode in localStorage
+
+    // Store the active mode and color mode in localStorage
+    localStorage.setItem('activeMode', activeButton.classList.contains('mode-button-dark') ? 'dark' : 'white');
     localStorage.setItem('colorMode', JSON.stringify({ color1, color2, color3, color4 }));
+
+    // Set active button font color to var(--color-2)
+    activeButton.style.color = 'var(--color-2)';
+
+    // Set inactive button font color to var(--color-3)
+    inactiveButton.style.color = 'var(--color-3)';
+
+    // Add hover effect for the inactive button
+    inactiveButton.addEventListener('mouseenter', function () {
+        inactiveButton.style.color = 'var(--color-2)'; // On hover, font color becomes --color-2
+    });
+    inactiveButton.addEventListener('mouseleave', function () {
+        // After hover, revert back to --color-3 if not active
+        if (!inactiveButton.classList.contains('active')) {
+            inactiveButton.style.color = 'var(--color-3)';
+        }
+    });
+
+    // Set the active class on the active button and remove it from the inactive button
+    activeButton.classList.add('active');
+    inactiveButton.classList.remove('active');
 }
 
 // Event listener for the dark mode button
-document.querySelector('.mode-button-dark').addEventListener('click', function() {
-    setColorMode('#050018', '#DEC26E', '#3B336B', 'red'); // Set colors for --color-1, --color-2, --color-3, and --color-4
+const darkModeButton = document.querySelector('.mode-button-dark');
+const whiteModeButton = document.querySelector('.mode-button-white');
+
+darkModeButton.addEventListener('click', function () {
+    setColorMode('#050018', '#DEC26E', '#3B336B', '#FF3D00', darkModeButton, whiteModeButton); // Set colors for dark mode
 });
 
-// Event listener for the white mode button
-document.querySelector('.mode-button-white').addEventListener('click', function() {
-    setColorMode('white', 'black', '#A79B8E', 'green'); // Set colors for --color-1, --color-2, --color-3, and --color-4
+whiteModeButton.addEventListener('click', function () {
+    setColorMode('white', 'black', '#A79B8E', '#14FF00', whiteModeButton, darkModeButton); // Set colors for white mode
 });
 
 // Check localStorage for the user's color preference on page load
 window.addEventListener('DOMContentLoaded', (event) => {
     const storedColor = localStorage.getItem('colorMode');
-    if (storedColor) {
+    const activeMode = localStorage.getItem('activeMode');
+
+    // Initially set both buttons' font color to var(--color-3)
+    darkModeButton.style.color = 'var(--color-3)';
+    whiteModeButton.style.color = 'var(--color-3)';
+
+    if (storedColor && activeMode) {
         const { color1, color2, color3, color4 } = JSON.parse(storedColor);
-        setColorMode(color1, color2, color3, color4); // Apply stored colors if available
-    }
-});
-
-
-
-
-
-
-document.addEventListener('DOMContentLoaded', function () {
-    const projectIntro = document.querySelector('.project-intro');
-    const projectSection = document.querySelector('.project-section');
-    const sectionSeeAlso = document.querySelector('.section-see-also');
-    const introTopOffset = projectIntro.offsetTop; // Initial top offset of the fixed element
-
-    function handleScroll() {
-        const sectionSeeAlsoTop = sectionSeeAlso.getBoundingClientRect().top;
-
-        if (sectionSeeAlsoTop <= introTopOffset + projectIntro.offsetHeight) {
-            // Change to position static when `section-see-also` comes into view
-            projectIntro.style.position = 'absolute';
-            projectIntro.style.top = `${sectionSeeAlsoTop + window.scrollY - projectSection.offsetTop - projectIntro.offsetHeight}px`;
+        if (activeMode === 'dark') {
+            setColorMode(color1, color2, color3, color4, darkModeButton, whiteModeButton);
         } else {
-            // Revert back to fixed position
-            projectIntro.style.position = 'fixed';
-            projectIntro.style.top = `${introTopOffset}px`;
+            setColorMode(color1, color2, color3, color4, whiteModeButton, darkModeButton);
         }
     }
-
-    window.addEventListener('scroll', handleScroll);
 });
-
-
 
 
 
@@ -524,3 +533,72 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
   });
+
+
+
+
+  window.addEventListener('scroll', function () {
+    const nameElements = document.querySelectorAll('.name, .name-regular');
+    if (!nameElements.length) return;
+
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const maxBlur = 10; // Maximum blur value in pixels
+    const viewportHeight = window.innerHeight;
+
+    // Calculate blur based on how far down the user has scrolled
+    const blurValue = Math.min((scrollTop / viewportHeight) * maxBlur, maxBlur);
+
+    // Apply the blur to both the "name" and "name-regular" elements
+    nameElements.forEach(element => {
+        element.style.filter = `blur(${blurValue}px)`;
+        element.style.transition = 'filter 0.3s ease, text-shadow 0.3s ease, color 0.3s ease'; // Smooth transition for blur, text shadow, and font color
+
+        // Remove blur, add text-shadow, and change font color on hover
+        element.addEventListener('mouseenter', () => {
+            element.style.filter = 'blur(0px)'; // Remove blur when hovered
+            element.style.textShadow = 'px 0px 4px black'; // Add text shadow on hover
+            element.style.setProperty('color', 'var(--color-1)'); // Forcefully change font color to var(--color-1) on hover
+        });
+
+        // Restore blur, remove text-shadow, and reset font color on mouse leave
+        element.addEventListener('mouseleave', () => {
+            element.style.filter = `blur(${blurValue}px)`; // Restore blur after hover ends
+            element.style.textShadow = 'none'; // Remove text shadow after hover ends
+            element.style.setProperty('color', ''); // Reset font color to the default value
+        });
+    });
+});
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const projectIntro = document.querySelector('.project-intro');
+    const sectionSeeAlso = document.querySelector('.section-see-also');
+    const projectSection = document.querySelector('.project-section');
+
+    // Store the initial top offset of the project intro
+    const introInitialTopOffset = projectIntro.offsetTop;
+
+    function handleScroll() {
+        const sectionSeeAlsoTop = sectionSeeAlso.getBoundingClientRect().top;
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        // Check if the section-see-also comes into view
+        if (sectionSeeAlsoTop <= projectIntro.offsetHeight) {
+            // When the section-see-also comes into view, set the project-intro to absolute
+            projectIntro.style.position = 'absolute';
+            projectIntro.style.top = `${sectionSeeAlso.offsetTop - projectIntro.offsetHeight}px`;
+        } else {
+            // Keep the project-intro fixed if we are scrolling before the section-see-also
+            projectIntro.style.position = 'fixed';
+            projectIntro.style.top = `${introInitialTopOffset}px`; // Keep it in the initial top position
+        }
+    }
+
+    // Call handleScroll immediately on page load to check the current scroll position
+    handleScroll();
+
+    // Listen for scroll events to adjust the position dynamically
+    window.addEventListener('scroll', handleScroll);
+});
+

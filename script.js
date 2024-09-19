@@ -36,7 +36,7 @@ function toggleOpacity(panel) {
         panelElement.classList.add('visible');
         buttonElement.classList.remove('lose-color');
         buttonElement.classList.add('gain-color');
-        buttonElement.style.backgroundColor = "white";
+        buttonElement.style.backgroundColor = "var(--color-1)";
     }
 }
 
@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Delay the fade-in for each image
         setTimeout(fadeInImage, fadeInDelay * 1000);
-        fadeInDelay += 0.3; // Increment delay for the next image
+        fadeInDelay += 0.2; // Increment delay for the next image
 
         // Function for random movement across the full container
         function randomMovement() {
@@ -313,29 +313,38 @@ window.addEventListener('scroll', function() {
 
 
 
-function setColorMode(color) {
-    document.documentElement.style.setProperty('--color-1', color);
+// Function to set --color-1, --color-2, --color-3, and --color-4
+function setColorMode(color1, color2, color3, color4) {
+    document.documentElement.style.setProperty('--color-1', color1);
+    document.documentElement.style.setProperty('--color-2', color2);
+    document.documentElement.style.setProperty('--color-3', color3);
+    document.documentElement.style.setProperty('--color-4', color4);
     document.body.style.backgroundColor = 'var(--color-1)';
-    localStorage.setItem('colorMode', color);
+    // Store the color mode in localStorage
+    localStorage.setItem('colorMode', JSON.stringify({ color1, color2, color3, color4 }));
 }
 
 // Event listener for the dark mode button
 document.querySelector('.mode-button-dark').addEventListener('click', function() {
-    setColorMode('grey');
+    setColorMode('#050018', '#DEC26E', '#3B336B', 'red'); // Set colors for --color-1, --color-2, --color-3, and --color-4
 });
 
 // Event listener for the white mode button
 document.querySelector('.mode-button-white').addEventListener('click', function() {
-    setColorMode('white');
+    setColorMode('white', 'black', '#A79B8E', 'green'); // Set colors for --color-1, --color-2, --color-3, and --color-4
 });
 
 // Check localStorage for the user's color preference on page load
 window.addEventListener('DOMContentLoaded', (event) => {
     const storedColor = localStorage.getItem('colorMode');
     if (storedColor) {
-        setColorMode(storedColor);
+        const { color1, color2, color3, color4 } = JSON.parse(storedColor);
+        setColorMode(color1, color2, color3, color4); // Apply stored colors if available
     }
 });
+
+
+
 
 
 
@@ -424,15 +433,19 @@ document.addEventListener('DOMContentLoaded', function () {
             // Role button
             if (isActive) {
                 activeRoleClasses.add(projectClass);
+                button.style.backgroundColor = 'var(--color-3)'; // Set background to var(--color-3)
             } else {
                 activeRoleClasses.delete(projectClass);
+                button.style.backgroundColor = ''; // Reset background to default
             }
         } else if (buttonClass.startsWith('f-')) {
             // Form button
             if (isActive) {
                 activeFormClasses.add(projectClass);
+                button.style.backgroundColor = 'var(--color-3)'; // Set background to var(--color-3)
             } else {
                 activeFormClasses.delete(projectClass);
+                button.style.backgroundColor = ''; // Reset background to default
             }
         }
 
@@ -449,7 +462,22 @@ document.addEventListener('DOMContentLoaded', function () {
     buttons.forEach(button => {
         button.addEventListener('click', handleButtonClick);
     });
+
+    // Reset all button background colors on page load (optional)
+    buttons.forEach(button => {
+        button.style.backgroundColor = ''; // Reset to default on load
+    });
 });
+
+
+
+
+
+
+
+
+
+
 
 
 document.addEventListener("DOMContentLoaded", function () {

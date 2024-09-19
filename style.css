@@ -13,6 +13,8 @@
   --color-1: white;
   --color-2: black;
   --color-3: #A79B8E;
+  --color-4: #FFDA6B;
+  --color-5: #050018;
   --camera: 'ABCCameraPlain', sans-serif;
   --font-1: 40px;
   --font-2: 30px;
@@ -181,6 +183,7 @@ a:active {
   position: relative;
   height: 25vh;
   width: 82%;
+  color: var(--color-2);
   /* Ensure this content is above the intro-gallery */
 }
 
@@ -194,7 +197,7 @@ a:active {
 
 .name a {
   text-decoration: none;
-  color: black;
+  color: var(--color-2);
   z-index: 1000;
 }
 
@@ -442,7 +445,7 @@ a:active {
 }
 
 .reads {
-  color: lightgray;
+  color: var(--color-3);
   margin-bottom: 10px;
   text-transform: uppercase;
   text-decoration: none;
@@ -454,7 +457,7 @@ a:active {
 }
 
 .pretend-button {
-  background-color: white;
+  background-color: var(--color-1)e;
   border-radius: 40px;
   border: 1px solid #000;
   padding: 3px;
@@ -471,8 +474,8 @@ a:active {
   border-radius: 40px;
   border: 1px solid #000;
   font-size: var(--font-3);
-  background-color: white;
-  filter: drop-shadow(0px 1px 4px black);
+  background-color: var(--color-1);
+  filter: drop-shadow(0px 1px 4px var(--color-2));
 
 }
 
@@ -485,26 +488,26 @@ a:active {
   width: 100px;
   padding: 3px;
   border-radius: 40px;
-  border: 1px solid #000;
+  border: 1px solid var(--color-2);
   font-size: var(--font-3);
 }
 
 .toggled {
-  background-color: white;
-  border: 1px solid black;
-  filter: drop-shadow(0px 1px 4px black);
+  background-color: var(--color-1);
+  border: 1px solid var(--color-2);
+  filter: drop-shadow(0px 1px 4px var(--color-2));
 }
 
 .contact-categories-container {
   display: flex;
-  background-color: white;
+  background-color: var(--color-1);
   padding: 1px;
   padding-left: 15px;
   padding-right: 15px;
   margin-bottom: 10px;
   margin-right: 10px;
   border-radius: 20px;
-  border: 1px solid #000;
+  border: 1px solid var(--color-2);
   width: 350px;
   justify-content: space-between;
   opacity: 0;
@@ -519,7 +522,7 @@ a:active {
   opacity: 1;
   transform: translateX(0);
   /* Slide in to its original position */
-  filter: drop-shadow(0px 1px 4px black);
+  filter: drop-shadow(0px 1px 4px var(--color-2));
 }
 
 
@@ -539,21 +542,22 @@ a:active {
 
 .mode-categories-container {
   display: flex;
-  background-color: white;
+  background-color: var(--color-1);
   padding: 1px;
   padding-left: 15px;
   padding-right: 15px;
   margin-bottom: 10px;
   border-radius: 20px;
   margin-right: 10px;
-  border: 1px solid #000;
-  width: 430px;
+  border: 1px solid var(--color-2);
+  width: 140px;
   justify-content: space-between;
   opacity: 0;
   transform: translateX(+200%);
   /* Initially position the element off-screen to the left */
   transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
   /* Transition both opacity and transform */
+  color: var(--color-2);
 
 }
 
@@ -561,7 +565,7 @@ a:active {
   opacity: 1;
   transform: translateX(0);
   /* Slide in to its original position */
-  filter: drop-shadow(0px 1px 2px black);
+  filter: drop-shadow(0px 1px 4px var(--color-2));
 }
 
 .link {
@@ -573,6 +577,7 @@ a:active {
   padding: 5px;
   padding-left: 0px;
   padding-right: 0px;
+  text-decoration: underline;
 }
 
 .mode-button:hover {
@@ -594,12 +599,12 @@ a:active {
   display: flex;
   flex-direction: column;
   opacity: 0;
-  background-color: white;
+  background-color: var(--color-1);
   padding-left: 10px;
   padding-right: 10px;
   padding-bottom: 20px;
   border-radius: 20px;
-  border: 1px solid #000;
+  border: 1px solid var(--color-2);
   width: 12vw;
   max-width: 12vw;
   margin-right: 2vw;
@@ -609,6 +614,7 @@ a:active {
   /* Initially position the element off-screen to the left */
   transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
   /* Transition both opacity and transform */
+  color: var(--color-2);
 }
 
 .role-categories-container {
@@ -640,12 +646,12 @@ a:active {
 
 .form-category-button {
   border-radius: 20px;
-  border: 1px solid #000;
+  border: 1px solid var(--color-2);
   padding-right: 7px;
   padding-left: 7px;
   padding-top: 3px;
   padding-bottom: 3px;
-  background-color: white;
+  background-color: var(--color-1);
   margin-bottom: 7px;
   font-size: var(--font-6);
   text-align: center;
@@ -653,19 +659,19 @@ a:active {
 
 .role-category-button {
   border-radius: 20px;
-  border: 1px solid #000;
+  border: 1px solid var(--color-2);
   padding-right: 7px;
   padding-left: 7px;
   padding-top: 3px;
   padding-bottom: 3px;
-  background-color: white;
+  background-color: var(--color-1);
   margin-bottom: 7px;
   font-size: var(--font-6);
   text-align: center;
 }
 
 .selected {
-  background-color: #ddd;
+  background-color: var(--color-1);
   /* Change this color to whatever you prefer for selected state */
 }
 
@@ -673,19 +679,19 @@ a:active {
   opacity: 1;
   transform: translateX(0);
   /* Slide in to its original position */
-  filter: drop-shadow(0px 1px 4px black);
+  filter: drop-shadow(0px 1px 4px var(--color-2));
 }
 
 .link-map {
   font-size: var(--font-3);
   position: fixed;
   display: flex;
-  color: black;
+  color: var(--color-2);
   text-align: center;
   justify-content: center;
   align-items: center;
-  background-color: white;
-  border: 1px solid #000;
+  background-color: var(--color-1);
+  border: 1px solid var(--color-2);
   text-transform: uppercase;
   text-decoration: none;
   width: 13vw;
@@ -694,7 +700,7 @@ a:active {
   right: 2%;
   bottom: 3%;
   z-index: 200;
-  filter: drop-shadow(0px 1px 4px black);
+  filter: drop-shadow(0px 1px 4px var(--color-2));
   transition: bottom 0.5s ease-in-out;
   cursor: not-allowed;
 
@@ -710,6 +716,7 @@ a:active {
   overflow-y: auto;
   padding-left: 2%;
   padding-right: 2%;
+  color: var(--color-2);
 }
 
 .projects-arrows {
@@ -930,7 +937,7 @@ a:active {
   padding: 2px 6px;
   margin-right: 5px;
   margin-bottom: 5px;
-  border: 1px solid #000;
+  border: 1px solid var(--color-2);
   font-size: var(--font-7);
   text-align: center;
 }
@@ -969,6 +976,7 @@ a:active {
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
+  color: var(--color-2);
 }
 
 .top-section {
@@ -998,11 +1006,12 @@ a:active {
   width: 25%;
   justify-content: space-between;
   padding: 5px;
+  color: var(--color-2);
 }
 
 .footer-contact a {
   text-decoration: none;
-  color: black;
+  color: var(--color-2);
 }
 
 .footer-contact a:hover {
@@ -1055,6 +1064,7 @@ a:active {
   position: relative;
   height: 5vh;
   width: 82%;
+  color: var(--color-2);
 
   /* Ensure this content is above the intro-gallery */
 }
@@ -1063,6 +1073,7 @@ a:active {
   width: 40%;
   margin-left: 2%;
   font-size: var(--font-3);
+  color: var(--color-2);
 }
 
 .about-section p {
@@ -1082,7 +1093,7 @@ a:active {
 .cv-button {
   display: inline-block;
   padding: 5px 15px;
-  border: 1px solid black;
+  border: 1px solid var(--color-2);
   border-radius: 20px;
   text-decoration: none;
   color: var(--color-2);
@@ -1090,7 +1101,7 @@ a:active {
 }
 
 .cv-button:hover {
-  background-color: black;
+  background-color: var(--color-2);
   color: var(--color-1);
 }
 
@@ -1152,6 +1163,7 @@ a:active {
   display: flex;
   flex-direction: row;
   position: relative;
+  color: var(--color-2);
 }
 
 .project-intro {
@@ -1207,7 +1219,7 @@ a:active {
 
 .research-process {
   width: 70%;
-  border: 1px solid black;
+  border: 1px solid var(--color-2);
   background-color: var(--color-3);
   padding: 20px;
   margin-left: 0px;
@@ -1272,6 +1284,7 @@ a:active {
   text-align: center;
   margin-left: 2%;
   margin-right: 2%;
+  color: var(--color-2);
 }
 
 .see-also {
@@ -1295,7 +1308,7 @@ a:active {
 }
 
 .related-project-image {
-  border: 1px solid black;
+  border: 1px solid var(--color-2);
   padding: 5px;
   overflow: hidden;
   align-items: center;
@@ -1312,7 +1325,7 @@ a:active {
 
 .related-project-details {
   position: relative;
-  border: 1px solid black;
+  border: 1px solid var(--color-2);
   display: flex;
   justify-content: space-between;
   margin-top: 0px;
@@ -1333,6 +1346,6 @@ a:active {
   text-decoration: none;
   z-index: 1;
   width: auto;
-  filter: drop-shadow(0px 2px 5px black);
+  filter: drop-shadow(0px 2px 5px var(--color-2));
 
 }

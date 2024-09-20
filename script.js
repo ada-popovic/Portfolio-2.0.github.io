@@ -268,6 +268,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 // Handle height adjustment on scroll
+let initialFontSize; // Store initial font size (var(--font-1))
+let finalFontSize;   // Store final font size (var(--font-2))
+
+// Function to get the CSS variable values for font sizes
+function updateFontSizes() {
+    const computedStyle = getComputedStyle(document.documentElement);
+    initialFontSize = parseFloat(computedStyle.getPropertyValue('--font-1')); // Get --font-1
+    finalFontSize = parseFloat(computedStyle.getPropertyValue('--font-2')); // Get --font-2
+}
+
+// Call it initially to set font size values
+updateFontSizes();
+
+// Add a resize event listener to update the font size values dynamically when resizing the browser
+window.addEventListener('resize', updateFontSizes);
+
 window.addEventListener('scroll', function () {
     requestAnimationFrame(() => {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -288,10 +304,9 @@ window.addEventListener('scroll', function () {
         // Handle font size adjustment for '.name' element
         const nameElement = document.querySelector('.name');
         if (nameElement) {
-            const initialFontSize = 40; // Initial font size in px
-            const finalFontSize = 25; // Final font size in px
+            // Calculate the new font size based on scroll
             const newFontSize = initialFontSize - (scrollFraction * (initialFontSize - finalFontSize));
-            nameElement.style.fontSize = `${Math.max(newFontSize, finalFontSize)}px`; // Scale font size based on scroll
+            nameElement.style.fontSize = `${Math.max(newFontSize, finalFontSize)}px`; // Apply new font size
         }
     });
 });
@@ -330,6 +345,16 @@ window.addEventListener('scroll', function() {
 
 
 
+
+
+
+
+
+
+
+
+
+// Function to set color mode
 function setColorMode(color1, color2, color3, color4, activeButton, inactiveButton) {
     // Set the color variables
     document.documentElement.style.setProperty('--color-1', color1);
@@ -339,86 +364,108 @@ function setColorMode(color1, color2, color3, color4, activeButton, inactiveButt
     document.body.style.backgroundColor = 'var(--color-1)';
 
     // Store the active mode and color mode in localStorage
-    localStorage.setItem('activeMode', activeButton.classList.contains('mode-button-dark') ? 'dark' : 'white');
+    localStorage.setItem('activeMode', activeButton.classList.contains('mode-button-dark') || activeButton.classList.contains('mode-button-dark-2') ? 'dark' : 'white');
     localStorage.setItem('colorMode', JSON.stringify({ color1, color2, color3, color4 }));
 
-    // Set active button font color to var(--color-2)
-    activeButton.style.color = 'var(--color-2)';
-
-    // Set inactive button font color to var(--color-3)
-    inactiveButton.style.color = 'var(--color-3)';
-
-    // Add hover effect for the inactive button
-    inactiveButton.addEventListener('mouseenter', function () {
-        inactiveButton.style.color = 'var(--color-2)'; // On hover, font color becomes --color-2
-    });
-    inactiveButton.addEventListener('mouseleave', function () {
-        // After hover, revert back to --color-3 if not active
-        if (!inactiveButton.classList.contains('active')) {
-            inactiveButton.style.color = 'var(--color-3)';
-        }
-    });
-
-    // Set the active class on the active button and remove it from the inactive button
-    activeButton.classList.add('active');
-    inactiveButton.classList.remove('active');
+    // Update button styles
+    updateButtonStyles(activeButton, inactiveButton);
 }
 
-// Function to handle color mode switching for both button sets
-function handleColorModeButtons(darkButton, whiteButton, darkColors, whiteColors) {
-    darkButton.addEventListener('click', function () {
-        setColorMode(darkColors[0], darkColors[1], darkColors[2], darkColors[3], darkButton, whiteButton);
-    });
+// Function to update button styles (for active and inactive buttons)
+function updateButtonStyles(activeButton, inactiveButton) {
+    if (activeButton && inactiveButton) {
+        // Set active button font color to var(--color-2)
+        activeButton.style.color = 'var(--color-2)';
 
-    whiteButton.addEventListener('click', function () {
-        setColorMode(whiteColors[0], whiteColors[1], whiteColors[2], whiteColors[3], whiteButton, darkButton);
-    });
+        // Set inactive button font color to var(--color-3)
+        inactiveButton.style.color = 'var(--color-3)';
+
+        // Add hover effect for the inactive button
+        inactiveButton.addEventListener('mouseenter', function () {
+            inactiveButton.style.color = 'var(--color-2)'; // On hover, font color becomes --color-2
+        });
+        inactiveButton.addEventListener('mouseleave', function () {
+            // After hover, revert back to --color-3 if not active
+            if (!inactiveButton.classList.contains('active')) {
+                inactiveButton.style.color = 'var(--color-3)';
+            }
+        });
+
+        // Set the active class on the active button and remove it from the inactive button
+        activeButton.classList.add('active');
+        inactiveButton.classList.remove('active');
+    }
 }
 
-// Set up event listeners for the first button pair
-const darkModeButton = document.querySelector('.mode-button-dark');
-const whiteModeButton = document.querySelector('.mode-button-white');
-
-handleColorModeButtons(
-    darkModeButton, 
-    whiteModeButton, 
-    ['#050018', '#DEC26E', '#3B336B', '#FF3D00'], 
-    ['white', 'black', '#A79B8E', '#14FF00']
-);
-
-// Set up event listeners for the second button pair
-const darkModeButton2 = document.querySelector('.mode-button-dark-2');
-const whiteModeButton2 = document.querySelector('.mode-button-white-2');
-
-handleColorModeButtons(
-    darkModeButton2, 
-    whiteModeButton2, 
-    ['#050018', '#DEC26E', '#3B336B', '#FF3D00'], // You can customize these colors
-    ['white', 'black', '#A79B8E', '#14FF00'] // You can customize these colors
-);
-
-// Check localStorage for the user's color preference on page load
-window.addEventListener('DOMContentLoaded', (event) => {
+// Function to apply the stored color mode and update button styles
+function applyStoredColorMode() {
     const storedColor = localStorage.getItem('colorMode');
     const activeMode = localStorage.getItem('activeMode');
 
-    // Initially set both buttons' font color to var(--color-3)
-    darkModeButton.style.color = 'var(--color-3)';
-    whiteModeButton.style.color = 'var(--color-3)';
-    darkModeButton2.style.color = 'var(--color-3)';
-    whiteModeButton2.style.color = 'var(--color-3)';
-
     if (storedColor && activeMode) {
         const { color1, color2, color3, color4 } = JSON.parse(storedColor);
+
         if (activeMode === 'dark') {
-            setColorMode(color1, color2, color3, color4, darkModeButton, whiteModeButton);
-            setColorMode(color1, color2, color3, color4, darkModeButton2, whiteModeButton2);
+            // Apply to both button sets if they exist
+            if (darkModeButton && whiteModeButton) {
+                setColorMode(color1, color2, color3, color4, darkModeButton, whiteModeButton);
+            }
+            if (darkModeButton2 && whiteModeButton2) {
+                setColorMode(color1, color2, color3, color4, darkModeButton2, whiteModeButton2);
+            }
         } else {
-            setColorMode(color1, color2, color3, color4, whiteModeButton, darkModeButton);
-            setColorMode(color1, color2, color3, color4, whiteModeButton2, darkModeButton2);
+            if (darkModeButton && whiteModeButton) {
+                setColorMode(color1, color2, color3, color4, whiteModeButton, darkModeButton);
+            }
+            if (darkModeButton2 && whiteModeButton2) {
+                setColorMode(color1, color2, color3, color4, whiteModeButton2, darkModeButton2);
+            }
         }
     }
+}
+
+// First set of buttons (for regular desktop size)
+const darkModeButton = document.querySelector('.mode-button-dark');
+const whiteModeButton = document.querySelector('.mode-button-white');
+
+// Second set of buttons (for resized version)
+const darkModeButton2 = document.querySelector('.mode-button-dark-2');
+const whiteModeButton2 = document.querySelector('.mode-button-white-2');
+
+// Function to safely add event listeners only if buttons exist
+function safelyAttachListeners(darkButton, whiteButton, darkColors, whiteColors) {
+    if (darkButton && whiteButton) {
+        darkButton.addEventListener('click', function () {
+            setColorMode(darkColors[0], darkColors[1], darkColors[2], darkColors[3], darkButton, whiteButton);
+        });
+
+        whiteButton.addEventListener('click', function () {
+            setColorMode(whiteColors[0], whiteColors[1], whiteColors[2], whiteColors[3], whiteButton, darkButton);
+        });
+    }
+}
+
+// Attach event listeners for the first set of buttons
+safelyAttachListeners(darkModeButton, whiteModeButton, ['#050018', '#DEC26E', '#3B336B', '#FF3D00'], ['white', 'black', '#A79B8E', '#14FF00']);
+
+// Attach event listeners for the second set of buttons (if available)
+safelyAttachListeners(darkModeButton2, whiteModeButton2, ['#050018', '#DEC26E', '#3B336B', '#FF3D00'], ['white', 'black', '#A79B8E', '#14FF00']);
+
+// Immediately apply the stored color mode on page load
+window.addEventListener('DOMContentLoaded', (event) => {
+    applyStoredColorMode();
 });
+
+// Reapply the stored mode on resize
+window.addEventListener('resize', function () {
+    applyStoredColorMode();
+});
+
+
+
+
+
+
 
 
 
@@ -641,16 +688,3 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-
-
-window.addEventListener('resize', function () {
-    const color1 = getComputedStyle(document.documentElement).getPropertyValue('--color-1');
-    console.log('Current --color-1:', color1);
-    console.log('Screen width:', window.innerWidth);
-
-    if (window.innerWidth <= 768) {
-        console.log('Expected --color-1: red');
-    } else {
-        console.log('Expected --color-1: white');
-    }
-});

@@ -1098,10 +1098,11 @@ a:active {
 }
 
 .about-section {
-  width: 40%;
+  width: 70vw;
   margin-left: 2%;
   font-size: var(--font-3);
   color: var(--color-2);
+  max-width: 610px;
 }
 
 .about-section p {
@@ -1454,14 +1455,9 @@ a:active {
 @media (max-width: 768px) {
 
   :root {
-    --color-1: white; 
-    --color-2: black; 
-    --color-3: #A79B8E; 
-    --color-4: #FFDA6B; 
-    --color-5: #050018; 
-    --camera: 'ABCCameraPlain', sans-serif !important;
-    --font-1: 35px !important;
-    --font-2: 30px !important;
+
+    --font-1: 30px !important;
+    --font-2: 24px !important;
     --font-3: 18px !important;
     --font-4: 15px !important;
     --font-5: 14px !important;
@@ -1574,7 +1570,7 @@ a:active {
     align-items: flex-end;
     padding-top: 1%;
     margin-top: 4%;
-    margin-right: calc(13vw - (13vw - 130px) / 2 + 5px); 
+    margin-right: calc(13vw - (13vw - 130px) / 2 + 10px); 
   }
   
   .side-menu-container {
@@ -1584,7 +1580,7 @@ a:active {
     height: auto;
     width: 13vw;
     top: 0%;
-    right: 4%;
+    right: 5%;
     padding-top: 1%;
     margin-top: 4%;
   }
@@ -2072,7 +2068,7 @@ a:active {
 @media (max-width: 480px) {
 
   .desktop-only{
-    display: none;
+    display: none one !important; /* Force hiding */
     background-color: red;
 
   }
@@ -2083,7 +2079,7 @@ a:active {
 
 .mini-only {
     display: block !important; /* Force visibility */
-    background-color: pink;
+    background-color: pink !important;
 }
 
 

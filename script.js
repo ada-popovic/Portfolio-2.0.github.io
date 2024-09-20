@@ -40,6 +40,22 @@ function toggleOpacity(panel) {
     }
 }
 
+function toggleOpacity2(panel) {
+    const panelElement = document.querySelector(`.${panel}-categories-container-mobile`);
+    const buttonElement = document.querySelector(`.menu-button.${panel}`);
+  
+    if (panelElement.classList.contains('visible')) {
+        panelElement.classList.remove('visible');
+        buttonElement.classList.remove('gain-color');
+        buttonElement.classList.add('lose-color');
+        buttonElement.style.backgroundColor = "transparent";
+    } else {
+        panelElement.classList.add('visible');
+        buttonElement.classList.remove('lose-color');
+        buttonElement.classList.add('gain-color');
+        buttonElement.style.backgroundColor = "var(--color-1)";
+    }
+}
 
 
 
@@ -314,9 +330,6 @@ window.addEventListener('scroll', function() {
 
 
 
-
-
-// Function to set --color-1, --color-2, --color-3, and --color-4
 function setColorMode(color1, color2, color3, color4, activeButton, inactiveButton) {
     // Set the color variables
     document.documentElement.style.setProperty('--color-1', color1);
@@ -351,17 +364,38 @@ function setColorMode(color1, color2, color3, color4, activeButton, inactiveButt
     inactiveButton.classList.remove('active');
 }
 
-// Event listener for the dark mode button
+// Function to handle color mode switching for both button sets
+function handleColorModeButtons(darkButton, whiteButton, darkColors, whiteColors) {
+    darkButton.addEventListener('click', function () {
+        setColorMode(darkColors[0], darkColors[1], darkColors[2], darkColors[3], darkButton, whiteButton);
+    });
+
+    whiteButton.addEventListener('click', function () {
+        setColorMode(whiteColors[0], whiteColors[1], whiteColors[2], whiteColors[3], whiteButton, darkButton);
+    });
+}
+
+// Set up event listeners for the first button pair
 const darkModeButton = document.querySelector('.mode-button-dark');
 const whiteModeButton = document.querySelector('.mode-button-white');
 
-darkModeButton.addEventListener('click', function () {
-    setColorMode('#050018', '#DEC26E', '#3B336B', '#FF3D00', darkModeButton, whiteModeButton); // Set colors for dark mode
-});
+handleColorModeButtons(
+    darkModeButton, 
+    whiteModeButton, 
+    ['#050018', '#DEC26E', '#3B336B', '#FF3D00'], 
+    ['white', 'black', '#A79B8E', '#14FF00']
+);
 
-whiteModeButton.addEventListener('click', function () {
-    setColorMode('white', 'black', '#A79B8E', '#14FF00', whiteModeButton, darkModeButton); // Set colors for white mode
-});
+// Set up event listeners for the second button pair
+const darkModeButton2 = document.querySelector('.mode-button-dark-2');
+const whiteModeButton2 = document.querySelector('.mode-button-white-2');
+
+handleColorModeButtons(
+    darkModeButton2, 
+    whiteModeButton2, 
+    ['#050018', '#DEC26E', '#3B336B', '#FF3D00'], // You can customize these colors
+    ['white', 'black', '#A79B8E', '#14FF00'] // You can customize these colors
+);
 
 // Check localStorage for the user's color preference on page load
 window.addEventListener('DOMContentLoaded', (event) => {
@@ -371,13 +405,17 @@ window.addEventListener('DOMContentLoaded', (event) => {
     // Initially set both buttons' font color to var(--color-3)
     darkModeButton.style.color = 'var(--color-3)';
     whiteModeButton.style.color = 'var(--color-3)';
+    darkModeButton2.style.color = 'var(--color-3)';
+    whiteModeButton2.style.color = 'var(--color-3)';
 
     if (storedColor && activeMode) {
         const { color1, color2, color3, color4 } = JSON.parse(storedColor);
         if (activeMode === 'dark') {
             setColorMode(color1, color2, color3, color4, darkModeButton, whiteModeButton);
+            setColorMode(color1, color2, color3, color4, darkModeButton2, whiteModeButton2);
         } else {
             setColorMode(color1, color2, color3, color4, whiteModeButton, darkModeButton);
+            setColorMode(color1, color2, color3, color4, whiteModeButton2, darkModeButton2);
         }
     }
 });
@@ -605,51 +643,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+window.addEventListener('resize', function () {
+    const color1 = getComputedStyle(document.documentElement).getPropertyValue('--color-1');
+    console.log('Current --color-1:', color1);
+    console.log('Screen width:', window.innerWidth);
 
-
-
-document.addEventListener('DOMContentLoaded', function () {
-    const mobileOnlyElement = document.querySelector('.mobile-only');
-    
-    if (mobileOnlyElement) {
-        console.log('Mobile-only element detected:', mobileOnlyElement);
+    if (window.innerWidth <= 768) {
+        console.log('Expected --color-1: red');
     } else {
-        console.log('Mobile-only element NOT found.');
-    }
-});
-
-
-document.addEventListener('DOMContentLoaded', function () {
-    function checkMediaQuery() {
-        if (window.matchMedia("(max-width: 768px)").matches) {
-            console.log("Media query matched: viewport is 768px or less");
-        } else {
-            console.log("Media query NOT matched: viewport is larger than 768px");
-        }
-    }
-    
-    // Check media query on load
-    checkMediaQuery();
-    
-    // Check media query on window resize
-    window.addEventListener('resize', checkMediaQuery);
-});
-
-document.addEventListener('DOMContentLoaded', function () {
-    const mobileOnlyElement = document.querySelector('.mobile-only');
-    
-    if (mobileOnlyElement) {
-        const computedStyles = window.getComputedStyle(mobileOnlyElement);
-        console.log('Computed styles for mobile-only:', computedStyles);
-    }
-});
-
-
-document.addEventListener('DOMContentLoaded', function () {
-    const mobileOnlyElement = document.querySelector('.mobile-only');
-    
-    if (mobileOnlyElement) {
-        const displayStyle = window.getComputedStyle(mobileOnlyElement).display;
-        console.log('Display style for mobile-only:', displayStyle);
+        console.log('Expected --color-1: white');
     }
 });

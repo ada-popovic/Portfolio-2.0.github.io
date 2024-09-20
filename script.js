@@ -602,3 +602,54 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('scroll', handleScroll);
 });
 
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const mobileOnlyElement = document.querySelector('.mobile-only');
+    
+    if (mobileOnlyElement) {
+        console.log('Mobile-only element detected:', mobileOnlyElement);
+    } else {
+        console.log('Mobile-only element NOT found.');
+    }
+});
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    function checkMediaQuery() {
+        if (window.matchMedia("(max-width: 768px)").matches) {
+            console.log("Media query matched: viewport is 768px or less");
+        } else {
+            console.log("Media query NOT matched: viewport is larger than 768px");
+        }
+    }
+    
+    // Check media query on load
+    checkMediaQuery();
+    
+    // Check media query on window resize
+    window.addEventListener('resize', checkMediaQuery);
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const mobileOnlyElement = document.querySelector('.mobile-only');
+    
+    if (mobileOnlyElement) {
+        const computedStyles = window.getComputedStyle(mobileOnlyElement);
+        console.log('Computed styles for mobile-only:', computedStyles);
+    }
+});
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const mobileOnlyElement = document.querySelector('.mobile-only');
+    
+    if (mobileOnlyElement) {
+        const displayStyle = window.getComputedStyle(mobileOnlyElement).display;
+        console.log('Display style for mobile-only:', displayStyle);
+    }
+});

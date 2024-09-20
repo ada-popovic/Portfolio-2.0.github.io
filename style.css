@@ -166,7 +166,7 @@ h3 {
 */
 
 .desktop-only{
-  display: static;
+  display: block;
 }
 
 .mobile-only{
@@ -1033,15 +1033,19 @@ a:active {
   display: flex;
   position: absolute;
   bottom: 0;
-  width: 25%;
+  min-width: 25%;
+  max-width: 50%;
   justify-content: space-between;
   padding: 5px;
   color: var(--color-2);
+  gap: 5px;
 }
 
 .footer-contact a {
   text-decoration: none;
   color: var(--color-2);
+  padding-right: 5px;
+  
 }
 
 .footer-contact a:hover {
@@ -1052,7 +1056,8 @@ a:active {
   display: flex;
   position: absolute;
   bottom: 0;
-  width: 30%;
+  min-width: 30%;
+  max-width: 50%;
   padding: 5px;
   text-align: right;
   justify-content: flex-end;
@@ -1384,34 +1389,11 @@ a:active {
 }
 
 .related-projects {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Four columns */
+  gap: 20px; /* Increase gap between grid items */
   width: 100%;
-}
-
-.related-project {
-  width: 23%;
-  text-align: center;
-  align-items: center;
-  position: relative;
-  /* Add this to make positioning of the link relative to this container */
-}
-
-.related-project-image {
-  border: 1px solid var(--color-2);
-  padding: 5px;
-  overflow: hidden;
-  align-items: center;
-  position: relative;
-  height: 200px;
-  /* Add this to make positioning of the link relative to this container */
-}
-
-.related-project-image img {
-  height: 200px;
-  display: block;
-  margin: 0 auto;
-  /* Center the image horizontally */
+  overflow: hidden; /* Hide any overflowed items */
 }
 
 .related-project-details {
@@ -1419,33 +1401,50 @@ a:active {
   border: 1px solid var(--color-2);
   display: flex;
   justify-content: space-between;
+  width: auto;
   margin-top: 0px;
   padding: 10px;
   margin-top: -1px;
 }
 
+.related-project {
+  text-align: center;
+  align-items: center;
+  position: relative; /* Make the parent div relative to position the link */
+}
+
+.related-project-image {
+  border: 1px solid var(--color-2);
+  overflow: hidden;
+  align-items: center;
+  position: relative;
+  height: 200px;
+}
+
 .related-project-link {
   position: absolute;
-  top: 50%;
+  top: 50%; 
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); /* Center the link */
   background-color: var(--color-3);
-  padding: 10px;
-  padding-left: 50px;
-  padding-right: 50px;
+  padding: 10px 50px;
   border-radius: 60px;
   text-decoration: none;
   z-index: 1;
-  width: auto;
   filter: drop-shadow(0px 2px 5px var(--color-2));
   font-size: var(--font-2);
-
 }
 
 .related-project-link:hover {
   background-color: var(--color-2);
   cursor: pointer;
   filter: drop-shadow(0px 0px 10px var(--color-1));
+}
+
+.related-project-image img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
 }
 
 
@@ -1468,7 +1467,6 @@ a:active {
 
   .desktop-only{
     display: none;
-    background-color: red;
   }
   
   .mobile-only {
@@ -1477,7 +1475,6 @@ a:active {
   
   .mini-only{
     display: none;
-    background-color: pink;
   }
   
 
@@ -1517,32 +1514,32 @@ a:active {
     padding: 2%;
     display: block;
     position: relative;
-    height: 35vh;
+    height: 33vh;
     width: 75%;
   }
 
   .name {
-    font-size: var(--font-1);
   }
 
   .main-page-intro {
-    font-size: var(--font-2);
     max-width: 90%;
   }
 
   .tell-me-more {
-    font-size: var(--font-2);
     max-width: 60%;
   }
 
   .intro-gallery {
     height: 42vh;
+    width: 96vw;
+    background-color: azure;
   }
 
   .intro-images a {
-    transform: scale(0.7);
+    display: none;
 
   }
+
 
 
 
@@ -1561,9 +1558,9 @@ a:active {
   .extra-menu {
     display: flex;
     position: fixed;
-    z-index: 285;
+    z-index: -50;
     height: auto;
-    width: 30%;
+    width: 1%;
     top: 0%;
     flex-direction: column;
     justify-content: flex-start;
@@ -1571,6 +1568,7 @@ a:active {
     padding-top: 1%;
     margin-top: 4%;
     margin-right: calc(13vw - (13vw - 130px) / 2 + 10px); 
+
   }
   
   .side-menu-container {
@@ -1778,11 +1776,11 @@ a:active {
     font-size: var(--font-4);
     text-transform: uppercase;
     text-align: center;
-    margin-top: 15px;
+    margin-top: 10px;
     margin-bottom: 10px;
   }
   
-  .filter-categories-container {
+  .filter-categories-container-mobile {
     margin-top: 5px;
     display: flex;
     flex-direction: column;
@@ -1790,13 +1788,11 @@ a:active {
     background-color: var(--color-1);
     padding-left: 10px;
     padding-right: 10px;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
     border-radius: 20px;
     border: 1px solid var(--color-2);
-    width: 12vw;
-    max-width: 12vw;
-    margin-right: 2vw;
-    margin-left: 2vw;
+    width: 180px;
+    margin-right: 10px;
     justify-content: space-between;
     transform: translateX(+200%);
     /* Initially position the element off-screen to the left */
@@ -1880,7 +1876,7 @@ a:active {
     filter: drop-shadow(0px 1px 4px var(--color-2));
   }
   
-  .link-map {
+  .link-map-mobile {
     font-size: var(--font-4);
     position: fixed;
     display: flex;
@@ -1905,6 +1901,71 @@ a:active {
   }
 
   /* PROJECTS SECTION */
+
+  .projects-section {
+    display: block;
+    position: relative;
+    height: auto;
+    width: 76vw;
+    z-index: 0;
+    overflow-y: auto;
+    padding-left: 2%;
+    padding-right: 2%;
+    color: var(--color-2);
+  }
+  
+
+  .projects-arrows {
+    display: flex;
+    height: auto;
+    margin-bottom: 10px;
+    font-size: var(--font-2);
+    justify-content: space-between;
+    transition: opacity 0.5s ease;
+  }
+  
+  .projects-arrows-spacer {
+    height: 2px;
+    transition: height 0.3s ease;
+  }
+
+
+  .projects-list {
+    display: block;
+  }
+  
+  .project-container {
+    margin-bottom: 20PX;
+    opacity: 1;
+    /* Fully visible by default */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    /* Smooth transition for opacity and transform */
+    transform: translateY(0);
+    /* Initial position */
+    margin-bottom: 10px;
+  }
+  
+  .project-container.hidden {
+    opacity: 0;
+    /* Fully transparent */
+    transform: translateY(20px);
+    /* Slide down effect when hiding */
+    pointer-events: none;
+    /* Prevent interaction when hidden */
+  }
+  
+  .project-images {
+    border: 1px solid #000;
+    border-radius: 5px;
+    display: flex;
+    overflow-x: auto;
+    padding: 30px;
+    scrollbar-width: none;
+    margin-bottom: 10px;
+  
+  
+  }
+
  
 
   .project-section-mobile {
@@ -1931,8 +1992,143 @@ a:active {
 
 
   .project-images img {
-    max-height: 100px;
+    max-height: 150px;
   }
+
+  .project-description {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: auto;
+    padding-bottom: 0px;
+  }
+  
+
+
+
+  .top-project-description {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start; /* Align items to the top */
+  }
+  
+  .project-title-and-year {
+    align-items: left;
+  }
+
+  .view-project-container {
+    margin-top: 10px;
+    text-align: right;
+    margin-bottom: 10px;
+  }
+
+  .view-project {
+    color: var(--color-2);
+    text-decoration: none;
+    font-size: var(--font-3);
+    text-align: end;
+  }
+  
+  .view-project:hover {
+    text-decoration: underline;
+  }
+
+
+
+
+  
+  .project-mini-description-mobile {
+    font-size: var(--font-5);
+    margin-right: 5px;
+  
+  }
+  
+  .home-project-title {
+    margin: 0;
+    font-size: var(--font-2);
+  }
+  
+  .project-year {
+    font-size: var(--font-6);
+    color: var(--color-2);
+    margin-top: 0;
+    margin-left: 5px;
+  }
+  
+  .project-other-details {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .description-right {
+    margin-top: 1px;
+    display: flex;
+    flex-direction: row;
+    gap:0px;
+    max-width: 100%;
+    align-items: flex-start; /* Align items to the top/left */
+    justify-content: flex-start;
+  }
+  
+  .role-categories,
+  .format-categories {
+    display: flex;
+    flex-wrap: wrap; /* This will wrap items to the next line within their container if necessary */
+    gap: 1px; /* Add space between categories */
+    word-wrap: break-word; /* Ensure text breaks into the next line if needed */
+    overflow: hidden; /* Prevent overflow of content */
+    width: auto;
+  }
+
+  .role-categories {
+padding-right: 20px;
+  }
+  
+  
+  .category {
+    border: 1px solid black;
+    padding: 2px 6px;
+    border-radius: 15px;
+    margin-bottom: 2px;
+    border: 1px solid var(--color-2);
+    font-size: var(--font-7);
+    text-align: center;
+  }
+  
+  .description-left-mobile {
+    max-width: 100%;
+    margin-top: 5px;
+  }
+  
+  .format-category {
+    border-radius: 3px;
+  }
+  
+  .role-category {
+    border-radius: 20px;
+  }
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   .project-description {
     margin-left: 5px;
@@ -2023,36 +2219,79 @@ a:active {
 
 
 
-
-
   .section-see-also {
+    padding-top: 200px;
+    text-align: center;
+    margin-left: 2%;
+    margin-right: 2%;
+    color: var(--color-2);
     width: 96vw;
   }
-
+  
   .see-also {
-    margin-bottom: 10px;
+    text-align: center;
+    font-size: var(--font-2);
+    margin-bottom: 60px;
   }
-
-
+  
+  .related-projects {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Four columns */
+    gap: 20px; /* Increase gap between grid items */
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .related-project-details {
+    position: relative;
+    border: 1px solid var(--color-2);
+    display: flex;
+    justify-content: space-between;
+    width: auto;
+    margin-top: 0px;
+    padding: 10px;
+    margin-top: -1px;
+  }
+  
   .related-project {
-    max-width: 32%;
-    text-align: left;
-    /* Add this to make positioning of the link relative to this container */
+    text-align: center;
+    align-items: center;
+    position: relative; /* Make the parent div relative to position the link */
   }
-
+  
   .related-project-image {
-    height: 150px;
-    /* Add this to make positioning of the link relative to this container */
+    border: 1px solid var(--color-2);
+    overflow: hidden;
+    align-items: center;
+    position: relative;
+    height: 200px;
   }
-
+  
   .related-project-link {
-    top: 35%;
+    position: absolute;
+    top: 50%; 
     left: 50%;
-    font-size: var(--font-3);
-
+    transform: translate(-50%, -50%); /* Center the link */
+    background-color: var(--color-3);
+    padding: 10px 50px;
+    border-radius: 60px;
+    text-decoration: none;
+    z-index: 1;
+    filter: drop-shadow(0px 2px 5px var(--color-2));
+    font-size: var(--font-2);
   }
-
-}
+  
+  .related-project-link:hover {
+    background-color: var(--color-2);
+    cursor: pointer;
+    filter: drop-shadow(0px 0px 10px var(--color-1));
+  }
+  
+  .related-project-image img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
 
 
 

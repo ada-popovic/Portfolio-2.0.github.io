@@ -1,3 +1,9 @@
+//window.onbeforeunload = function () {
+    //window.scrollTo(0, 0);
+//};
+
+
+
 // Function to adjust the opacity of the projects-arrows element based on scroll position
 document.addEventListener('scroll', function() {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -342,6 +348,19 @@ window.addEventListener('scroll', function() {
     }
 });
 
+
+window.addEventListener('scroll', function() {
+    const linkMap = document.querySelector('.link-map-mobile');
+    const scrollPosition = window.scrollY + window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+
+    // Check if the user has scrolled to 99% of the document
+    if (scrollPosition >= documentHeight * 0.95) {
+        linkMap.style.bottom = '11%';
+    } else {
+        linkMap.style.bottom = ''; // Reset to original value if needed
+    }
+});
 
 
 
@@ -688,3 +707,37 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Select all instances of .project-other-details
+    const projectDetails = document.querySelectorAll('.project-other-details');
+
+    projectDetails.forEach(details => {
+        const descriptionRight = details.querySelector('.description-right');
+        const roleCategories = descriptionRight.querySelector('.role-categories');
+        const formatCategories = descriptionRight.querySelector('.format-categories');
+        
+        if (roleCategories && formatCategories) {
+            // Function to calculate and apply flex-direction based on width
+            const applyFlexDirection = () => {
+                const descriptionWidth = descriptionRight.offsetWidth; // Get width of description-right
+                const roleWidth = roleCategories.scrollWidth; // Get width of role-categories
+                const formatWidth = formatCategories.scrollWidth; // Get width of format-categories
+                const totalWidth = roleWidth + formatWidth + 15; // Add the gap between them (15px)
+
+                // If the total width of role + format exceeds the container width, switch to column
+                if (totalWidth > descriptionWidth) {
+                    descriptionRight.style.flexDirection = 'column';
+                } else {
+                    descriptionRight.style.flexDirection = 'row';
+                }
+            };
+
+            // Call the function on page load and resize
+            applyFlexDirection(); // Initial check
+            window.addEventListener('resize', applyFlexDirection); // Recheck on resize
+        }
+    });
+});

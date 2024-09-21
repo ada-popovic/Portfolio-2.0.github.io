@@ -1421,6 +1421,7 @@ class="project-container pf-publication pr-designer">
 
   <!-- START OF MINI -->
   <div class="mini-only">
+    <div class="blur-container"></div>
 
     <div class="intro-section-mini">
       <div class="name"><a href="index.html">Ada Popowicz</a></div>
@@ -1443,33 +1444,52 @@ class="project-container pf-publication pr-designer">
 
 
   
-    <div class="menu-mini">
-      <div class="top-menu-mini">
-        <div class="menu-button active-menu-mini"><a href="index.html">Work</a></div>
-        <div class="menu-button"><a href="about.html" class="link-about">About</a></div>
-        <div class="menu-button">Contact</div>
-        <div class="menu-button"><a href="reads.html" class="link-reads">Reads</a></div>
-        <div class="menu-button">Mode</div>
-        <div class="menu-button">Filter</div>
-      </div>
-    
-      <div class="bottom-menu-mini">
-        <div class="bottom-menu-container bottom-menu-contact">
-          <a href="mailto:person@adapopowicz.com" target="_blank" class="link link-email">Email</a>
-          <a href="https://www.instagram.com/adapopowicz/" target="_blank" class="link link-instagram">Instagram</a>
-          <a href="https://www.linkedin.com/in/ada-popowicz-614aa9209/" target="_blank" class=" link link-linkedin">LinkedIn</a>
-          <a href="https://www.are.na/ada-popowicz" target="_blank" class="link link-arena">Are.na</a>
-        </div>
-        <div class="bottom-menu-container bottom-menu-mode">
-          <div class="mode-button mode-button-dark-2">🌚 4AM</div>
-          <div class="mode-button mode-button-white-2">🌞 14:00</div>
-        </div>
-        <div class="bottom-menu-container bottom-menu-filter">
-          <div class="mode-button mode-button-dark-2">ROLE</div>
-          <div class="mode-button mode-button-white-2">FORM</div>
-        </div>
-      </div>
+<div class="menu-mini">
+  <div class="top-menu-mini">
+    <div class="menu-button-mini active-menu-mini"><a href="index.html">Work</a></div>
+    <div class="menu-button-mini"><a href="about.html" class="link-about">About</a></div>
+    <div class="menu-button-mini" onclick="toggleMenu('contact')">Contact</div>
+    <div class="menu-button-mini"><a href="reads.html" class="link-reads">Reads</a></div>
+    <div class="menu-button-mini" onclick="toggleMenu('mode')">Mode</div>
+    <div class="menu-button-mini" onclick="toggleMenu('filter')">Filter</div>
+  </div>
+
+  <div class="bottom-menu-mini">
+    <div class="bottom-menu-container bottom-menu-contact">
+      <a href="mailto:person@adapopowicz.com" target="_blank" class="link link-email">Email</a>
+      <a href="https://www.instagram.com/adapopowicz/" target="_blank" class="link link-instagram">Instagram</a>
+      <a href="https://www.linkedin.com/in/ada-popowicz-614aa9209/" target="_blank" class="link link-linkedin">LinkedIn</a>
+      <a href="https://www.are.na/ada-popowicz" target="_blank" class="link link-arena">Are.na</a>
     </div>
+    <div class="bottom-menu-container bottom-menu-mode">
+      <div class="mode-button mode-button-dark-3">🌚 4AM</div>
+      <div class="mode-button mode-button-white-3">🌞 14:00</div>
+    </div>
+    <div class="bottom-menu-container bottom-menu-filter">
+
+      <div class="role-categories-container-mini">
+        <div class="filter-category-title-mini">Role</div>
+          <div class="role-category-button r-designer">Designer</div>
+          <div class="role-category-button r-researcher">Researcher</div>
+          <div class="role-category-button r-developer">Developer</div>
+          <div class="role-category-button r-writer">Writer</div>
+          <div class="role-category-button r-organiser">Organiser</div>
+      </div>
+
+      
+      <div class="form-categories-container-mini">
+        <div class="filter-category-title-mini">Form</div>
+          <div class="form-category-button f-identity">Identity</div>
+          <div class="form-category-button f-poster">Poster</div>
+          <div class="form-category-button f-academic">Academic</div>
+          <div class="form-category-button f-publication">Publication</div>
+          <div class="form-category-button f-event">Event</div>
+          <div class="form-category-button f-podcast">Podcast</div>
+
+        </div>
+    </div>
+  </div>
+</div>
 
     
 

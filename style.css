@@ -2509,7 +2509,30 @@ padding-right: 20px;
 }
 
 
+.blur-container {
+  background-color: rgba(255, 255, 255, 0.28); /* Semi-transparent background */
+  backdrop-filter: blur(20px); /* Apply blur to the background */
+  -webkit-backdrop-filter: blur(20px); /* Safari support */
+  position: fixed; /* Fixed at the top */
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  height: 100px;
+  width: 100vw;
+  z-index: 800;
+  overflow: hidden; /* Ensure the gradient doesn't go outside the container */
+}
 
+.blur-container::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 20px; /* Adjust the height of the gradient fade */
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0)); /* Gradient from semi-transparent to fully transparent */
+}
 
 
 
@@ -2523,6 +2546,8 @@ padding-right: 20px;
     width: 92vw;
     padding: 0%;
     margin-bottom: 20px;
+    color: var(--color-2);
+    z-index: 1000;
   }
 
   .name {
@@ -2530,6 +2555,10 @@ padding-right: 20px;
     position: fixed;
     top: 20px;
     /* Adjusted top position to prevent overlap */
+    z-index: 1000;
+  }
+
+  .intro-lower-section-mini {
     z-index: 1000;
   }
   
@@ -2560,8 +2589,7 @@ padding-right: 20px;
   font-size: var(--font-5);
   position: sticky;
   top: 60px; /* Adjust according to the height of the name element */
-  background-color: green;
-  height:200px;
+  height:80px;
   z-index: 1000;
   margin-left: 4%;
   margin-right: 4%;
@@ -2570,12 +2598,11 @@ padding-right: 20px;
 
 .top-menu-mini {
   display: flex;
-  background-color: pink;
   gap: 5px;
 }
 
 
-.menu-button {
+.menu-button-mini {
   text-align: center;
   color: var(--color-2);
   margin-bottom: 10px;
@@ -2587,32 +2614,59 @@ padding-right: 20px;
   border: 1px solid rgba(0, 0, 0, 0.0);
   font-size: var(--font-5);
   transition: background-color 0.1s ease-in-out;
-  background-color: yellow;
 }
 
-.menu-button.lose-color {
-  transition: background-color 0.8s ease-in-out;
-  /* Duration for losing color */
-}
-
-.menu-button a {
+.menu-button-mini a {
   color: var(--color-2);
   text-decoration: none;
 }
 
-/* Hide bottom sections by default */
-.bottom-menu-container {
-  display: none; /* Initially hidden */
+.menu-button-mini:hover {
+  color: var(--color-2);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  text-decoration: none;
+  width: 100px;
+  padding: 3px;
+  border-radius: 40px;
+  border: 1px solid var(--color-2);
+  font-size: var(--font-5);
+  background-color: var(--color-1);
 }
+
+.active-menu-mini {
+  background-color: var(--color-1);
+  border: 1px solid var(--color-2);
+  filter: drop-shadow(0px 1px 4px var(--color-2));
+  background-color: var(--color-1);
+}
+
+.bottom-menu-container {
+  display: none;
+}
+
+.bottom-menu-container a {
+  text-decoration: none;
+  color: var(--color-2);
+}
+
 
 .bottom-menu-container.active {
-  display: block; /* Shown when active */
+  font-size: var(--font-5);
+  display: block;
+  display: flex;
+  background-color: var(--color-1);
+  filter: drop-shadow(0px 1px 4px var(--color-2));
+  border: 1px solid var(--color-2);
+  justify-content: space-between;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 20px;
 }
 
-.menu-button.active {
-  background-color: lightblue; /* Different style for active buttons */
+.link:hover {
+  text-decoration: underline;
 }
-
 
 /* MOVING GALLERY */
 

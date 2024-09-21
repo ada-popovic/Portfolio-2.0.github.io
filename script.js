@@ -408,7 +408,7 @@ function setColorMode(color1, color2, color3, color4, activeButton, inactiveButt
     document.body.style.backgroundColor = 'var(--color-1)';
 
     // Store the active mode and color mode in localStorage
-    localStorage.setItem('activeMode', activeButton.classList.contains('mode-button-dark') || activeButton.classList.contains('mode-button-dark-2') ? 'dark' : 'white');
+    localStorage.setItem('activeMode', activeButton.classList.contains('mode-button-dark') || activeButton.classList.contains('mode-button-dark-2') || activeButton.classList.contains('mode-button-dark-3') ? 'dark' : 'white');
     localStorage.setItem('colorMode', JSON.stringify({ color1, color2, color3, color4 }));
 
     // Update button styles
@@ -450,12 +450,15 @@ function applyStoredColorMode() {
         const { color1, color2, color3, color4 } = JSON.parse(storedColor);
 
         if (activeMode === 'dark') {
-            // Apply to both button sets if they exist
+            // Apply to all button sets if they exist
             if (darkModeButton && whiteModeButton) {
                 setColorMode(color1, color2, color3, color4, darkModeButton, whiteModeButton);
             }
             if (darkModeButton2 && whiteModeButton2) {
                 setColorMode(color1, color2, color3, color4, darkModeButton2, whiteModeButton2);
+            }
+            if (darkModeButton3 && whiteModeButton3) {
+                setColorMode(color1, color2, color3, color4, darkModeButton3, whiteModeButton3);
             }
         } else {
             if (darkModeButton && whiteModeButton) {
@@ -464,17 +467,24 @@ function applyStoredColorMode() {
             if (darkModeButton2 && whiteModeButton2) {
                 setColorMode(color1, color2, color3, color4, whiteModeButton2, darkModeButton2);
             }
+            if (darkModeButton3 && whiteModeButton3) {
+                setColorMode(color1, color2, color3, color4, whiteModeButton3, darkModeButton3);
+            }
         }
     }
 }
 
-// First set of buttons (for regular desktop size)
+// First set of buttons (for desktop size)
 const darkModeButton = document.querySelector('.mode-button-dark');
 const whiteModeButton = document.querySelector('.mode-button-white');
 
-// Second set of buttons (for resized version)
+// Second set of buttons (for tablet size)
 const darkModeButton2 = document.querySelector('.mode-button-dark-2');
 const whiteModeButton2 = document.querySelector('.mode-button-white-2');
+
+// Third set of buttons (for mobile size)
+const darkModeButton3 = document.querySelector('.mode-button-dark-3');
+const whiteModeButton3 = document.querySelector('.mode-button-white-3');
 
 // Function to safely add event listeners only if buttons exist
 function safelyAttachListeners(darkButton, whiteButton, darkColors, whiteColors) {
@@ -489,11 +499,14 @@ function safelyAttachListeners(darkButton, whiteButton, darkColors, whiteColors)
     }
 }
 
-// Attach event listeners for the first set of buttons
+// Attach event listeners for the first set of buttons (desktop)
 safelyAttachListeners(darkModeButton, whiteModeButton, ['#050018', '#DEC26E', '#3B336B', '#FF3D00'], ['white', 'black', '#A79B8E', '#14FF00']);
 
-// Attach event listeners for the second set of buttons (if available)
+// Attach event listeners for the second set of buttons (tablet)
 safelyAttachListeners(darkModeButton2, whiteModeButton2, ['#050018', '#DEC26E', '#3B336B', '#FF3D00'], ['white', 'black', '#A79B8E', '#14FF00']);
+
+// Attach event listeners for the third set of buttons (mobile)
+safelyAttachListeners(darkModeButton3, whiteModeButton3, ['#050018', '#DEC26E', '#3B336B', '#FF3D00'], ['white', 'black', '#A79B8E', '#14FF00']);
 
 // Immediately apply the stored color mode on page load
 window.addEventListener('DOMContentLoaded', (event) => {
@@ -774,52 +787,29 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-// Select all menu buttons and the corresponding bottom menu sections
-const contactButton = document.querySelector('.menu-button:nth-child(3)');
-const modeButton = document.querySelector('.menu-button:nth-child(5)');
-const filterButton = document.querySelector('.menu-button:nth-child(6)');
 
-const contactMenu = document.querySelector('.bottom-menu-contact');
-const modeMenu = document.querySelector('.bottom-menu-mode');
-const filterMenu = document.querySelector('.bottom-menu-filter');
-
-// Function to hide all bottom sections
-function hideAllMenus() {
-  contactMenu.classList.remove('active');
-  modeMenu.classList.remove('active');
-  filterMenu.classList.remove('active');
-}
-
-// Function to remove active class from all buttons
-function removeActiveButton() {
-  contactButton.classList.remove('active');
-  modeButton.classList.remove('active');
-  filterButton.classList.remove('active');
-}
-
-// Add click event listeners to the buttons
-contactButton.addEventListener('click', function () {
-  // Hide all other sections and remove active class from other buttons
-  hideAllMenus();
-  removeActiveButton();
+function toggleMenu(menuType) {
+    // Get all bottom menu containers
+    const menus = document.querySelectorAll('.bottom-menu-container');
   
-  // Toggle the contact menu visibility
-  contactMenu.classList.toggle('active');
-  contactButton.classList.toggle('active');
-});
-
-modeButton.addEventListener('click', function () {
-  hideAllMenus();
-  removeActiveButton();
+    // Determine which section to toggle
+    let menuToShow;
+    if (menuType === 'contact') {
+      menuToShow = document.querySelector('.bottom-menu-contact');
+    } else if (menuType === 'mode') {
+      menuToShow = document.querySelector('.bottom-menu-mode');
+    } else if (menuType === 'filter') {
+      menuToShow = document.querySelector('.bottom-menu-filter');
+    }
   
-  modeMenu.classList.toggle('active');
-  modeButton.classList.toggle('active');
-});
-
-filterButton.addEventListener('click', function () {
-  hideAllMenus();
-  removeActiveButton();
+    // If the clicked menu is already open (has 'active' class), close it
+    if (menuToShow.classList.contains('active')) {
+      menuToShow.classList.remove('active');
+    } else {
+      // First, close all other open menus
+      menus.forEach(menu => menu.classList.remove('active'));
   
-  filterMenu.classList.toggle('active');
-  filterButton.classList.toggle('active');
-});
+      // Then, open the clicked menu
+      menuToShow.classList.add('active');
+    }
+  }

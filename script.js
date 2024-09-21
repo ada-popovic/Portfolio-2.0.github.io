@@ -4,7 +4,7 @@
 
 
 
-// Function to adjust the opacity of the projects-arrows element based on scroll position
+// Function to adjust the opacity of the projects-arrows or projects-arrows-mobile element based on scroll position
 document.addEventListener('scroll', function() {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const windowHeight = window.innerHeight || document.documentElement.clientHeight;
@@ -17,11 +17,18 @@ document.addEventListener('scroll', function() {
     const disappearRate = 10; // Adjust this value to make the element disappear faster or slower
     scrollPercentage *= disappearRate;
     
-    // Get the projects-arrows element
+    // Get the projects-arrows and projects-arrows-mobile elements
     const projectsArrows = document.querySelector('.projects-arrows');
+    const projectsArrowsMobile = document.querySelector('.projects-arrows-mobile');
     
-    // Ensure opacity is between 0 and 1
-    projectsArrows.style.opacity = Math.max(0, 1 - scrollPercentage);
+    // Ensure opacity is between 0 and 1 for both elements (if they exist)
+    if (projectsArrows) {
+        projectsArrows.style.opacity = Math.max(0, 1 - scrollPercentage);
+    }
+
+    if (projectsArrowsMobile) {
+        projectsArrowsMobile.style.opacity = Math.max(0, 1 - scrollPercentage);
+    }
 });
 
 
@@ -356,11 +363,29 @@ window.addEventListener('scroll', function() {
 
     // Check if the user has scrolled to 99% of the document
     if (scrollPosition >= documentHeight * 0.95) {
-        linkMap.style.bottom = '11%';
+        linkMap.style.bottom = '6%';
     } else {
         linkMap.style.bottom = ''; // Reset to original value if needed
     }
 });
+
+window.addEventListener('scroll', function() {
+    const linkMap = document.querySelector('.link-map-mini');
+    const scrollPosition = window.scrollY + window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+
+    // Check if the user has scrolled to 99% of the document
+    if (scrollPosition >= documentHeight * 0.95) {
+        linkMap.style.bottom = '7%';
+    } else {
+        linkMap.style.bottom = ''; // Reset to original value if needed
+    }
+});
+
+
+
+
+
 
 
 
@@ -740,4 +765,61 @@ document.addEventListener('DOMContentLoaded', function () {
             window.addEventListener('resize', applyFlexDirection); // Recheck on resize
         }
     });
+});
+
+
+
+
+
+
+
+
+// Select all menu buttons and the corresponding bottom menu sections
+const contactButton = document.querySelector('.menu-button:nth-child(3)');
+const modeButton = document.querySelector('.menu-button:nth-child(5)');
+const filterButton = document.querySelector('.menu-button:nth-child(6)');
+
+const contactMenu = document.querySelector('.bottom-menu-contact');
+const modeMenu = document.querySelector('.bottom-menu-mode');
+const filterMenu = document.querySelector('.bottom-menu-filter');
+
+// Function to hide all bottom sections
+function hideAllMenus() {
+  contactMenu.classList.remove('active');
+  modeMenu.classList.remove('active');
+  filterMenu.classList.remove('active');
+}
+
+// Function to remove active class from all buttons
+function removeActiveButton() {
+  contactButton.classList.remove('active');
+  modeButton.classList.remove('active');
+  filterButton.classList.remove('active');
+}
+
+// Add click event listeners to the buttons
+contactButton.addEventListener('click', function () {
+  // Hide all other sections and remove active class from other buttons
+  hideAllMenus();
+  removeActiveButton();
+  
+  // Toggle the contact menu visibility
+  contactMenu.classList.toggle('active');
+  contactButton.classList.toggle('active');
+});
+
+modeButton.addEventListener('click', function () {
+  hideAllMenus();
+  removeActiveButton();
+  
+  modeMenu.classList.toggle('active');
+  modeButton.classList.toggle('active');
+});
+
+filterButton.addEventListener('click', function () {
+  hideAllMenus();
+  removeActiveButton();
+  
+  filterMenu.classList.toggle('active');
+  filterButton.classList.toggle('active');
 });

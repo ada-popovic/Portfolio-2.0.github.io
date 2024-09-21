@@ -789,9 +789,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 function toggleMenu(menuType) {
-    // Get all bottom menu containers
-    const menus = document.querySelectorAll('.bottom-menu-container');
-  
     // Determine which section to toggle
     let menuToShow;
     if (menuType === 'contact') {
@@ -806,10 +803,55 @@ function toggleMenu(menuType) {
     if (menuToShow.classList.contains('active')) {
       menuToShow.classList.remove('active');
     } else {
-      // First, close all other open menus
-      menus.forEach(menu => menu.classList.remove('active'));
-  
-      // Then, open the clicked menu
+      // Otherwise, just open it (without closing other menus)
       menuToShow.classList.add('active');
     }
+  
+    // Call the function to toggle the active state of the button
+    toggleButtonClass(menuType);
   }
+  
+  function toggleButtonClass(menuType) {
+    // Determine which button to toggle based on the menuType
+    let buttonToToggle;
+  
+    if (menuType === 'contact') {
+      buttonToToggle = document.querySelector('.menu-button-mini-contact');
+    } else if (menuType === 'mode') {
+      buttonToToggle = document.querySelector('.menu-button-mini-mode');
+    } else if (menuType === 'filter') {
+      buttonToToggle = document.querySelector('.menu-button-mini-filter');
+    }
+  
+    // Toggle the 'active-menu-mini' class on the clicked button
+    if (buttonToToggle.classList.contains('active-menu-mini')) {
+      buttonToToggle.classList.remove('active-menu-mini');
+    } else {
+      buttonToToggle.classList.add('active-menu-mini');
+    }
+  }
+
+
+
+
+
+  window.addEventListener('scroll', function() {
+    // Get the menu-mini element
+    const menuMini = document.querySelector('.menu-mini-main');
+  
+    // Get the total scrollable height of the page
+    const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+  
+    // Get the current scroll position
+    const currentScroll = window.scrollY;
+  
+    // Calculate the opacity based on the scroll position with a faster increase (factor of 3)
+    let opacity = (currentScroll / scrollableHeight) * 15; // Adjust factor for faster change
+  
+    // Ensure the opacity is between 0 and 1
+    if (opacity > 1) opacity = 1;
+    if (opacity < 0) opacity = 0;
+  
+    // Apply the opacity to the menu-mini element
+    menuMini.style.opacity = opacity;
+  });

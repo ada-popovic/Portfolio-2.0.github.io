@@ -55,6 +55,8 @@ body {
 
 
 
+
+
 /* Define custom fonts 
 
 In this code:
@@ -1210,6 +1212,9 @@ padding-right: 20px;
 
 
 /* PROJECT PAGE SECTION */
+.project-italic {
+  font-style: italic;
+}
 
 
 

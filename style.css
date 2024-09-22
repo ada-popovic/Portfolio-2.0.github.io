@@ -105,8 +105,8 @@ In this code:
 
 @font-face {
   font-family: 'ABCCameraPlain';
-  src: url('./fonts/ABCCameraPlainEdu-Bold.woff2') format('woff2'),
-    url('./fonts/ABCCameraPlainEdu-Bold.woff') format('woff');
+  src: url('../fonts/ABCCameraPlainEdu-Bold.woff2') format('woff2'),
+    url('../fonts/ABCCameraPlainEdu-Bold.woff') format('woff');
   font-weight: 700;
   font-style: normal;
 }

@@ -73,80 +73,80 @@ In this code:
 
 @font-face {
   font-family: 'ABCCameraPlain';
-  src: url('fonts/ABCCameraPlainEdu-Regular.woff2') format('woff2'),
-    url('fonts/ABCCameraPlainEdu-Regular.woff') format('woff');
+  src: url('./fonts/ABCCameraPlainEdu-Regular.woff2') format('woff2'),
+    url('./fonts/ABCCameraPlainEdu-Regular.woff') format('woff');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'ABCCameraPlain';
-  src: url('fonts/ABCCameraPlainEdu-RegularItalic.woff2') format('woff2'),
-    url('fonts/ABCCameraPlainEdu-RegularItalic.woff') format('woff');
+  src: url('./fonts/ABCCameraPlainEdu-RegularItalic.woff2') format('woff2'),
+    url('./fonts/ABCCameraPlainEdu-RegularItalic.woff') format('woff');
   font-weight: 400;
   font-style: italic;
 }
 
 @font-face {
   font-family: 'ABCCameraPlain';
-  src: url('fonts/ABCCameraPlainEdu-Medium.woff2') format('woff2'),
-    url('fonts/ABCCameraPlainEdu-Medium.woff') format('woff');
+  src: url('./fonts/ABCCameraPlainEdu-Medium.woff2') format('woff2'),
+    url('./fonts/ABCCameraPlainEdu-Medium.woff') format('woff');
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'ABCCameraPlain';
-  src: url('fonts/ABCCameraPlainEdu-MediumItalic.woff2') format('woff2'),
-    url('fonts/ABCCameraPlainEdu-MediumItalic.woff') format('woff');
+  src: url('./fonts/ABCCameraPlainEdu-MediumItalic.woff2') format('woff2'),
+    url('./fonts/ABCCameraPlainEdu-MediumItalic.woff') format('woff');
   font-weight: 500;
   font-style: italic;
 }
 
 @font-face {
   font-family: 'ABCCameraPlain';
-  src: url('fonts/ABCCameraPlainEdu-Bold.woff2') format('woff2'),
-    url('fonts/ABCCameraPlainEdu-Bold.woff') format('woff');
+  src: url('./fonts/ABCCameraPlainEdu-Bold.woff2') format('woff2'),
+    url('./fonts/ABCCameraPlainEdu-Bold.woff') format('woff');
   font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'ABCCameraPlain';
-  src: url('fonts/ABCCameraPlainEdu-BoldItalic.woff2') format('woff2'),
-    url('fonts/ABCCameraPlainEdu-BoldItalic.woff') format('woff');
+  src: url('./fonts/ABCCameraPlainEdu-BoldItalic.woff2') format('woff2'),
+    url('./fonts/ABCCameraPlainEdu-BoldItalic.woff') format('woff');
   font-weight: 700;
   font-style: italic;
 }
 
 @font-face {
   font-family: 'ABCCameraPlain';
-  src: url('fonts/ABCCameraPlainEdu-Heavy.woff2') format('woff2'),
-    url('fonts/ABCCameraPlainEdu-Heavy.woff') format('woff');
+  src: url('./fonts/ABCCameraPlainEdu-Heavy.woff2') format('woff2'),
+    url('./fonts/ABCCameraPlainEdu-Heavy.woff') format('woff');
   font-weight: 800;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'ABCCameraPlain';
-  src: url('fonts/ABCCameraPlainEdu-HeavyItalic.woff2') format('woff2'),
-    url('fonts/ABCCameraPlainEdu-HeavyItalic.woff') format('woff');
+  src: url('./fonts/ABCCameraPlainEdu-HeavyItalic.woff2') format('woff2'),
+    url('./fonts/ABCCameraPlainEdu-HeavyItalic.woff') format('woff');
   font-weight: 800;
   font-style: italic;
 }
 
 @font-face {
   font-family: 'ABCCameraPlain';
-  src: url('fonts/ABCCameraPlainEdu-Black.woff2') format('woff2'),
-    url('fonts/ABCCameraPlainEdu-Black.woff') format('woff');
+  src: url('./fonts/ABCCameraPlainEdu-Black.woff2') format('woff2'),
+    url('./fonts/ABCCameraPlainEdu-Black.woff') format('woff');
   font-weight: 900;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'ABCCameraPlain';
-  src: url('fonts/ABCCameraPlainEdu-BlackItalic.woff2') format('woff2'),
-    url('fonts/ABCCameraPlainEdu-BlackItalic.woff') format('woff');
+  src: url('./fonts/ABCCameraPlainEdu-BlackItalic.woff2') format('woff2'),
+    url('./fonts/ABCCameraPlainEdu-BlackItalic.woff') format('woff');
   font-weight: 900;
   font-style: italic;
 }

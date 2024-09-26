@@ -10,7 +10,7 @@
 }
 
 :root {
-  --color-1: white;
+  --color-1: #E8E7E4;
   --color-2: black;
   --color-3: #A79B8E;
   --color-4: #FFDA6B;
@@ -217,6 +217,8 @@ a:active {
 
 .name a:hover {
   color: var(--color-4);
+  filter: drop-shadow(0px 2px 5px black);
+
 
 }
 
@@ -492,7 +494,7 @@ a:active {
   width: 100px;
   padding: 3px;
   border-radius: 40px;
-  border: 1px solid #000;
+  border: 1px solid var(--color-2);
   font-size: var(--font-3);
   background-color: var(--color-1);
   filter: drop-shadow(0px 1px 4px var(--color-2));
@@ -621,15 +623,13 @@ a:active {
   flex-direction: column;
   opacity: 0;
   background-color: var(--color-1);
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-bottom: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 10px;
   border-radius: 20px;
   border: 1px solid var(--color-2);
-  width: 12vw;
-  max-width: 12vw;
-  margin-right: 2vw;
-  margin-left: 2vw;
+  width: 200px;
+  margin-right: 10px;
   justify-content: space-between;
   transform: translateX(+200%);
   /* Initially position the element off-screen to the left */
@@ -785,6 +785,11 @@ a:active {
   margin-bottom: 10px;
 }
 
+.project-container a{
+  text-decoration: none;
+  color: var(--color-2);
+}
+
 .project-container.hidden {
   opacity: 0;
   /* Fully transparent */
@@ -912,6 +917,18 @@ a:active {
   flex-direction: column;
   justify-content: space-between;
   height: auto;
+  position: relative; /* Make the parent element positioned relative */
+}
+
+.project-clickable-overlay {
+  background-color: pink;
+  height: 100%; /* Set to 100% to match the parent's height */
+  width: 100%;
+  position: absolute;
+  top: 0; /* Make it start at the top of the parent */
+  left: 0; /* Align it to the left of the parent */
+  z-index: 1000;
+  opacity: 0;
 }
 
 .project-other-details {
@@ -934,6 +951,7 @@ a:active {
 .project-mini-description {
   font-size: var(--font-5);
   margin-right: 5px;
+  max-width: 500px;
 
 }
 
@@ -1175,6 +1193,7 @@ padding-right: 20px;
 .event {
   display: flex;
   margin-bottom: 10px;
+  gap: 10px;
 }
 
 
@@ -1245,6 +1264,7 @@ padding-right: 20px;
 
 .name-regular a:hover {
   color: var(--color-4);
+  filter: drop-shadow(0px 2px 5px black);
 
 }
 
@@ -1287,8 +1307,8 @@ padding-right: 20px;
 
 
 .project-details {
-  width: 40vw;
-  margin-left: 41vw;
+  width: 38vw;
+  margin-left: 43vw;
 }
 
 .gallery {
@@ -1583,10 +1603,12 @@ video {
 
   .main-page-intro {
     max-width: 90%;
+    font-size: var(--font-3);
   }
 
   .tell-me-more {
     max-width: 60%;
+    font-size: var(--font-3);
   }
 
   .intro-gallery {
@@ -2060,6 +2082,8 @@ video {
     height: auto;
     padding-bottom: 0px;
   }
+
+
   
 
 
@@ -2515,15 +2539,13 @@ padding-right: 20px;
 
 
 .blur-container {
-  background: linear-gradient(to bottom, var(--color-1) 20%, rgba(var(--color-1), 0) 100%);
-  backdrop-filter: blur(3px); /* Apply blur to the background */
-  -webkit-backdrop-filter: blur(2px); /* For Safari support */
+  background: linear-gradient(to bottom, var(--color-1) 50%, transparent 100%);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   display: flex;
-  height: 25px;
+  height: 10vh;
   width: 100vw;
   z-index: 800;
   overflow: hidden;
@@ -2536,7 +2558,7 @@ padding-right: 20px;
     margin-right: 4%;
     display: block;
     position: relative;
-    height: auto;
+    height: 5vh;
     width: 92vw;
     padding: 0%;
     margin-bottom: 20px;
@@ -2544,37 +2566,39 @@ padding-right: 20px;
     z-index: 1000;
   }
 
-  .name {
+  .name-mini {
     font-size: var(--font-1);
-    position: fixed;
+    position: relative;
     top: 20px;
     /* Adjusted top position to prevent overlap */
     z-index: 1000;
   }
 
+.name-mini a {
+  text-decoration: none;
+  color: var(--color-2);
+  z-index: 1000;
+}
+
   .intro-lower-section-mini {
     z-index: 1000;
   }
-  
-  .name a {
-    text-decoration: none;
-    color: var(--color-2);
-    z-index: 1000;
-  }
-  
-  .name a:hover {
-    color: var(--color-4);
-  
-  }
+
 
   .main-page-intro {
-    max-width: 90%;
+    max-width: 95%;
+    margin-top: 35px;
+    height: auto;
   }
 
   .tell-me-more {
     max-width: 60%;
   }
 
+  .tell-me-more-container {
+    margin-top: 15px;
+    max-width: 30%;
+  }
   
 
 /* MENU MINI */
@@ -2592,7 +2616,8 @@ padding-right: 20px;
 
 .menu-mini-main{
   opacity: 0; /* Start fully transparent */
-  transition: opacity 0.3s ease; /* Optional smooth transition */
+  transition: opacity 0.5s ease; /* Optional smooth transition */
+  height: 30px;
 
 }
 
@@ -2600,8 +2625,6 @@ padding-right: 20px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: var(--color-3);
-  border: 1px solid rgba(0, 0, 0, 1);
   margin-bottom: 10px;
   border-radius: 40px;
   gap: 5px;
@@ -2667,6 +2690,11 @@ padding-right: 20px;
   background-color: var(--color-1);
 }
 
+.bottom-menu-mode {
+  display: none;
+  max-width: 50%;
+}
+
 .bottom-menu-container a {
   text-decoration: none;
   color: var(--color-2);
@@ -2686,6 +2714,8 @@ padding-right: 20px;
  
 }
 
+
+
 .link:hover {
   text-decoration: underline;
 }
@@ -2697,6 +2727,8 @@ padding-right: 20px;
   gap: 5px;
   color: var(--color-2);
 }
+
+
 
 .role-category-title-mini{
   height: auto;
@@ -2748,12 +2780,20 @@ padding-right: 20px;
 
 
 .intro-gallery {
-  height: 42vh;
+  height: 40vh;
   width: 96vw;
+  margin-top: 170px;
 }
 
-.intro-images a {
+.intro-images{
+  height: 100%;
+
+
+}
+
+.intro-images a{
   display: none;
+
 
 }
 
@@ -2812,6 +2852,7 @@ padding-right: 20px;
   padding-left: 4%;
   padding-right: 4%;
   color: var(--color-2);
+  margin-top: 50px;
 }
 
 

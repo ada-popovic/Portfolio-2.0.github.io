@@ -1,6 +1,6 @@
-//window.onbeforeunload = function () {
-    //window.scrollTo(0, 0);
-//};
+window.onbeforeunload = function () {
+    window.scrollTo(0, 0);
+};
 
 
 
@@ -99,8 +99,8 @@ window.addEventListener('scroll', function () {
     const viewportHeight = window.innerHeight;
 
     // Adjust the scroll fraction for scaling
-    const scrollFraction = scrollTop / (viewportHeight * 0.3); // Adjust the 0.3 factor to make scaling faster
-    const scaleFactor = Math.max(1 - scrollFraction, 0.6); // Scale down to 60% at most
+    const scrollFraction = scrollTop / (viewportHeight * 0.8); // Adjust the 0.3 factor to make scaling faster
+    const scaleFactor = Math.max(1 - scrollFraction, 0.4); // Scale down to 60% at most
 
     // Targeting the wrapper element for scaling
     const introLowerSection = document.querySelector('.intro-lower-section');
@@ -115,14 +115,14 @@ window.addEventListener('scroll', function () {
     if (introLowerSection) {
         introLowerSection.style.transform = `scale(${scaleFactor})`;
         introLowerSection.style.transformOrigin = 'top left'; // Scale towards the top-left
-        introLowerSection.style.transition = 'transform 0.2s ease'; // Smooth scaling transition
+        introLowerSection.style.transition = 'transform 0.5s ease'; // Smooth scaling transition
     }
 
     // Apply height adjustment to the intro-section
     if (introSection) {
         const initialHeight = 25; // Initial height in vh (as defined in CSS)
-        const minHeight = 10; // Minimum height in vh
-        const newHeight = Math.max(initialHeight - scrollFraction * 15, minHeight); // Gradually decrease height
+        const minHeight = 20; // Minimum height in vh
+        const newHeight = Math.max(initialHeight - scrollFraction * 25, minHeight); // Gradually decrease height
         
         introSection.style.height = `${newHeight}vh`; // Apply the new height
 
@@ -500,13 +500,13 @@ function safelyAttachListeners(darkButton, whiteButton, darkColors, whiteColors)
 }
 
 // Attach event listeners for the first set of buttons (desktop)
-safelyAttachListeners(darkModeButton, whiteModeButton, ['#050018', '#DEC26E', '#3B336B', '#FF3D00'], ['white', 'black', '#A79B8E', '#14FF00']);
+safelyAttachListeners(darkModeButton, whiteModeButton, ['#050018', '#DEC26E', '#3B336B', '#FF3D00'], ['#E8E7E4', 'black', '#A79B8E', '#14FF00']);
 
 // Attach event listeners for the second set of buttons (tablet)
-safelyAttachListeners(darkModeButton2, whiteModeButton2, ['#050018', '#DEC26E', '#3B336B', '#FF3D00'], ['white', 'black', '#A79B8E', '#14FF00']);
+safelyAttachListeners(darkModeButton2, whiteModeButton2, ['#050018', '#DEC26E', '#3B336B', '#FF3D00'], ['#E8E7E4', 'black', '#A79B8E', '#14FF00']);
 
 // Attach event listeners for the third set of buttons (mobile)
-safelyAttachListeners(darkModeButton3, whiteModeButton3, ['#050018', '#DEC26E', '#3B336B', '#FF3D00'], ['white', 'black', '#A79B8E', '#14FF00']);
+safelyAttachListeners(darkModeButton3, whiteModeButton3, ['#050018', '#DEC26E', '#3B336B', '#FF3D00'], ['#E8E7E4', 'black', '#A79B8E', '#14FF00']);
 
 // Immediately apply the stored color mode on page load
 window.addEventListener('DOMContentLoaded', (event) => {
@@ -798,7 +798,7 @@ function toggleMenu(menuType) {
     } else if (menuType === 'filter') {
       menuToShow = document.querySelector('.bottom-menu-filter');
     }
-  
+
     // If the clicked menu is already open (has 'active' class), close it
     if (menuToShow.classList.contains('active')) {
       menuToShow.classList.remove('active');
@@ -806,11 +806,14 @@ function toggleMenu(menuType) {
       // Otherwise, just open it (without closing other menus)
       menuToShow.classList.add('active');
     }
-  
+
     // Call the function to toggle the active state of the button
     toggleButtonClass(menuType);
-  }
-  
+}
+
+
+
+
   function toggleButtonClass(menuType) {
     // Determine which button to toggle based on the menuType
     let buttonToToggle;
